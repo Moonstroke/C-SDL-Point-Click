@@ -8,8 +8,10 @@
 
 
 typedef struct texture *Texture;
+typedef const struct texture *CTexture;
 
 #include "window.h"
+#include "types.h"
 
 
 #define TYPE_PLAIN 0
@@ -24,22 +26,33 @@ typedef struct texture *Texture;
  * \param ren      the renderer to load the texture for
  *
  * \return a newly-loaded texture from given BMP file
+ *
+ * \sa SDL_Texture
  */
-#define loadbmptex(filename, win) (loadbmptexa(filename, win, 0))
-Texture loadbmptexa(const char *filename, Window win, Uint32 colorkey);
+Texture loadbmptexa(cstr filename, CWindow win, uint32_t colorkey);
+inline Texture loadbmptex(cstr filename, CWindow win) {
+	return loadbmptexa(filename, win, 0);
+}
 
 /**
  * \brief Loads a color plain texture.
  *
  * FIXME: currently only fills the whole window, doesn not limit to given rect
- *        are geometry's x and y used?
+ *        are geometry's x and y even used?
  * \param renderer the renderer to load the texture for
  * \param geometry the dimension of the texture
  * \param color    the color to give the texture
  *
  * \return a new color plain texture
  */
-Texture plaintex(const Window window, const SDL_Rect *geometry, const SDL_Color *color);
+Texture plaintex(CWindow window, Rect geometry, Color color);
+
+
+/**
+ * \brief Frees a texture's memory usage.
+ */
+void freetexture(Texture self);
+
 
 /**
  * \brief Draws a texture on screen.
@@ -48,13 +61,11 @@ Texture plaintex(const Window window, const SDL_Rect *geometry, const SDL_Color 
  * \param renderer the renderer to render the texture to
  * \param pos      the position at which render the texture
  */
-void drawtexture(Texture texture, Window window, const SDL_Point pos);
+void drawtexture(Texture self, Window window, Point pos);
 
 
-void freetexture(Texture texture);
+bool istexplain(CTexture self);
 
-bool istextureplain(const Texture texture);
-
-bool gettexturegeom(const Texture texture, int *w, int *h);
+bool gettexturegeom(CTexture self, int *w, int *h);
 
 #endif /* TEXTURES_H */
