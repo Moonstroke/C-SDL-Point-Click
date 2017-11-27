@@ -6,6 +6,7 @@
 
 
 typedef struct sprite *Sprite;
+typedef const struct sprite *CSprite;
 
 #include "texture.h"
 #include "window.h"
@@ -24,17 +25,17 @@ typedef struct sprite *Sprite;
  *
  * \return a newly-allocated sprite
  */
-Sprite newsprite(Texture tex, DPoint point, const char *name);
+Sprite newsprite(Texture tex, Point point, str name);
 
 /**
  * \brief Frees memory of a Sprite.
  */
-void freesprite(Sprite sprite);
+void freesprite(Sprite self);
 
 /**
  * \brief Checks whether the sprite needs to be redrawn on screen.
  */
-Uint8 spriteneedsupdate(const Sprite sprite);
+bool spriteneedsupdate(CSprite self);
 
 /**
  * \brief Updates the Sprite.
@@ -42,59 +43,63 @@ Uint8 spriteneedsupdate(const Sprite sprite);
  * \param sprite	the sprite to update
  * \param ren		the renderer to update the sprite to
  */
-void updatesprite(Sprite sprite, Window window);
+void updatesprite(Sprite self, Window window);
 
 /**
  * \brief Retrieves the name of the Sprite.
  */
-const char *getspritename(const Sprite sprite);
+cstr getspritename(CSprite self);
 
 /**
  * \brief Modifies the name of the sprite.
  *
- * >>> Is it really useful?
+ * >>> Is really useful?
  */
-void setspritename(Sprite sprite, const char *name);
+void setspritename(Sprite self, str name);
 
 /**
  * \brief Returns the X position of the sprite.
  */
-int getspritex(const Sprite sprite);
+int getspritex(CSprite self);
 
 /**
  * \brief Returns the Y position of the sprite.
  */
-int getspritey(const Sprite sprite);
+int getspritey(CSprite self);
 
 /**
  * \brief Returns the width of the sprite.
  */
-int getspritew(const Sprite sprite);
+int getspritew(CSprite self);
 
 /**
  * \brief Returns the height of the sprite.
  */
-int getspriteh(const Sprite sprite);
+int getspriteh(CSprite self);
 
 
 /**
  * \brief Moves the sprite to given position.
  */
-void movesprite(Sprite sprite, CPoint dest);
+void movesprite(Sprite self, Point to);
 
 /**
  * \brief Moves the Sprite and centers it around given position.
  */
-void movecsprite(Sprite sprite, CPoint dest);
+inline void movecsprite(const Sprite self, const Point to) {
+	movesprite(self, point(to.x - getspritew(self) / 2, to.y - getspriteh(self) / 2));
+}
 
 /**
  * \brief Changes the texture of the Sprite.
  */
-void setspritetexture(Sprite sprite, Texture tex);
+void setspritetexture(Sprite self, Texture tex);
 
 
 /**
  * \brief Checks whether the point resides within the bounds of the Sprite.
  */
-int isptinsprite(const Sprite sprite, CPoint point);
+bool isptinsprite(CSprite self, Point point);
+
+
 #endif /* SPRITE_H */

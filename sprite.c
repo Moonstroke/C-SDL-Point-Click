@@ -1,6 +1,8 @@
 #include "sprite.h"
 
+
 #include <stdint.h>
+
 #include "log.h"
 #include "texture.h"
 
@@ -15,10 +17,10 @@ struct sprite {
 };
 
 
-Sprite newsprite(Texture tex, SDL_Point p, const char *name) {
+Sprite newsprite(Texture tex, SDL_Point p, const str name) {
 	Sprite s = malloc(sizeof(struct sprite));
 	if(!s) {
-		error("malloc() error in newsprite() for sprite\n");
+		error("malloc() error in newsprite() for sprite");
 		return NULL;
 	}
 	s->tex = tex;
@@ -27,8 +29,8 @@ Sprite newsprite(Texture tex, SDL_Point p, const char *name) {
 	s->geom.y = p.y;
 	setspritename(s, name);
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
-	verbose("new sprite \"%s\" instantiated\n", s->name);
-	s->needsupdate = 1;
+	verbose("new sprite \"%s\" instantiated", s->name);
+	s->needsupdate = true;
 }
 
 void freesprite(Sprite s) {
@@ -38,26 +40,26 @@ void freesprite(Sprite s) {
 	//debug("freeing Sprite %p\n", s);
 	free(s);
 	s = NULL;
-	verbose("freed sprite \"%s\"\n", name);
+	verbose("freed sprite \"%s\"", name);
 }
 
 
-uint8_t spriteneedsupdate(const Sprite s) { return s->needsupdate; }
+bool spriteneedsupdate(const CSprite s) { return s->needsupdate; }
 
-void updatesprite(Sprite s, Window win) {
+void updatesprite(const Sprite s, const Window win) {
 	drawtexture(s->tex, win, (SDL_Point){s->geom.x, s->geom.y});
 	//SDL_RenderCopy(getwindowrenderer(win), s->tex, NULL, &s->geom);
-	s->needsupdate = 0;
+	s->needsupdate = false;
 }
 
 
-const char *getspritename(const Sprite s) { return s->name; }
+cstr getspritename(const CSprite s) { return s->name; }
 
-void setspritename(Sprite s, const char* name) {
+void setspritename(Sprite s, const str name) {
 	if(name && strlen(name)) {
 		int l = strlen(name) + 1;
 		if(l > NAME_MAX_LEN) {
-			warning("name \"%s\" is too long, will be truncated to %d chars\n", name, NAME_MAX_LEN);
+			warning("name \"%s\" is too long, will be truncated to %d chars", name, NAME_MAX_LEN);
 			l = NAME_MAX_LEN;
 		}
 		strncpy(s->name, name, l);
@@ -65,28 +67,24 @@ void setspritename(Sprite s, const char* name) {
 		s->name[0] = '\0';
 }
 
-int getspritex(const Sprite s) { return s->geom.x; }
-int getspritey(const Sprite s) { return s->geom.y; }
-int getspritew(const Sprite s) { return s->geom.w; }
-int getspriteh(const Sprite s) { return s->geom.h; }
+int getspritex(const CSprite s) { return s->geom.x; }
+int getspritey(const CSprite s) { return s->geom.y; }
+int getspritew(const CSprite s) { return s->geom.w; }
+int getspriteh(const CSprite s) { return s->geom.h; }
 
 
-void movesprite(Sprite s, CPoint to) {
-	s->geom.x = to->x;
-	s->geom.y = to->y;
-	s->needsupdate = 1;
+void movesprite(const Sprite s, const Point to) {
+	s->geom.x = to.x;
+	s->geom.y = to.y;
+	s->needsupdate = true;
 }
+extern void movecsprite(Sprite s, Point to);
 
-void movecsprite(Sprite s, CPoint to) {
-	SDL_Point dest = {.x = to->x - s->geom.w / 2, .y = to->y - s->geom.h / 2};
-	movesprite(s, &dest);
-}
-
-void setspritetexture(Sprite s, Texture tex) {
+void setspritetexture(const Sprite s, const Texture tex) {
 	s->tex = tex;
-	s->needsupdate = 1;
+	s->needsupdate = true;
 }
 
-int isptinsprite(const Sprite s, CPoint p) {
-	return SDL_PointInRect(p, &s->geom);
+bool isptinsprite(const CSprite s, const Point p) {
+	return SDL_PointInRect(&p, &s->geom);
 }
