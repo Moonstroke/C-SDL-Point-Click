@@ -7,17 +7,20 @@
 
 /* ## SDL-related types ## */
 
-typedef SDL_Point *Point;
-typedef const SDL_Point *CPoint;
-typedef SDL_Point DPoint;
 
-typedef SDL_Rect *Rect;
-typedef const SDL_Rect *CRect;
-typedef SDL_Rect DRect;
+typedef SDL_Renderer Renderer;
+typedef SDL_RendererFlags RenderFlags;
+typedef SDL_WindowFlags WinFlags;
+
+typedef SDL_Color Color;
+
+typedef SDL_Point Point;
+
+typedef SDL_Rect Rect;
 
 
-#define point(x, y) ((DPoint){(x), (y)})
-#define rect(x, y, w, h) ((DRect){(x), (y), (w), (h)})
+#define point(x, y) ((Point){(x), (y)})
+#define rect(x, y, w, h) ((Rect){(x), (y), (w), (h)})
 
 
 /* ## Other uselful types ## */
