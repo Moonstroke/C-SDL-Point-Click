@@ -1,6 +1,8 @@
 #include "inventory.h"
 
+
 #include "array.h"
+#include "array_funcs.h"
 #include "libsdl2.h"
 #include "log.h"
 #include "texture.h"
@@ -9,59 +11,59 @@
 
 
 struct inventory {
-	DRect geom;
+	Rect geom;
 	Array sprites;
 	Texture background;
 };
 
 
-Inventory newinventory(CRect g, const size_t size, Texture bg) {
+Inventory newinventory(const Rect g, const size_t size, const Texture bg) {
 	Inventory i = malloc(sizeof(struct inventory));
 	if(i == NULL)
 		return NULL;
-	i->sprites = newarray(size, sizeof(void*));
-	i->geom = rect(g->x, g->y, g->w, g->h);
+	i->sprites = newarray(size);
+	i->geom = g;
 	i->background = bg;
-	verbose("Init inventory with %d slots\n", size);
+	verbose("Init inventory with %d slots", size);
 	return i;
 }
 
-void freeinventory(Inventory i) {
-	freerarray(i->sprites, (void(*)(void*))&freesprite);
+void freeinventory(const Inventory i) {
+	afreer(i->sprites, (void(*)(void*))&freesprite);
 	free(i);
-	verbose("freed %d sprites from inventory\n", arraysize(i->sprites));
+	verbose("freed %d sprites from inventory", asize(i->sprites));
 }
 
 
-void updateinventory(Inventory i, Window win) {
+void updateinventory(const CInventory i, const Window win) {
 	if(i->background)
 		drawtexture(i->background, win, point(i->geom.x, i->geom.y));
 	else
-		warning("Inventory has no background texture\n");
-	size_t k = arraysize(i->sprites);
+		warning("Inventory has no background texture");
+	size_t k = asize(i->sprites);
 	while(k--)
-		updatesprite(getarrayitem(i->sprites, k), win);
+		updatesprite(aget(i->sprites, k), win);
 	//renderwindow(win);
 }
 
 
-size_t inventorysize(const Inventory i) {
-	return arraysize(i->sprites);
+size_t inventorysize(const CInventory i) {
+	return asize(i->sprites);
 }
 
-Sprite getinventorysprite(const Inventory i, const ssize_t n) {
-	return getarrayitem(i->sprites, n);
+Sprite getinventorysprite(const CInventory i, const ssize_t n) {
+	return aget(i->sprites, n);
 }
 
-size_t addinventorysprite(Inventory i, Sprite s) {
-	const size_t index = addarrayitem(i->sprites, s);
+size_t addinventorysprite(const Inventory i, const Sprite s) {
+	const size_t index = aappend(i->sprites, s);
 	// TODO set sprite position
-	DPoint dest = point(i->geom.x + SPRITE_RESERVED_SPACE * arraysize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
-	                    i->geom.y + SPRITE_RESERVED_SPACE / 2);
-	movecsprite(s, &dest);
+	Point dest = point(i->geom.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
+	                   i->geom.y + SPRITE_RESERVED_SPACE / 2);
+	movecsprite(s, dest);
 	return index;
 }
 
-bool removeinventorysprite(Inventory i, const Sprite s) {
-	return removearrayitem(i->sprites, s);
+bool removeinventorysprite(const Inventory i, const CSprite s) {
+	return aremove(i->sprites, s);
 }
