@@ -14,67 +14,73 @@
 #include "inventory.h"
 #include "layout.h"
 
+
 /* Static-use objects (mere references) */
 
-Window win;
-Scene scene;
-Inventory inventory;
-Sprite earth, earth2;
+static volatile Window win;
+static volatile Scene scene;
+static volatile Inventory inventory;
+static volatile Sprite earth, earth2;
 
 
 /* Dynamic-use objects (can change over time) */
 
-Sprite heldsprite = NULL;
-DPoint clickpos;
+static volatile Sprite heldsprite = NULL;
+static volatile Point clickpos;
+
 
 /* Event-handlers functions */
 
-void leftdown(CPoint p);
-void leftup(CPoint p);
-void move(CPoint p);
+static void leftdown(const Point p);
+static void leftup(const Point p);
+static void move(const Point p);
 
-void move(CPoint p) {
+
+/* Functions */
+
+static void initall(void);
+static void mainloop(void);
+
+
+
+int main(int argc, str argv[]) {
+	log_setfilter(ALL);
+
+	info("\nInitializations");
+	initall();
+
+	info("\nMain events loop");
+	mainloop();
+
+	info("\nClean and Exit");
+	freewindow(win);
+
+	return EXIT_SUCCESS;
+}
+
+
+void move(const Point p) {
 	if(heldsprite)
 		movecsprite(heldsprite, p);
 }
-void leftdown(CPoint p) {
-	clickpos = point(p->x, p->y);
+void leftdown(const Point p) {
+	clickpos = p; //point(p.x, p.y);
 	heldsprite = getscenespritepos(scene, p);
 }
-
-void leftup(CPoint p) {
-	if(distance(&clickpos, p) < MAX_CLICK_DISTANCE) { // the event is a mouse click
+void leftup(const Point p) {
+	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) { // the event is a mouse click
 		if(heldsprite) {
 			removescenesprite(scene, heldsprite);
 			addinventorysprite(inventory, heldsprite);
-			debug("sprite pos = (%d, %d)\n", getspritex(heldsprite), getspritey(heldsprite));
+			debug("sprite pos = (%d, %d)", getspritex(heldsprite), getspritey(heldsprite));
 		}
-		debug("inventory size = %d\n", inventorysize(inventory));
+		debug("inventory size = %d", inventorysize(inventory));
+		debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
 	}
 
 	heldsprite = NULL;
 }
 
-
-/* Functions */
-
-void initall(void);
-void mainloop(void);
-
-int main(int argc, str argv[]) {
-	log_setfilter(ALL);
-
-	info("\nInitializations\n");
-	initall();
-
-	info("\nMain events loop\n");
-	mainloop();
-
-	info("\nClean and Exit\n");
-	freewindow(win);
-
-	return EXIT_SUCCESS;
-}
 
 void mainloop(void) {
 	SDL_Event event;
@@ -119,36 +125,37 @@ void mainloop(void) {
 		updatewindow(win);
 	}
 }
-
 void initall(void) {
 
 	initSDL(SDL_INIT_VIDEO);
 
 	/* Window(s) */
 
-	SDL_Rect wingeom, scenegeom, inventorygeom;
-	LayoutValues layout = SCENE_ABOVE_INVENTORY;
+	Rect wingeom, scenegeom, inventorygeom;
+	LayoutValues layout = SCENE_INVENTORY_BELOW;
 
 	wingeom.x = wingeom.y = SDL_WINDOWPOS_CENTERED;
 	wingeom.w = 640;
 	wingeom.h = 480;
-	win = newwin("App window", &wingeom);
+	win = newwin("App window", wingeom);
 
 	const int inventh = 80;
 	setwindowlayout(win, layout, &scenegeom, &inventorygeom, inventh);
 
-	/* Scenes */
 
-	SDL_Rect geom = rect(16, 16, 608, 458);
+	/* Scene(s) */
+
+	Rect geom = rect(16, 16, 608, 458);
 	Texture scenebg = loadbmptex("img/background.bmp", win);
-	scene = newscene(&scenegeom, scenebg, 2, "Scene1");
+	scene = newscene(scenegeom, scenebg, 2, "Scene1");
 	setwindowscene(win, scene);
+
 
 	/* Inventory */
 
-	SDL_Rect inventgeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
-	Texture inventbg = loadbmptex("img/inventory.bmp", win);
-	inventory = newinventory(&inventgeom, 8, inventbg);
+	Rect inventgeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
+	Texture inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
+	inventory = newinventory(inventgeom, 8, inventbg);
 	setwindowinventory(win, inventory);
 
 
@@ -173,5 +180,5 @@ void initall(void) {
 	/* Sandbox */
 	debug("\nSANDBOX\n");
 
-	debug("\n/SANDBOX\n\n");
+	debug("\n/SANDBOX\n");
 }
