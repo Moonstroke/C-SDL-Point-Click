@@ -7,7 +7,13 @@
 #include <stdint.h>
 
 
+/**
+ * \struct Scene "scene.h"
+ *
+ * \brief This structure represents the game scene in the window.
+ */
 typedef struct scene *Scene;
+typedef const struct scene *CScene;
 
 #include "sprite.h"
 #include "texture.h"
@@ -21,61 +27,58 @@ typedef struct scene *Scene;
  * TIP: for better performances, load the texture with SDL_TEXTUREACCESS_STATIC, if ever
  * >>> or SDL_TEXTUREACCESS_TARGET?
  *
- * \param n_sprites		the number of sprites the scene will contain
- * \param background	the background texture for the scene
- * \param name			the name of the scene
+ * \param n_sprites  the number of sprites the scene will contain
+ * \param background the background texture for the scene
+ * \param name       the name of the scene
  *
  * \return a scene
  */
-Scene newscene(CRect geom, Texture background, const size_t n_sprites, const str name);
+Scene newscene(Rect geom, Texture background, size_t n_sprites, str name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
  */
-void freescene(Scene scene);
+void freescene(Scene self);
 
 /**
  * \brief Verifies whether the scene needs to be redrawn on screen.
  * "Has it or any contained sprite changed?"
  *
- * \param scene	the scene to check for update
- *
  * \return 1 if the scene needs an update, 0 otherwise
  */
-bool sceneneedsupdate(const Scene scene);
+bool sceneneedsupdate(CScene self);
 
 /**
  * \brief Updates the scene on screen.
  *
- * \param scene		the scene to update
- * \param renderer	the renderer to update the scene to
+ * \param scene  the scene to update
+ * \param window the window to update the scene to
  */
-void updatescene(Scene scene, Window window);
+void updatescene(Scene self, Window window);
 
 /**
  * \brief Retrieves the name of the scene.
  */
-const str getscenename(const Scene scene);
+cstr getscenename(CScene self);
 
 /**
  * \brief Modifies the name of the scene.
- *
- * >>> is it really useful?
  */
-void setscenename(Scene scene, const str name);
+void setscenename(Scene self, cstr name);
 
 /**
  * \brief Adds a Sprite to the scene.
+ *
  * \return the index of the sprite in the scene
  */
-size_t addsprite(Scene scene, Sprite sprite);
+size_t addsprite(Scene self, Sprite sprite);
 
 /**
  * \brief Retrieves a Sprite by its index in the scene.
  *
- * \return the  index-th Sprite of the scene
+ * \return the \c index-th Sprite of the scene
  */
-Sprite getsprite(const Scene scene, const size_t index);
+Sprite getsprite(CScene self, size_t index);
 
 /**
  * \brief Retrieves a Sprite by its position on screen
@@ -83,7 +86,7 @@ Sprite getsprite(const Scene scene, const size_t index);
  * \return a Sprite from the scene that contains the given position or
  *         NULL if none does
  */
-Sprite getscenespritepos(const Scene scene, CPoint point);
+Sprite getscenespritepos(CScene self, Point point);
 
 /**
  * \brief Remove a sprite from the scene
@@ -91,7 +94,7 @@ Sprite getscenespritepos(const Scene scene, CPoint point);
  * \return TRUE if the scene contained the sprite and it has been succesfully
  *         removed
  */
-bool removescenesprite(Scene scene, Sprite sprite);
+bool removescenesprite(Scene self, Sprite sprite);
 
 
 #endif /* SCENE_H */
