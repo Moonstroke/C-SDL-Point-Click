@@ -16,13 +16,13 @@
 struct scene {
 	char name[NAME_MAX_LEN];
 	Array sprites;
-	Texture background;
+	Texture *background;
 	Rect geom;
 };
 
 
-Scene newscene(const Rect g, Texture tex, const size_t size, const str name) {
-	Scene s = malloc(sizeof(struct scene));
+Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str name) {
+	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newscene() for scene \"%s\"", name);
 		return NULL;
@@ -40,7 +40,7 @@ Scene newscene(const Rect g, Texture tex, const size_t size, const str name) {
 	return s;
 }
 
-void freescene(Scene s) {
+void freescene(Scene *const s) {
 	if(s->background)
 		freetexture(s->background);
 	const size_t n = asize(s->sprites);
@@ -52,7 +52,7 @@ void freescene(Scene s) {
 	verbose("freed scene \"%s\"", name);
 }
 
-bool sceneneedsupdate(const CScene s) {
+bool sceneneedsupdate(const Scene *const s) {
 	bool update = 0;
 	size_t i = asize(s->sprites);
 	while(--i)
@@ -60,7 +60,7 @@ bool sceneneedsupdate(const CScene s) {
 	return update;
 }
 
-void updatescene(Scene s, Window win) {
+void updatescene(Scene *const s, Window *const win) {
 	if(s->background)
 		drawtexture(s->background, win, point(s->geom.x, s->geom.y));
 	size_t i = asize(s->sprites);
@@ -69,9 +69,9 @@ void updatescene(Scene s, Window win) {
 	renderwindow(win);
 }
 
-cstr getscenename(const CScene s) { return s->name; }
+cstr getscenename(const Scene *const s) { return s->name; }
 
-void setscenename(const Scene s, const cstr name) {
+void setscenename(Scene *const s, const cstr name) {
 	if(name && strlen(name)) {
 		size_t l = strlen(name) + 1;
 		if(l > NAME_MAX_LEN) {
@@ -83,18 +83,18 @@ void setscenename(const Scene s, const cstr name) {
 		s->name[0] = '\0';
 }
 
-size_t addsprite(const Scene s, const Sprite sprite) {
+size_t addsprite(Scene *const s, Sprite *const sprite) {
 	return aappend(s->sprites, sprite);
 
 }
 
-Sprite getsprite(const CScene s, const size_t i) {
+Sprite *getsprite(const Scene *const s, const size_t i) {
 	return aget(s->sprites, i);
 }
 
-Sprite getscenespritepos(const CScene s, const Point p) {
+Sprite *getscenespritepos(const Scene *const s, const Point p) {
 	size_t i = asize(s->sprites);
-	Sprite sp;
+	Sprite *sp;
 	while(i--) {
 		sp = aget(s->sprites, i);
 		if(isptinsprite(sp, p))
@@ -103,6 +103,6 @@ Sprite getscenespritepos(const CScene s, const Point p) {
 	return NULL;
 }
 
-bool removescenesprite(Scene s, Sprite sp) {
+bool removescenesprite(Scene *const s, const Sprite *const sp) {
 	return aremove(s->sprites, sp) >= 0;
 }

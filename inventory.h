@@ -15,8 +15,7 @@
  * \brief This structure represents the player's inventory where gathered items
  *        are stored for later use.
  */
-typedef struct inventory *Inventory;
-typedef const struct inventory *CInventory;
+typedef struct inventory Inventory;
 
 #include "sprite.h"
 #include "types.h"
@@ -30,12 +29,12 @@ typedef const struct inventory *CInventory;
  *
  * \remark Usually, there is only one inventory in game.
  */
-Inventory newinventory(Rect geometry, size_t size, Texture background);
+Inventory *newinventory(Rect geometry, size_t size, Texture *background);
 
 /**
  * \brief Destroys and frees memory of the game inventory.
  */
-void freeinventory(Inventory self);
+void freeinventory(Inventory *self);
 
 
 /**
@@ -44,7 +43,7 @@ void freeinventory(Inventory self);
  *
  * \param inventory
  */
-void updateinventory(CInventory self, Window window);
+void updateinventory(const Inventory *self, Window *window);
 
 
 /**
@@ -52,28 +51,28 @@ void updateinventory(CInventory self, Window window);
  *
  * \return The size of the game inventory, i.e. the number of items it holds.
  */
-size_t inventorysize(CInventory self);
+size_t inventorysize(const Inventory *self);
 
 /**
  * \brief Returnes the \c index'th element of the inventory.
  *
  * \return An element of the inventory, iddentified by its position.
  */
-Sprite getinventorysprite(CInventory self, ssize_t index);
+Sprite *getinventorysprite(const Inventory *self, ssize_t index);
 
 /**
  * \brief Adds an item to the inventory.
  *
  * \return The index of the added element, or \c -1 if an error occurred.
  */
-size_t addinventorysprite(Inventory self, Sprite sprite);
+size_t addinventorysprite(Inventory *self, Sprite *sprite);
 
 /**
  * \brief Removes an element of the inventory.
  *
  * \return \c TRUE if the item was successfully removed.
  */
-bool removeinventorysprite(Inventory self, CSprite sprite);
+bool removeinventorysprite(Inventory *self, const Sprite *sprite);
 
 
 #endif /* INVENTORY_H */

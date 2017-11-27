@@ -7,8 +7,7 @@
 #include <stdbool.h>
 
 
-typedef struct texture *Texture;
-typedef const struct texture *CTexture;
+typedef struct texture Texture;
 
 #include "window.h"
 #include "types.h"
@@ -29,8 +28,8 @@ typedef const struct texture *CTexture;
  *
  * \sa SDL_Texture
  */
-Texture loadbmptexa(cstr filename, CWindow win, uint32_t colorkey);
-inline Texture loadbmptex(cstr filename, CWindow win) {
+Texture *loadbmptexa(cstr filename, const Window *win, uint32_t colorkey);
+inline Texture *loadbmptex(cstr filename, const Window *win) {
 	return loadbmptexa(filename, win, 0);
 }
 
@@ -45,13 +44,13 @@ inline Texture loadbmptex(cstr filename, CWindow win) {
  *
  * \return a new color plain texture
  */
-Texture plaintex(CWindow window, Rect geometry, Color color);
+Texture *plaintex(const Window *window, Rect geometry, Color color);
 
 
 /**
  * \brief Frees a texture's memory usage.
  */
-void freetexture(Texture self);
+void freetexture(Texture *self);
 
 
 /**
@@ -61,11 +60,11 @@ void freetexture(Texture self);
  * \param renderer the renderer to render the texture to
  * \param pos      the position at which render the texture
  */
-void drawtexture(Texture self, Window window, Point pos);
+void drawtexture(Texture *self, Window *window, Point pos);
 
 
-bool istexplain(CTexture self);
+bool istexplain(const Texture *self);
 
-bool gettexturegeom(CTexture self, int *w, int *h);
+bool gettexturegeom(const Texture *self, int *w, int *h);
 
 #endif /* TEXTURES_H */

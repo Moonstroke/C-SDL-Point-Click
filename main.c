@@ -17,16 +17,16 @@
 
 /* Static-use objects (mere references) */
 
-static volatile Window win;
-static volatile Scene scene;
-static volatile Inventory inventory;
-static volatile Sprite earth, earth2;
+static Window *win;
+static Scene *scene;
+static Inventory *inventory;
+static Sprite *earth, *earth2;
 
 
 /* Dynamic-use objects (can change over time) */
 
-static volatile Sprite heldsprite = NULL;
-static volatile Point clickpos;
+static Sprite *heldsprite = NULL;
+static Point clickpos;
 
 
 /* Event-handlers functions */
@@ -146,7 +146,7 @@ void initall(void) {
 	/* Scene(s) */
 
 	Rect geom = rect(16, 16, 608, 458);
-	Texture scenebg = loadbmptex("img/background.bmp", win);
+	Texture *scenebg = loadbmptex("img/background.bmp", win);
 	scene = newscene(scenegeom, scenebg, 2, "Scene1");
 	setwindowscene(win, scene);
 
@@ -154,18 +154,18 @@ void initall(void) {
 	/* Inventory */
 
 	Rect inventgeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
-	Texture inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
+	Texture *inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
 	inventory = newinventory(inventgeom, 8, inventbg);
 	setwindowinventory(win, inventory);
 
 
 	/* Sprites */
 
-	Texture earthtex = loadbmptexa("img/earth.bmp", win, BLACK);
+	Texture *earthtex = loadbmptexa("img/earth.bmp", win, BLACK);
 	earth = newsprite(earthtex, point(192, 240), "Earth");
 	addsprite(scene, earth);
 
-	Texture earth2tex = loadbmptex("img/earth2.bmp", win);
+	Texture *earth2tex = loadbmptex("img/earth2.bmp", win);
 	earth2 = newsprite(earth2tex, point(384, 240), "Earth2");
 	addsprite(scene, earth2);
 

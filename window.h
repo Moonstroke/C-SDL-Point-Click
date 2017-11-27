@@ -7,8 +7,7 @@
 #include <stdbool.h>
 
 
-typedef struct window *Window;
-typedef const struct window *CWindow;
+typedef struct window Window;
 
 #include "scene.h"
 #include "inventory.h"
@@ -26,10 +25,10 @@ typedef const struct window *CWindow;
 #define DEFAULT_REN_FLAGS (SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED)
 
 
-Window newwindow(cstr title, Rect geometry, WinFlags winflags, RenderFlags renflags);
+Window *newwindow(cstr title, Rect geometry, WinFlags winflags, RenderFlags renflags);
 #define newwin(title, geometry) (newwindow((title), (geometry), (DEFAULT_WIN_FLAGS), (DEFAULT_REN_FLAGS)))
 
-void freewindow(Window window);
+void freewindow(Window *window);
 
 /**
  * \brief Updates the window and its content (scene and sprites).
@@ -42,14 +41,14 @@ void freewindow(Window window);
  *
  * \sa renderwindow(Window*)
  */
-void updatewindow(Window window);
+void updatewindow(Window *window);
 
 /**
  * \brief Renders the window on screen.
  *
  * \param window the window to render
  */
-void renderwindow(Window window);
+void renderwindow(Window *window);
 
 /**
  * \brief Clears the window and fills it with color specified in setwindowdrawcolor.
@@ -60,7 +59,7 @@ void renderwindow(Window window);
  *
  * \sa setdrawcolor(Window*, Uint32)
  */
-bool clearwindow(Window window);
+bool clearwindow(Window *window);
 
 /**
  * \brief Sets the rendering color for drawings.
@@ -70,24 +69,24 @@ bool clearwindow(Window window);
  *
  * \return 1 on success, 0 on error
  */
-bool setwindowdrawcolor(Window window, Color color);
+bool setwindowdrawcolor(Window *window, Color color);
 
-cstr getwindowtitle(CWindow window);
-void setwindowtitle(Window window, cstr title);
+cstr getwindowtitle(const Window *window);
+void setwindowtitle(Window *window, cstr title);
 
-Renderer *getwindowrenderer(CWindow window);
+Renderer *getwindowrenderer(const Window *window);
 
-void setwindowscene(Window window, Scene scene);
-Scene getwindowscene(CWindow window);
+void setwindowscene(Window *window, Scene *scene);
+Scene *getwindowscene(const Window *window);
 
-void setwindowinventory(Window w, Inventory i);
-Inventory getwindowinventory(CWindow w);
+void setwindowinventory(Window *w, Inventory *i);
+Inventory *getwindowinventory(const Window *w);
 
 /**
  * Geometry getters
  */
-size_t getwindoww(CWindow window);
-size_t getwindowh(CWindow window);
+size_t getwindoww(const Window *window);
+size_t getwindowh(const Window *window);
 
 
 #endif /* WINDOW_H */

@@ -119,6 +119,6 @@ typedef enum {
  * \param inventorywh   The dimension to set to the inventory:
  *                      width if layout is vertical, or height if horizontal
  */
-bool setwindowlayout(CWindow window, LayoutValues layout, Rect *scenegeom, Rect *inventorygeom, size_t inventorywh);
+bool setwindowlayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventorygeom, size_t inventorywh);
 
 #endif /* LAYOUT_H */

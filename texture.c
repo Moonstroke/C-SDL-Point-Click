@@ -15,8 +15,8 @@ struct texture {
 };
 
 
-Texture loadbmptexa(const cstr filename, const CWindow win, uint32_t colorkey) {
-	Texture tex = malloc(sizeof(struct texture));
+Texture *loadbmptexa(const cstr filename, const Window *const win, uint32_t colorkey) {
+	Texture *tex = malloc(sizeof(Texture));
 	if(!tex) {
 		error("malloc() failure in loadbmptexa");
 		return NULL;
@@ -27,7 +27,7 @@ Texture loadbmptexa(const cstr filename, const CWindow win, uint32_t colorkey) {
 		return NULL;
 	}
 	if(colorkey)
-		SDL_SetColorKey(bmp, SDL_TRUE, colorkey); // FIXME
+		SDL_SetColorKey(bmp, true, colorkey); // FIXME
 	SDL_Texture *stex = SDL_CreateTextureFromSurface(getwindowrenderer(win), bmp);
 	SDL_FreeSurface(bmp); // TODO make sure this won't call SDL_SetError()
 	if(!stex) {
@@ -39,11 +39,11 @@ Texture loadbmptexa(const cstr filename, const CWindow win, uint32_t colorkey) {
 	tex->color = color(0, 0, 0);
 	return tex;
 }
-extern inline Texture loadbmptex(cstr filename, CWindow win);
+extern inline Texture *loadbmptex(cstr filename, const Window *win);
 
 
-Texture plaintex(const CWindow w, const Rect g, const Color c) {
-	Texture tex = malloc(sizeof(Texture));
+Texture *plaintex(const Window *const w, const Rect g, const Color c) {
+	Texture *tex = malloc(sizeof(Texture));
 	if(!tex) {
 		error("malloc() failure in loadbmptexa");
 		return NULL;
@@ -60,12 +60,12 @@ Texture plaintex(const CWindow w, const Rect g, const Color c) {
 	return tex;
 }
 
-void freetexture(const Texture t) {
+void freetexture(Texture *const t) {
 	SDL_DestroyTexture(t->texture);
 	free(t);
 }
 
-void drawtexture(const Texture t, const Window win, const Point pos) {
+void drawtexture(Texture *const t, Window *const win, const Point pos) {
 	Rect r = {.x = pos.x, .y = pos.y};
 	SDL_QueryTexture(t->texture, NULL, NULL, &r.w, &r.h);
 	Color backup;
@@ -78,10 +78,10 @@ void drawtexture(const Texture t, const Window win, const Point pos) {
 		SDL_RenderCopy(getwindowrenderer(win), t->texture, NULL, &r);
 }
 
-bool istextureplain(const CTexture t) {
+bool istextureplain(const Texture *const t) {
 	return t->type == TYPE_PLAIN;
 }
 
-bool gettexturegeom(const CTexture t, int *w, int *h) {
+bool gettexturegeom(const Texture *const t, int *w, int *h) {
 	return SDL_QueryTexture(t->texture, NULL, NULL, w, h) == 0;
 }
