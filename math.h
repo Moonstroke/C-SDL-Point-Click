@@ -7,9 +7,11 @@
 #define MAX_CLICK_DISTANCE 0.1
 
 /**
- * \brief Calculates the distance between two points
+ * \brief Calculates the distance between two geometric points.
+ *
+ * \return The quadratic distance between the two points
  */
-double distance(CPoint p1, CPoint p2);
+double distance(Point p1, Point p2);
 
 
 #endif /* MATH_H */
