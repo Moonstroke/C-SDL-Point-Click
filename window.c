@@ -22,15 +22,23 @@ Window *newwindow(const cstr t, const Rect g, const WinFlags wf, const RenderFla
 		error("malloc() error for window \"%s\"", t);
 		return NULL;
 	}
-	SDL_Window *win = SDL_CreateWindow(t, g.x, g.y, g.w, g.h, wf);
+	if(!initwindow(w, t, g, wf, rf))
+		return NULL;
+	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
+	return w;
+}
+extern Window *newwin(cstr title, Rect geometry);
+
+bool initwindow(Window *const w, const cstr t, const Rect g, const WinFlags wf, const RenderFlags rf) {
+	SDL_Window *const win = SDL_CreateWindow(t, g.x, g.y, g.w, g.h, wf);
 	if(!win) {
 		error("Could not create SDL window: %s", SDL_GetError());
-		return NULL;
+		return false;
 	}
-	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, rf);
+	SDL_Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
 		error("Could not create renderer: %s", SDL_GetError());
-		return NULL;
+		return false;
 	}
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
 		verbose("window is fullscreen -- setting resolution logical instead of hardware");
@@ -41,9 +49,9 @@ Window *newwindow(const cstr t, const Rect g, const WinFlags wf, const RenderFla
 	w->ren = ren;
 	w->geom = g; //rect(g.x, g.y, g.w, g.h);
 	w->scene = NULL;
-	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
-	return w;
+	return true;
 }
+extern bool initwin(Window *w, cstr t, Rect g);
 
 void freewindow(Window *const w) {
 	cstr t = SDL_GetWindowTitle(w->win);
