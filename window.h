@@ -8,6 +8,7 @@
 
 
 typedef struct window *Window;
+typedef const struct window *CWindow;
 
 #include "scene.h"
 #include "inventory.h"
@@ -25,7 +26,7 @@ typedef struct window *Window;
 #define DEFAULT_REN_FLAGS (SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED)
 
 
-Window newwindow(const str title, CRect geometry, const SDL_WindowFlags winflags, const SDL_RendererFlags renflags);
+Window newwindow(cstr title, Rect geometry, WinFlags winflags, RenderFlags renflags);
 #define newwin(title, geometry) (newwindow((title), (geometry), (DEFAULT_WIN_FLAGS), (DEFAULT_REN_FLAGS)))
 
 void freewindow(Window window);
@@ -69,24 +70,24 @@ bool clearwindow(Window window);
  *
  * \return 1 on success, 0 on error
  */
-bool setwindowdrawcolor(Window window, const SDL_Color *color);
+bool setwindowdrawcolor(Window window, Color color);
 
-cstr getwindowtitle(const Window window);
-void setwindowtitle(Window window, const str title);
+cstr getwindowtitle(CWindow window);
+void setwindowtitle(Window window, cstr title);
 
-SDL_Renderer *getwindowrenderer(const Window window);
+Renderer *getwindowrenderer(CWindow window);
 
 void setwindowscene(Window window, Scene scene);
-Scene getwindowscene(const Window window);
+Scene getwindowscene(CWindow window);
 
 void setwindowinventory(Window w, Inventory i);
-Inventory getwindowinventory(const Window w);
+Inventory getwindowinventory(CWindow w);
 
 /**
  * Geometry getters
  */
-const size_t getwindoww(const Window window);
-const size_t getwindowh(const Window window);
+size_t getwindoww(CWindow window);
+size_t getwindowh(CWindow window);
 
 
 #endif /* WINDOW_H */

@@ -1,6 +1,8 @@
 #include "window.h"
 
+
 #include <SDL2/SDL_hints.h>
+
 #include "libsdl2.h"
 #include "log.h"
 #include "inventory.h"
@@ -14,36 +16,36 @@ struct window {
 	Inventory inventory; // TODO getter and setter and free
 };
 
-Window newwindow(const str t, CRect g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
+Window newwindow(const cstr t, const Rect g, const WinFlags wf, const RenderFlags rf) {
 	Window w = malloc(sizeof(struct window));
 	if(!w) {
-		error("malloc() error for window \"%s\"\n", t);
+		error("malloc() error for window \"%s\"", t);
 		return NULL;
 	}
-	SDL_Window *win = SDL_CreateWindow(t, g->x, g->y, g->w, g->h, wf);
+	SDL_Window *win = SDL_CreateWindow(t, g.x, g.y, g.w, g.h, wf);
 	if(!win) {
-		error("Could not create SDL window: %s\n", SDL_GetError());
+		error("Could not create SDL window: %s", SDL_GetError());
 		return NULL;
 	}
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
-		error("Could not create renderer: %s\n", SDL_GetError());
+		error("Could not create renderer: %s", SDL_GetError());
 		return NULL;
 	}
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
 		verbose("window is fullscreen -- setting resolution logical instead of hardware");
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-		SDL_RenderSetLogicalSize(ren, g->w, g->h);
+		SDL_RenderSetLogicalSize(ren, g.w, g.h);
 	}
 	w->win = win;
 	w->ren = ren;
-	w->geom = rect(g->x, g->y, g->w, g->h);
+	w->geom = g; //rect(g.x, g.y, g.w, g.h);
 	w->scene = NULL;
-	info("Init window \"%s\" (%dx%d) at (%d, %d)\n", t, g->w, g->h, g->x, g->y);
+	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
 	return w;
 }
 
-void freewindow(Window w) {
+void freewindow(const Window w) {
 	cstr t = SDL_GetWindowTitle(w->win);
 	const int l = strlen(t) + 1;
 	char title[l];
@@ -55,44 +57,44 @@ void freewindow(Window w) {
 	if(w->inventory)
 		freeinventory(w->inventory);
 	free(w);
-	verbose("freed window \"%s\"\n", title);
+	verbose("freed window \"%s\"", title);
 }
 
-void updatewindow(Window w) {
+void updatewindow(const Window w) {
 	clearwindow(w);
 	if(!w->scene) {
-		warning("scene of window \"%s\" is not set\n", getwindowtitle(w));
+		warning("scene of window \"%s\" is not set", getwindowtitle(w));
 		return;
 	} else
 		updatescene(w->scene, w);
 	if(!w->inventory) {
-		warning("inventory of window \"%s\" is not set\n", getwindowtitle(w));
+		warning("inventory of window \"%s\" is not set", getwindowtitle(w));
 		return;
 	} else
 		updateinventory(w->inventory, w);
 }
 
-bool clearwindow(Window w) {
+bool clearwindow(const Window w) {
 	return SDL_RenderClear(w->ren) == 0;
 }
-void renderwindow(Window w) {
+void renderwindow(const Window w) {
 	SDL_RenderPresent(w->ren);
 }
 
-bool setwindowdrawcolor(Window w, const SDL_Color *color) {
-	return SDL_SetRenderDrawColor(w->ren, color->r, color->g, color->b, color->a) == 0;
+bool setwindowdrawcolor(const Window w, const Color color) {
+	return SDL_SetRenderDrawColor(w->ren, color.r, color.g, color.b, color.a) == 0;
 }
 
-inline void setwindowtitle(Window w, const str title) { SDL_SetWindowTitle(w->win, title); }
-inline cstr getwindowtitle(const Window w) { return SDL_GetWindowTitle(w->win); }
+void setwindowtitle(const Window w, const cstr title) { SDL_SetWindowTitle(w->win, title); }
+cstr getwindowtitle(const CWindow w) { return SDL_GetWindowTitle(w->win); }
 
-inline SDL_Renderer *getwindowrenderer(const Window w) { return w->ren; }
+Renderer *getwindowrenderer(const CWindow w) { return w->ren; }
 
-inline void setwindowscene(Window w, Scene s) { w->scene = s; }
-inline Scene getwindowscene(const Window w) { return w->scene; }
+void setwindowscene(const Window w, const Scene s) { w->scene = s; }
+Scene getwindowscene(const CWindow w) { return w->scene; }
 
-inline void setwindowinventory(Window w, Inventory i) { w->inventory = i; }
-inline Inventory getwindowinventory(const Window w) { return w->inventory; }
+void setwindowinventory(const Window w, const Inventory i) { w->inventory = i; }
+Inventory getwindowinventory(const CWindow w) { return w->inventory; }
 
-inline const size_t getwindoww(const Window w) { return w->geom.w; }
-inline const size_t getwindowh(const Window w) { return w->geom.h; }
+size_t getwindoww(const CWindow w) { return w->geom.w; }
+size_t getwindowh(const CWindow w) { return w->geom.h; }
