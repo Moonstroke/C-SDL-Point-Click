@@ -30,11 +30,6 @@ inline Window *newwin(cstr title, Rect geometry) {
 	return newwindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
 }
 
-bool initwindow(Window *win, cstr title, Rect g, WinFlags wf, RenderFlags rf);
-inline bool initwin(Window *win, cstr title, Rect g) {
-	return initwindow(win, title, g, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
-}
-
 void freewindow(Window *window);
 
 
