@@ -23,6 +23,8 @@ Inventory *newinventory(const Rect g, const size_t size, Texture *const bg) {
 		return NULL;
 	i->sprites = newarray(size);
 	i->geom = g;
+	if(bg == NULL)
+		warning("Inventory has no background texture");
 	i->background = bg;
 	verbose("Init inventory with %d slots", size);
 	return i;
@@ -38,8 +40,6 @@ void freeinventory(Inventory *const i) {
 void updateinventory(const Inventory *const i, Window *const win) {
 	if(i->background)
 		drawtexture(i->background, win, point(i->geom.x, i->geom.y));
-	else
-		warning("Inventory has no background texture");
 	size_t k = asize(i->sprites);
 	while(k--)
 		updatesprite(aget(i->sprites, k), win);
