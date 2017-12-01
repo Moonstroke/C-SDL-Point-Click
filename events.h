@@ -1,3 +1,11 @@
+/**
+ * \file events.h
+ * \author joH1
+ *
+ * This file contains the definition and handling of events; mostly mouse events
+ * (this is a point and click library, after all).
+*/
+
 #ifndef EVENTS_H
 #define EVENTS_H
 
@@ -11,6 +19,8 @@
 
 /**
  * \brief Retrieves the x and y coordinates of the mouse cursor.
+ *
+ * \return The position of the mouse cursor
  */
 Point mousepos(void);
 
@@ -28,10 +38,10 @@ typedef void (*mousehandler)(Point);
 /**
  * \brief Defines the procedure to execute when a mouse button is pressed.
  *
- * \param[in] button  the button to watch
- * \param[in] handler the procedure to execute
+ * \param[in] button  The button to watch
+ * \param[in] handler The procedure to execute
  *
- * \return TRUE if the handler could be set (ie. button is a valid value)
+ * \return \c true if the handler could be set (ie. button is a valid value)
  *
  * \sa SDL_MouseButtonEvent
  */
@@ -40,9 +50,9 @@ bool set_onmousedown(uint8_t button, mousehandler handler);
 /**
  * \brief Gets the handler for given mouse button pressed.
  *
- * \param[in] button the button to get the handler back
+ * \param[in] button The button to get the handler back
  *
- * \return the handler for given mouse button
+ * \return The handler for given mouse button
  */
 mousehandler onmousedown(uint8_t button);
 
@@ -50,10 +60,10 @@ mousehandler onmousedown(uint8_t button);
 /**
  * \brief Defines the procedure to execute when a mouse button is released.
  *
- * \param[in] button  the button to watch
- * \param[in] handler the procedure to execute
+ * \param[in] button  The button to watch
+ * \param[in] handler The procedure to execute
  *
- * \return TRUE if the handler could be set (ie. \c button is a valid value)
+ * \return \c true if the handler could be set (ie. \c button is a valid value)
  *
  * \sa SDL_MouseButtonEvent
  */
@@ -62,29 +72,26 @@ bool set_onmouseup(uint8_t button, mousehandler handler);
 /**
  * \brief Gets the handler for given mouse button released.
  *
- * \param[in] button the button to get the handler back
+ * \param[in] button The button to get the handler back
  *
- * \return the handler for given mouse button
+ * \return The handler for given mouse button
  */
 mousehandler onmouseup(uint8_t button);
 
 /**
  * \brief Sets the mouse motion handler
  *
- * \param[in] handler the mouse motion handler
+ * \param[in] handler The mouse motion handler
  *
- * \return TRUE if the mouse motion handler could be set
+ * \return \c true if the mouse motion handler could be set
  */
 bool set_onmousemove(mousehandler handler);
 
 /**
- * \brief Gets the handler for given mouse button released.
+ * \brief Gets the handler for mouse moved.
  *
- * \param[in] button the button to get the handler back
- *
- * \return the handler for given mouse button
+ * \return The handler for given mouse button
  */
-
 mousehandler onmousemove(void);
 
 

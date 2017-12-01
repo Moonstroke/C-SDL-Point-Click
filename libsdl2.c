@@ -11,7 +11,7 @@
 static bool set_atexit;
 
 
-void initSDL(uint32_t flags) {
+void initSDL(const uint32_t flags) {
 	int ok = SDL_Init(flags);
 	if(ok != 0) {
 		error("Could not load SDL2: %s\n", SDL_GetError());
@@ -26,7 +26,7 @@ void clearSDL(void) {
 		SDL_Quit();
 }
 
-void logSDLRendererInfo(Renderer *ren) {
+void logSDLRendererInfo(Renderer *const ren) {
 	SDL_RendererInfo info;
 	if(SDL_GetRendererInfo(ren, &info) < 0) return;
 	info("Renderer name:  \"%s\"\n", info.name);

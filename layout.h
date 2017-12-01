@@ -1,3 +1,12 @@
+/**
+ * \file layout.h
+ * \author joH1
+ *
+ * This file contains constant values representing the spatial organization of
+ * the game window, with the position of the scene and inventory, and their
+ * behaviours.
+*/
+
 #ifndef LAYOUT_H
 #define LAYOUT_H
 
