@@ -15,19 +15,19 @@
 
 struct scene {
 	char name[NAME_MAX_LEN];
-	Array sprites;
+	Array *sprites;
 	Texture *background;
 	Rect geom;
 };
 
 
-Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str name) {
+Scene *newscene(const Rect g, Texture *const tex, const size_t size, const cstr name) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newscene() for scene \"%s\"", name);
 		return NULL;
 	}
-	Array sprites = newarray(size);
+	Array *sprites = newarray(size);
 	if(sprites == NULL) {
 		error("while creating array for %d sprites", size);
 		return NULL;
@@ -85,7 +85,6 @@ void setscenename(Scene *const s, const cstr name) {
 
 size_t addsprite(Scene *const s, Sprite *const sprite) {
 	return aappend(s->sprites, sprite);
-
 }
 
 Sprite *getsprite(const Scene *const s, const size_t i) {
@@ -104,5 +103,5 @@ Sprite *getscenespritepos(const Scene *const s, const Point p) {
 }
 
 bool removescenesprite(Scene *const s, const Sprite *const sp) {
-	return aremove(s->sprites, sp) >= 0;
+	return aremove(s->sprites, sp);
 }

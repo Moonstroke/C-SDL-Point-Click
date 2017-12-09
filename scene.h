@@ -37,7 +37,7 @@ typedef struct scene Scene;
  * \param[in] name       The name of the scene
  *
  */
-Scene *newscene(Rect geom, Texture *background, size_t n_sprites, str name);
+Scene *newscene(Rect geom, Texture *background, size_t n_sprites, cstr name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
