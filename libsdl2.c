@@ -27,14 +27,14 @@ void clearSDL(void) {
 }
 
 void logSDLRendererInfo(Renderer *const ren) {
-	SDL_RendererInfo info;
-	if(SDL_GetRendererInfo(ren, &info) < 0) return;
-	info("Renderer name:  \"%s\"\n", info.name);
-	info("Renderer flags: %x\n", info.flags);
-	const int n = info.num_texture_formats;
+	SDL_RendererInfo reninfo;
+	if(SDL_GetRendererInfo(ren, &reninfo) < 0) return;
+	info("Renderer name:  \"%s\"\n", reninfo.name);
+	info("Renderer flags: %x\n", reninfo.flags);
+	const int n = reninfo.num_texture_formats;
 	info("# of available texture formats: %d", n);
 	int i;
 	for(i = 0; i < n; ++i)
-		info("Texture format #%2d:           %x", i, info.texture_formats[i]);
-	info("Maximum texture dimension:      (%d x %d)", info.max_texture_width, info.max_texture_height);
+		info("Texture format #%2d:           %x", i, reninfo.texture_formats[i]);
+	info("Maximum texture dimension:      (%d x %d)", reninfo.max_texture_width, reninfo.max_texture_height);
 }
