@@ -51,5 +51,6 @@ mousehandler onmouseup(const uint8_t btn) { return gethandler(btn, _onmouseup); 
 
 bool set_onmousemove(const mousehandler handler) {
 	_onmousemove = handler;
+	return true;
 }
 mousehandler onmousemove(void) { return _onmousemove; }
