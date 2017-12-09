@@ -167,46 +167,6 @@ Renderer *getwindowrenderer(const Window *self);
 
 
 /**
- * \brief Returns the game scene of the window
- *
- * \param[in] self the window to get the scene from
- *
- * \sa Scene
- */
-Scene *getwindowscene(const Window *self);
-
-/**
- * \brief Modifies the game scene in the window
- *
- * \param[in] self  The window to get the renderer from
- * \param[in] scene The scene to set to the window
- *
- * \sa Scene
- */
-void setwindowscene(Window *self, Scene *scene);
-
-
-/**
- * \brief Retrieves the inventory object of the window
- *
- * \param[in] self The window to get the inventory from
- *
- * \sa Inventory
- */
-Inventory *getwindowinventory(const Window *self);
-
-/**
- * \brief Sets the game inventory of the window
- *
- * \param[in] self      The window to set the inventory
- * \param[in] inventory The inventory to give to the window
- *
- * \sa Inventory
- */
-void setwindowinventory(Window *self, Inventory *inventory);
-
-
-/**
  * \brief Returns the width of the window, in pixels
  *
  * \param[in] self The window to get the width from
