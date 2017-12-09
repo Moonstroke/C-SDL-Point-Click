@@ -70,7 +70,7 @@ void drawtexture(Texture *const t, Window *const win, const Point pos) {
 	SDL_QueryTexture(t->texture, NULL, NULL, &r.w, &r.h);
 	Color backup;
 	Renderer *ren = getwindowrenderer(win);
-	if(t->type = TYPE_PLAIN) {
+	if(istextureplain(t)) {
 		SDL_GetRenderDrawColor(ren, &backup.r, &backup.g, &backup.b, &backup.a);
 		SDL_SetRenderDrawColor(ren, t->color.r, t->color.g, t->color.b, t->color.a);
 

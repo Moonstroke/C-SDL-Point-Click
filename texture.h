@@ -89,23 +89,13 @@ void freetexture(Texture *self);
 
 
 /**
- * \brief Draws a texture on screen.
- *
- * \param[in] self   the texture to render
- * \param[in] window the renderer to render the texture to
- * \param[in] pos    the position at which render the texture
- */
-void drawtexture(Texture *self, Window *window, Point pos);
-
-/**
  * \brief Is the texture color-plain?
  *
  * \param[in] self The texture to get the nature from
  *
  * \return \c true if the texture is color-plain
  */
-bool istexplain(const Texture *self);
-
+bool istextureplain(const Texture *self);
 
 /**
  * \brief Is the texture color-plain?
@@ -117,5 +107,16 @@ bool istexplain(const Texture *self);
  * \return \c true if the Texture \c self is valid
  */
 bool gettexturegeom(const Texture *self, int *w, int *h);
+
+
+/**
+ * \brief Draws a texture on screen.
+ *
+ * \param[in] self   The texture to render
+ * \param[in] window The renderer to render the texture to
+ * \param[in] pos    The position at which to render the texture
+ */
+void drawtexture(Texture *self, Window *window, Point pos);
+
 
 #endif /* TEXTURES_H */
