@@ -14,6 +14,7 @@ struct sprite {
 	Texture *tex;
 	char name[NAME_MAX_LEN];
 	bool needsupdate;
+	padding(7);
 };
 
 

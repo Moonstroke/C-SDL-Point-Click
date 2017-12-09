@@ -36,5 +36,8 @@ typedef const char *cstr; /**< A redefinition for constant srings */
 
 typedef FILE *File; /**< A redefinition of the file structure */
 
+typedef unsigned char byte; /**< The char type has size 1 byte */
+
+#define padding(s) byte _padding[s]
 
 #endif /* TYPES_H */
