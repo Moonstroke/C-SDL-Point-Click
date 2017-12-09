@@ -20,7 +20,7 @@
 /* Static-use objects (mere references) */
 
 static Window *win;
-static GameScreen *gamescreen;
+static Screen *screen;
 static Scene *scene;
 static Inventory *inventory;
 static Sprite *earth, *earth2;
@@ -47,8 +47,8 @@ static void mainloop(void);
 
 
 
-int main(int argc, str argv[]) {
-	log_setfilter(ALL);
+int main(void) {
+	log_setfilter(LOGF_ALL);
 
 	info("\nInitializations");
 	initall();
@@ -135,6 +135,7 @@ void initall(void) {
 
 	Rect wingeom, scenegeom, inventorygeom;
 
+
 	/* Window */
 
 	LayoutValues layout = SCENE_INVENTORY_BELOW;
@@ -143,23 +144,27 @@ void initall(void) {
 	win = newwin("App window", wingeom);
 
 	const int inventh = 80;
-	setwindowlayout(win, layout, &scenegeom, &inventorygeom, inventh);
+	setlayout(win, layout, &scenegeom, &inventorygeom, inventh);
+
+
+	/* Screen(s) */
+	screen = newscreen("Game screen");
+	addwindowscreen(win, screen);
+	setwindowcurrentscreen(win, "Game screen");
 
 
 	/* Scene(s) */
 
-	scenegeom = rect(16, 16, 608, 458);
 	Texture *scenebg = loadbmptex("img/background.bmp", win);
 	scene = newscene(scenegeom, scenebg, 2, "Scene1");
-	//setwindowscene(win, scene);
+	setscreenscene(screen, scene);
 
 
 	/* Inventory */
 
-	inventorygeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
 	Texture *inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
 	inventory = newinventory(inventorygeom, 8, inventbg);
-	//setwindowinventory(win, inventory);
+	setscreeninventory(screen, inventory);
 
 
 	/* Sprites */
