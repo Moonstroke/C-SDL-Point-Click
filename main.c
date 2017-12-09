@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
@@ -8,6 +9,7 @@
 #include "libsdl2.h"
 #include "math.h"
 #include "scene.h"
+#include "screen.h"
 #include "sprite.h"
 #include "texture.h"
 #include "window.h"
@@ -18,6 +20,7 @@
 /* Static-use objects (mere references) */
 
 static Window *win;
+static GameScreen *gamescreen;
 static Scene *scene;
 static Inventory *inventory;
 static Sprite *earth, *earth2;
@@ -25,6 +28,7 @@ static Sprite *earth, *earth2;
 
 /* Dynamic-use objects (can change over time) */
 
+// FIXME can't these be registers?
 static Sprite *heldsprite = NULL;
 static Point clickpos;
 
@@ -84,7 +88,7 @@ void leftup(const Point p) {
 
 void mainloop(void) {
 	SDL_Event event;
-	int done = 0;
+	bool done = false;
 	Point mouse;
 	while(!done) {
 		while(SDL_PollEvent(&event)) {
@@ -111,13 +115,13 @@ void mainloop(void) {
 							if(!(event.key.keysym.mod & KMOD_CTRL))
 								break;
 						case SDLK_ESCAPE:
-							done = 1;
+							done = true;
 							break;
 						default: break;
 					}
 					break;
 				case SDL_QUIT:
-					done = 1;
+					done = true;
 					break;
 				default: break;
 			}
@@ -129,14 +133,13 @@ void initall(void) {
 
 	initSDL(SDL_INIT_VIDEO);
 
-	/* Window(s) */
-
 	Rect wingeom, scenegeom, inventorygeom;
+
+	/* Window */
+
 	LayoutValues layout = SCENE_INVENTORY_BELOW;
 
-	wingeom.x = wingeom.y = SDL_WINDOWPOS_CENTERED;
-	wingeom.w = 640;
-	wingeom.h = 480;
+	wingeom = rect(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480);
 	win = newwin("App window", wingeom);
 
 	const int inventh = 80;
@@ -145,18 +148,18 @@ void initall(void) {
 
 	/* Scene(s) */
 
-	Rect geom = rect(16, 16, 608, 458);
+	scenegeom = rect(16, 16, 608, 458);
 	Texture *scenebg = loadbmptex("img/background.bmp", win);
 	scene = newscene(scenegeom, scenebg, 2, "Scene1");
-	setwindowscene(win, scene);
+	//setwindowscene(win, scene);
 
 
 	/* Inventory */
 
-	Rect inventgeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
+	inventorygeom = rect(0, getwindowh(win) - inventh, getwindoww(win), inventh);
 	Texture *inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
-	inventory = newinventory(inventgeom, 8, inventbg);
-	setwindowinventory(win, inventory);
+	inventory = newinventory(inventorygeom, 8, inventbg);
+	//setwindowinventory(win, inventory);
 
 
 	/* Sprites */
