@@ -4,6 +4,7 @@
 #include <SDL2/SDL_hints.h>
 
 #include "array.h"
+#include "array_funcs.h"
 #include "inventory.h"
 #include "log.h"
 #include "libsdl2.h"
@@ -87,9 +88,17 @@ size_t getwindowh(const Window *const w) { return w->geom.h; }
 
 /* ## Technical functions ## */
 
-
-void setwindowcurrentscreen(Window *const w, cstr name) {
-	// TODO
+bool setwindowcurrentscreen(Window *const w, const cstr name) {
+	bool pred(const void *const item) {
+		Screen *const s = (Screen*)item;
+		return strcmp(getscreenname(s), name) == 0;
+	}
+	Screen *s = acond(w->screens, pred);
+	if(s == NULL) {
+		return false;
+	}
+	w->currentscreen = s;
+	return true;
 }
 
 void updatewindow(Window *const w) {
