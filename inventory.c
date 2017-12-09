@@ -13,7 +13,7 @@
 
 struct inventory {
 	Rect geom;
-	Array sprites;
+	Array *sprites;
 	Texture *background;
 };
 
