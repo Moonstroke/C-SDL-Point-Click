@@ -32,6 +32,7 @@ Sprite *newsprite(Texture *const tex, const Point p, const str name) {
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
 	verbose("new sprite \"%s\" instantiated", s->name);
 	s->needsupdate = true;
+	return s;
 }
 
 void freesprite(Sprite *const s) {
