@@ -92,10 +92,13 @@ ssize_t addwindowscreen(Window *const w, Screen *const s) {
 	return aappend(w->screens, s);
 }
 
+static str _name;
 static bool cmpscreenname(const void *const item) {
-	return strcmp(getscreenname((Screen*)item), name) == 0;
+	return strcmp(getscreenname((Screen*)item), _name) == 0;
 }
+
 bool setwindowcurrentscreen(Window *const w, const str name) {
+	_name = name;
 	Screen *s = acond(w->screens, cmpscreenname);
 	if(s) {
 		w->currentscreen = s;
