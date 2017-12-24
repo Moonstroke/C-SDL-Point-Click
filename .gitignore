@@ -1,10 +1,7 @@
-/nbproject/
-/.dep.inc
-
+# Compilation output files
 *.o
 a.out
-build/
+pnc
 
-dist/
-
+# Documentation directory
 doc/
