@@ -34,13 +34,9 @@ typedef SDL_Rect Rect; /**< A geometric rectangle */
 typedef char *str; /**< A simple redefinition of a string */
 typedef const char *cstr; /**< A redefinition for constant srings */
 
-typedef FILE *File; /**< A redefinition of the file structure */
-
-typedef unsigned char byte; /**< The char type has size 1 byte */
-
 /**
  * \brief A convenience macro for structure needing to be padded
  */
-#define padding(s) byte _padding[s]
+#define padding(s) unsigned char _padding[s]
 
 #endif /* TYPES_H */
