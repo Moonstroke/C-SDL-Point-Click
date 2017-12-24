@@ -9,11 +9,11 @@ OPT_L := n
 CC := gcc
 CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded
 ifeq ($(STATIC),y)
-	LDLIBS := -Wl,-dn -llog -lSDL2 -Wl,-dy -lm -ldl -lasound -lpthread -lpulse \
+	LDLIBS := -Wl,-dn -llog -larray -lSDL2 -Wl,-dy -lm -ldl -lasound -lpthread -lpulse \
 	          -lsndio -lX11 -lXext -lXcursor -lXinerama -lXi -lXrandr -lXss \
 	          -lXxf86vm -lwayland-egl -lwayland-client -lwayland-cursor -lxkbcommon
 else
-	LDLIBS := -llog -lSDL2
+	LDLIBS := -llog -larray -lSDL2
 endif
 LDFLAGS :=
 
@@ -35,7 +35,7 @@ $(EXEC): $(OBJ)
 	$(CC) -o$(EXEC) $(OBJ) $(CFLAGS) $(LDLIBS)
 
 %.o: %.c
-	$(CC) -o$@ -c $< $(LDLIBS)
+	$(CC) -o$@ -c $<
 
 
 clean:
