@@ -10,7 +10,6 @@
 #define EVENTS_H
 
 
-#include <SDL2/SDL_events.h>
 #include <stdbool.h>
 
 #include "types.h"

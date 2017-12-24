@@ -11,11 +11,12 @@
 #define LAYOUT_H
 
 
+#include <stdlib.h>
 #include <stdbool.h>
-#include <SDL2/SDL_rect.h>
 
-
+#include "types.h"
 #include "window.h"
+
 
 
 /**

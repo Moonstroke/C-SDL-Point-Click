@@ -13,6 +13,9 @@
 #include <SDL2/SDL_pixels.h>
 #include <stdbool.h>
 
+#include "types.h"
+
+
 /**
  * \brief The structure used to represent a texture.
  *
@@ -23,7 +26,6 @@
 typedef struct texture Texture;
 
 #include "window.h"
-#include "types.h"
 
 /**
  * \enum TextureType

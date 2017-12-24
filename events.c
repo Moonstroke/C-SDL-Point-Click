@@ -1,7 +1,11 @@
 #include "events.h"
 
 
+#include <SDL2/SDL_mouse.h>
+
 #include "log.h"
+
+
 
 Point mousepos(void) {
 	Point p;

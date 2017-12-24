@@ -9,9 +9,11 @@
 #define SCENE_H
 
 
-#include <SDL2/SDL_render.h>
 #include <stdbool.h>
-#include <stdint.h>
+#include <stdlib.h>
+
+#include "types.h"
+
 
 
 /**
@@ -19,9 +21,9 @@
  */
 typedef struct scene Scene;
 
+
 #include "sprite.h"
 #include "texture.h"
-#include "types.h"
 #include "window.h"
 
 

@@ -9,14 +9,21 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
+
+#include "types.h"
+
+
+
 /**
  * \brief This structure represents the player's inventory where gathered items
  *        are stored for later use.
  */
 typedef struct inventory Inventory;
 
+
 #include "sprite.h"
-#include "types.h"
+
+
 
 /**
  * \brief This function constructs a new inventory for the game.

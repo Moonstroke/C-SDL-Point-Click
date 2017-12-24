@@ -9,7 +9,10 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <SDL2/SDL_render.h>
+
+#include "math.h"
+#include "types.h"
+
 
 /**
  * \brief This structure represents a game sprite (ie. an item with which the
@@ -17,9 +20,7 @@
  */
 typedef struct sprite Sprite;
 
-#include "math.h"
 #include "texture.h"
-#include "types.h"
 #include "window.h"
 
 
