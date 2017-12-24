@@ -33,9 +33,9 @@ Screen *newscreen(const str name) {
 }
 
 void freescreen(Screen *const s) {
-	if(s->inventory != NULL)
+	if(s->inventory)
 		freeinventory(s->inventory);
-	if(s->scene != NULL)
+	if(s->scene)
 		freescene(s->scene);
 	free(s);
 }
@@ -65,9 +65,9 @@ void setscreenscene(Screen *const s, Scene *const scene) { s->scene = scene; }
 /* ## Technical functions ## */
 
 void updatescreen(Screen *s, Window *w) {
-	if(s->inventory != NULL)
+	if(s->inventory)
 		updateinventory(s->inventory, w);
-	if(s->scene != NULL)
+	if(s->scene)
 		updatescene(s->scene, w);
 }
 
