@@ -157,6 +157,9 @@ size_t getwindowh(const Window *self);
  *
  * \return The position of the screen in the window, or \c -1 if an error
  *         occurred
+ *
+ * \note If this is the first screen of the window, it is automatically set as
+ *       the current screen.
  */
 ssize_t addwindowscreen(Window *self, Screen *screen);
 
