@@ -12,18 +12,23 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+
+#include "types.h"
+
+
+
 /**
- * \extends Screen
+ * \brief Represents a \b screen, i.e. the structure of all the displayed items
+ *        at a given time.
  *
- * \brief
+ * For example, the in-game display, the pause menu, and the options page are
+ * different \e screens.
  */
 typedef struct screen Screen;
 
 
 #include "inventory.h"
 #include "scene.h"
-#include "screen.h"
-#include "types.h"
 
 
 
@@ -86,7 +91,7 @@ void setscreeninventory(Screen *self, Inventory *inventory);
 Scene *getscreenscene(const Screen *self);
 
 /**
- * \brief Updates the scene associated with this screen.
+ * \brief Changes the scene associated with this screen.
  *
  * \param[in,out] self The screen
  * \param[in]  scene The new scene
@@ -94,6 +99,12 @@ Scene *getscreenscene(const Screen *self);
 void setscreenscene(Screen *self, Scene *scene);
 
 
+/**
+ * \brief Graphically updates the screen on given window.
+ *
+ * \param[in,out] self   The screen
+ * \param[in,out] window The window
+ */
 void updatescreen(Screen *self, Window *window);
 
 #endif /* SCREEN_H */
