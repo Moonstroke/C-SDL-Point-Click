@@ -39,7 +39,7 @@ Texture *loadbmptexa(const str filename, const Window *const win, uint32_t color
 	tex->color = color(0, 0, 0);
 	return tex;
 }
-extern inline Texture *loadbmptex(str filename, const Window *win);
+extern Texture *loadbmptex(str filename, const Window *win);
 
 
 Texture *plaintex(const Window *const w, const Rect g, const Color c) {
