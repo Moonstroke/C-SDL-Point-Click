@@ -12,6 +12,9 @@
 
 
 
+#define INIT_SCREENS_NUM 4
+
+
 struct window {
 	SDL_Window *win;
 	SDL_Renderer *ren;
@@ -41,6 +44,11 @@ Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlag
 		error("Could not create renderer: %s", SDL_GetError());
 		return NULL;
 	}
+	Array *const screens = newarray(INIT_SCREENS_NUM);
+	if(!screens) {
+		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
+		return NULL;
+	}
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
 		verbose("window is fullscreen -- setting resolution logical instead of hardware");
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
@@ -50,7 +58,7 @@ Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlag
 	w->ren = ren;
 	w->geom = g;
 	setwindowtitle(w, t);
-	// TODO screens
+	w->screens = screens;
 	w->currentscreen = NULL;
 	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
 	return w;
