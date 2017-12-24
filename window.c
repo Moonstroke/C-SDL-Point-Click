@@ -92,26 +92,25 @@ ssize_t addwindowscreen(Window *const w, Screen *const s) {
 	return aappend(w->screens, s);
 }
 
+static bool cmpscreenname(const void *const item) {
+	return strcmp(getscreenname((Screen*)item), name) == 0;
+}
 bool setwindowcurrentscreen(Window *const w, const str name) {
-	bool pred(const void *const item) {
-		Screen *const s = (Screen*)item;
-		return strcmp(getscreenname(s), name) == 0;
+	Screen *s = acond(w->screens, cmpscreenname);
+	if(s) {
+		w->currentscreen = s;
+		return true;
 	}
-	Screen *s = acond(w->screens, pred);
-	if(s == NULL) {
-		return false;
-	}
-	w->currentscreen = s;
-	return true;
+	return false;
 }
 
 void updatewindow(Window *const w) {
 	clearwindow(w);
-	if(!w->currentscreen) {
-		warning("Window \"%s\" has no current screen", getwindowtitle(w));
-		return;
-	} else
+	if(w->currentscreen) {
 		updatescreen(w->currentscreen, w);
+		return;
+	}
+	warning("Window \"%s\" has no current screen", getwindowtitle(w));
 }
 
 bool clearwindow(Window *const w) {
