@@ -150,7 +150,6 @@ void initall(void) {
 	/* Screen(s) */
 	screen = newscreen("Game screen");
 	addwindowscreen(win, screen);
-	setwindowcurrentscreen(win, "Game screen");
 
 
 	/* Scene(s) */
