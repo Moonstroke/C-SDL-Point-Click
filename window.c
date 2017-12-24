@@ -92,7 +92,7 @@ ssize_t addwindowscreen(Window *const w, Screen *const s) {
 	return aappend(w->screens, s);
 }
 
-static str _name;
+static str _name = "";
 static bool cmpscreenname(const void *const item) {
 	return strcmp(getscreenname((Screen*)item), _name) == 0;
 }
