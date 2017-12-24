@@ -1,24 +1,28 @@
 #include "screen.h"
 
 
+#include "log.h"
 #include <stdlib.h>
+#include <string.h>
 
 #include "inventory.h"
 #include "scene.h"
 
 
 
+#define NAME_MAX_LEN 16
+
+
 struct screen {
-	const char *name;
+	char name[NAME_MAX_LEN];
 	Inventory *inventory;
 	Scene *scene;
-	// TODO
 };
 
 
 /* ## Ctors and dtors ## */
 
-Screen *newscreen(const char *name) {
+Screen *newscreen(const str name) {
 	Screen *s = malloc(sizeof(Screen));
 	if(s == NULL)
 		return NULL;
@@ -38,10 +42,15 @@ void freescreen(Screen *const s) {
 
 
 /* ## Getters and setters ## */
+str getscreenname(const Screen *const s) { return s->name; }
 
-const char *getscreenname(const Screen *const s) { return s->name; }
-
-void setscreenname(Screen *const s, const char *name) { s->name = name; } // FIXME strcpy?
+void setscreenname(Screen *const s, const str name) {
+	const unsigned int l = strlen(name) + 1;
+	if(l > NAME_MAX_LEN)
+		warning("\"%s\" is too long, will be truncated to %u characters", name, NAME_MAX_LEN);
+	strncpy(s->name, name, l);
+	s->name[l - 1] = '\0';
+}
 
 
 Inventory *getscreeninventory(const Screen *const s) { return s->inventory; }
