@@ -39,7 +39,7 @@ typedef struct scene Scene;
  * \param[in] name       The name of the scene
  *
  */
-Scene *newscene(Rect geom, Texture *background, size_t n_sprites, cstr name);
+Scene *newscene(Rect geom, Texture *background, size_t n_sprites, str name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
@@ -73,7 +73,7 @@ void updatescene(Scene *self, Window *window);
  *
  * \return The name of the scene
  */
-cstr getscenename(const Scene *self);
+str getscenename(const Scene *self);
 
 /**
  * \brief Modifies the name of the scene.
@@ -81,7 +81,7 @@ cstr getscenename(const Scene *self);
  * \param[in] self The scene to update the name of
  * \param[in] name The name to give to the scene
  */
-void setscenename(Scene *self, cstr name);
+void setscenename(Scene *self, str name);
 
 /**
  * \brief Adds a Sprite to the scene.

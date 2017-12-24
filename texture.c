@@ -15,7 +15,7 @@ struct texture {
 };
 
 
-Texture *loadbmptexa(const cstr filename, const Window *const win, uint32_t colorkey) {
+Texture *loadbmptexa(const str filename, const Window *const win, uint32_t colorkey) {
 	Texture *tex = malloc(sizeof(Texture));
 	if(!tex) {
 		error("malloc() failure in loadbmptexa");
@@ -39,7 +39,7 @@ Texture *loadbmptexa(const cstr filename, const Window *const win, uint32_t colo
 	tex->color = color(0, 0, 0);
 	return tex;
 }
-extern inline Texture *loadbmptex(cstr filename, const Window *win);
+extern inline Texture *loadbmptex(str filename, const Window *win);
 
 
 Texture *plaintex(const Window *const w, const Rect g, const Color c) {

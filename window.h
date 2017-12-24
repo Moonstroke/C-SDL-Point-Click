@@ -69,7 +69,7 @@ typedef struct window Window;
  * \sa SDL_Window
  * \sa SDL_Renderer
  */
-Window *newwindow(cstr title, Rect geometry, WinFlags winflags, RenderFlags renflags);
+Window *newwindow(str title, Rect geometry, WinFlags winflags, RenderFlags renflags);
 
 /**
  * \brief Instantiates a new window, using the default flags.
@@ -81,7 +81,7 @@ Window *newwindow(cstr title, Rect geometry, WinFlags winflags, RenderFlags renf
  *
  * \sa newwindow
  */
-inline Window *newwin(cstr title, Rect geometry) {
+inline Window *newwin(str title, Rect geometry) {
 	return newwindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
 }
 
@@ -108,7 +108,7 @@ bool setwindowdrawcolor(Window *self, Color color);
  *
  * \return The title of the window, as seen on the title bar on the desktop
  */
-cstr getwindowtitle(const Window *self);
+str getwindowtitle(const Window *self);
 
 /**
  * \brief Updates the title of the window
@@ -116,7 +116,7 @@ cstr getwindowtitle(const Window *self);
  * \param[in] self  The window to set the title to
  * \param[in] title The title to give to the window
  */
-void setwindowtitle(Window *self, cstr title);
+void setwindowtitle(Window *self, str title);
 
 /**
  * \brief Gets the renderer associated to this window
@@ -169,7 +169,7 @@ ssize_t addwindowscreen(Window *self, Screen *screen);
  * \return \c true iff the name could be associated with a screen, which in turn
  *         could be set as the current screen
  */
-bool setwindowcurrentscreen(Window *self, cstr name);
+bool setwindowcurrentscreen(Window *self, str name);
 
 /**
  * \brief Updates the window and its content (scene and sprites).

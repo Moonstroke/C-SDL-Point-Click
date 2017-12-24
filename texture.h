@@ -51,7 +51,7 @@ typedef enum {
  *
  * \sa SDL_Texture
  */
-Texture *loadbmptexa(cstr filename, const Window *window, uint32_t colorkey);
+Texture *loadbmptexa(str filename, const Window *window, uint32_t colorkey);
 
 /**
  * \brief Loads an image file (BitMap format) in a SDL texture structure,
@@ -64,7 +64,7 @@ Texture *loadbmptexa(cstr filename, const Window *window, uint32_t colorkey);
  *
  * \sa loadbmptexa
  */
-inline Texture *loadbmptex(cstr filename, const Window *window) {
+inline Texture *loadbmptex(str filename, const Window *window) {
 	return loadbmptexa(filename, window, 0);
 }
 

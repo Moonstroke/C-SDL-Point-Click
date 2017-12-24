@@ -25,7 +25,7 @@ struct window {
 /* ## Ctors and dtors ## */
 
 
-Window *newwindow(const cstr t, const Rect g, const WinFlags wf, const RenderFlags rf) {
+Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlags rf) {
 	Window *w = malloc(sizeof(Window));
 	if(!w) {
 		error("malloc() error for window \"%s\"", t);
@@ -55,10 +55,10 @@ Window *newwindow(const cstr t, const Rect g, const WinFlags wf, const RenderFla
 	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
 	return w;
 }
-extern Window *newwin(cstr title, Rect geometry);
+extern Window *newwin(str title, Rect geometry);
 
 void freewindow(Window *const w) {
-	cstr t = SDL_GetWindowTitle(w->win);
+	const str t = SDL_GetWindowTitle(w->win);
 	const int l = strlen(t) + 1;
 	char title[l];
 	strncpy(title, t, l);
@@ -77,8 +77,8 @@ bool setwindowdrawcolor(Window *const w, const Color color) {
 	return SDL_SetRenderDrawColor(w->ren, color.r, color.g, color.b, color.a) == 0;
 }
 
-void setwindowtitle(Window *const w, const cstr title) { SDL_SetWindowTitle(w->win, title); }
-cstr getwindowtitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
+void setwindowtitle(Window *const w, const str title) { SDL_SetWindowTitle(w->win, title); }
+str getwindowtitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
 
 Renderer *getwindowrenderer(const Window *const w) { return w->ren; }
 
@@ -92,7 +92,7 @@ ssize_t addwindowscreen(Window *const w, Screen *const s) {
 	return aappend(w->screens, s);
 }
 
-bool setwindowcurrentscreen(Window *const w, const cstr name) {
+bool setwindowcurrentscreen(Window *const w, const str name) {
 	bool pred(const void *const item) {
 		Screen *const s = (Screen*)item;
 		return strcmp(getscreenname(s), name) == 0;

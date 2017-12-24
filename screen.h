@@ -37,7 +37,7 @@ typedef struct screen Screen;
  *
  * \param[in] name The name of the screen
  */
-Screen *newscreen(cstr name);
+Screen *newscreen(str name);
 
 /**
  * \brief Deallocates a screen.
@@ -52,7 +52,7 @@ void freescreen(Screen *self);
  *
  * \param[in] self The screen
  */
-cstr getscreenname(const Screen *self);
+str getscreenname(const Screen *self);
 
 /**
  * \brief Updates the name of the screen.
@@ -60,7 +60,7 @@ cstr getscreenname(const Screen *self);
  * \param[in,out] self The screen
  * \param[in]  name The new name to give to the screen
  */
-void setscreenname(Screen *self, cstr name);
+void setscreenname(Screen *self, str name);
 
 
 /**

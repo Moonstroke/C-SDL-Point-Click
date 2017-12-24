@@ -21,7 +21,7 @@ struct scene {
 };
 
 
-Scene *newscene(const Rect g, Texture *const tex, const size_t size, const cstr name) {
+Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str name) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newscene() for scene \"%s\"", name);
@@ -69,9 +69,9 @@ void updatescene(Scene *const s, Window *const win) {
 	renderwindow(win);
 }
 
-cstr getscenename(const Scene *const s) { return s->name; }
+str getscenename(const Scene *const s) { return s->name; }
 
-void setscenename(Scene *const s, const cstr name) {
+void setscenename(Scene *const s, const str name) {
 	if(name && strlen(name)) {
 		size_t l = strlen(name) + 1;
 		if(l > NAME_MAX_LEN) {

@@ -53,7 +53,7 @@ void updatesprite(Sprite *const s, Window *const win) {
 }
 
 
-cstr getspritename(const Sprite *const s) { return s->name; }
+str getspritename(const Sprite *const s) { return s->name; }
 
 void setspritename(Sprite *const s, const str name) {
 	if(name && strlen(name)) {

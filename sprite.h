@@ -68,7 +68,7 @@ void updatesprite(Sprite *self, Window *window);
  *
  * \return The name of the sprite
  */
-cstr getspritename(const Sprite *self);
+str getspritename(const Sprite *self);
 
 /**
  * \brief Modifies the name of the sprite.

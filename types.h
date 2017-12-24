@@ -31,8 +31,7 @@ typedef SDL_Rect Rect; /**< A geometric rectangle */
 /* ## Other uselful types ## */
 
 /* TODO make sure these are useful */
-typedef char *str; /**< A simple redefinition of a string */
-typedef const char *cstr; /**< A redefinition for constant srings */
+typedef const char *str; /**< A redefinition for constant srings */
 
 /**
  * \brief A convenience macro for structure needing to be padded
