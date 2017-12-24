@@ -97,7 +97,10 @@ size_t getwindowh(const Window *const w) { return w->geom.h; }
 /* ## Technical functions ## */
 
 ssize_t addwindowscreen(Window *const w, Screen *const s) {
-	return aappend(w->screens, s);
+	const ssize_t i = aappend(w->screens, s);
+	if(i == 0)
+		w->currentscreen = s;
+	return i;
 }
 
 static str _name = "";
