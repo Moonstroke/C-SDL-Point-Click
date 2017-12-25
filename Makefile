@@ -27,7 +27,7 @@ OBJ := $(SRC:.c=.o)
 
 DOC_PRG := doxygen
 DOC_CFG := Doxyfile
-DOC_DIR := doc/
+DOC_DIR := doc
 
 .PHONY: all clean distclean doc cleandoc
 
@@ -43,10 +43,10 @@ $(EXEC): $(OBJ)
 
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)/
 
 distclean: clean cleandoc
-	rm -rf $(OUT_DIR)
+	rm -rf $(OUT_DIR)/
 
 
 doc:
