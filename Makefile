@@ -18,8 +18,10 @@ endif
 LDFLAGS :=
 
 EXEC := pnc
+OUT_DIR := out
 
 SRC := $(wildcard *.c)
+OBJ_DIR := obj
 OBJ := $(SRC:.c=.o)
 
 
@@ -32,17 +34,20 @@ DOC_DIR := doc/
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CC) -o$(EXEC) $(OBJ) $(CFLAGS) $(LDLIBS)
+	mkdir -p $(OUT_DIR)
+	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ_DIR)/*.o $(CFLAGS) $(LDLIBS)
 
 %.o: %.c
-	$(CC) -o$@ -c $<
+	mkdir -p $(OBJ_DIR)
+	$(CC) -o$(OBJ_DIR)/$@ -c $<
 
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 distclean: clean cleandoc
-	rm -rf $(EXEC)
+	rm -rf $(OUT_DIR)
+
 
 doc:
 	$(DOC_PRG) $(DOC_CFG)
