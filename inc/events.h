@@ -15,6 +15,7 @@
 #include "types.h"
 
 
+// TODO add mouse click (move from main)
 
 /**
  * \brief Retrieves the x and y coordinates of the mouse cursor.

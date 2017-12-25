@@ -6,6 +6,24 @@ STATIC := y
 # The optimization level for the compilation
 OPT_L := n
 
+
+
+EXEC := pnc
+OUT_DIR := out
+
+INC_DIR := inc
+SRC_DIR := src
+SRC := $(wildcard $(SRC_DIR)/*.c)
+OBJ_DIR := obj
+OBJ := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+
+
+DOC_PRG := doxygen
+DOC_CFG := Doxyfile
+DOC_DIR := doc
+
+
+
 CC := gcc
 CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded
 ifeq ($(STATIC),y)
@@ -15,19 +33,7 @@ ifeq ($(STATIC),y)
 else
 	LDLIBS := -llog -larray -lSDL2
 endif
-LDFLAGS :=
-
-EXEC := pnc
-OUT_DIR := out
-
-SRC := $(wildcard *.c)
-OBJ_DIR := obj
-OBJ := $(SRC:.c=.o)
-
-
-DOC_PRG := doxygen
-DOC_CFG := Doxyfile
-DOC_DIR := doc
+LDFLAGS := -iquote $(INC_DIR)
 
 .PHONY: all clean distclean doc cleandoc
 
@@ -37,9 +43,9 @@ $(EXEC): $(OBJ)
 	mkdir -p $(OUT_DIR)
 	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ_DIR)/*.o $(CFLAGS) $(LDLIBS)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) -o$(OBJ_DIR)/$@ -c $<
+	$(CC) -o$@ -c $< $(LDFLAGS)
 
 
 clean:
@@ -54,3 +60,7 @@ doc:
 
 cleandoc:
 	rm -rf $(DOC_DIR)
+
+test:
+	echo $(SRC)
+	echo $(OBJ)
