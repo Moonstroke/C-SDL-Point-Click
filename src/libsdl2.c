@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "log.h"
 #include "events.h"
@@ -18,13 +19,21 @@ void initSDL(const uint32_t flags) {
 		error("Could not load SDL2: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
+	ok = TTF_Init();
+	if(ok) {
+		error("Could not load SDL_TTF: %s", TTF_GetError());
+		exit(EXIT_FAILURE);
+	}
 	atexit(SDL_Quit);
+	atexit(TTF_Quit);
 	set_atexit = true;
 }
 
 void clearSDL(void) {
-	if(!set_atexit)
+	if(!set_atexit) {
+		TTF_Quit();
 		SDL_Quit();
+	}
 }
 
 void logSDLRendererInfo(Renderer *const ren) {

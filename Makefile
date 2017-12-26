@@ -27,11 +27,12 @@ DOC_DIR := doc
 CC := gcc
 CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded
 ifeq ($(STATIC),y)
-	LDLIBS := -Wl,-dn -llog -larray -lSDL2 -Wl,-dy -lm -ldl -lasound -lpthread -lpulse \
-	          -lsndio -lX11 -lXext -lXcursor -lXinerama -lXi -lXrandr -lXss \
-	          -lXxf86vm -lwayland-egl -lwayland-client -lwayland-cursor -lxkbcommon
+	LDLIBS := -Wl,-dn -llog -larray -lSDL2 -Wl,-dy -lSDL2_ttf -lm -ldl -lasound \
+	          -lpthread -lpulse -lsndio -lX11 -lXext -lXcursor -lXinerama -lXi \
+	          -lXrandr -lXss -lXxf86vm -lwayland-egl -lwayland-client \
+	          -lwayland-cursor -lxkbcommon
 else
-	LDLIBS := -llog -larray -lSDL2
+	LDLIBS := -llog -larray -lSDL2 -lSDL2_ttf
 endif
 LDFLAGS := -I$(INC_DIR)
 
