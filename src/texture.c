@@ -8,7 +8,7 @@
 
 
 
-Texture *loadbmptexa(const str filename, const Window *const win, uint32_t colorkey) {
+Texture *loadbmpa(const str filename, const Window *const win, uint32_t colorkey) {
 	SDL_Surface *bmp = SDL_LoadBMP(filename);
 	if(!bmp) {
 		error("Could not load BMP file \"%s\": %s", filename, SDL_GetError());
@@ -24,7 +24,7 @@ Texture *loadbmptexa(const str filename, const Window *const win, uint32_t color
 	}
 	return tex;
 }
-extern Texture *loadbmptex(str filename, const Window *win);
+extern Texture *loadbmp(str filename, const Window *win);
 
 
 void freetexture(Texture *const t) {

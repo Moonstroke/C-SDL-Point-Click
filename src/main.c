@@ -154,25 +154,25 @@ void initall(void) {
 
 	/* Scene(s) */
 
-	Texture *scenebg = loadbmptex("img/background.bmp", win);
+	Texture *scenebg = loadbmp("img/background.bmp", win);
 	scene = newscene(scenegeom, scenebg, 2, "Scene1");
 	setscreenscene(screen, scene);
 
 
 	/* Inventory */
 
-	Texture *inventbg = NULL; //loadbmptex("img/inventory.bmp", win);
+	Texture *inventbg = NULL; //loadbmp("img/inventory.bmp", win);
 	inventory = newinventory(inventorygeom, 8, inventbg);
 	setscreeninventory(screen, inventory);
 
 
 	/* Sprites */
 
-	Texture *earthtex = loadbmptexa("img/earth.bmp", win, BLACK);
+	Texture *earthtex = loadbmpa("img/earth.bmp", win, BLACK);
 	earth = newsprite(earthtex, point(192, 240), "Earth");
 	addsprite(scene, earth);
 
-	Texture *earth2tex = loadbmptex("img/earth2.bmp", win);
+	Texture *earth2tex = loadbmp("img/earth2.bmp", win);
 	earth2 = newsprite(earth2tex, point(384, 240), "Earth2");
 	addsprite(scene, earth2);
 
