@@ -120,7 +120,8 @@ typedef enum {
 } LayoutValues;
 
 /**
- * \brief Sets the layout of the window with a value, or a combination of values of the above \c enum
+ * \brief Sets the layout of the window with a value, or a combination of
+ * \a LayoutValues
  *
  * \param window        The window to set layout of
  * \param layout        The layout value to set to the window
@@ -128,6 +129,8 @@ typedef enum {
  * \param inventorygeom The geometry ofh the inventory
  * \param inventorywh   The dimension to set to the inventory:
  *                      width if layout is vertical, or height if horizontal
+ *
+ * \return A flag indicating whether dispatching the layout ended correctly
  */
 bool setlayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventorygeom, size_t inventorywh);
 

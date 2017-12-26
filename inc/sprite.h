@@ -50,6 +50,8 @@ void freesprite(Sprite *self);
  * \brief Checks whether the sprite needs to be redrawn on screen.
  *
  * \param[in] self The sprite to check
+ *
+ * \return \c true if the sprite needs to be updated on the screen
  */
 bool spriteneedsupdate(const Sprite *self);
 

@@ -36,6 +36,8 @@ typedef struct screen Screen;
  * \brief Constructs a new screen.
  *
  * \param[in] name The name of the screen
+ *
+ * \return A screen of given name
  */
 Screen *newscreen(str name);
 
@@ -51,6 +53,8 @@ void freescreen(Screen *self);
  * \brief Retrieves the name of the screen.
  *
  * \param[in] self The screen
+ *
+ * \return The name of the screen
  */
 str getscreenname(const Screen *self);
 
@@ -67,6 +71,9 @@ void setscreenname(Screen *self, str name);
  * \brief Retrieves the inventory associated with this screen.
  *
  * \param[in] self The screen
+ *
+ * \return The \a Inventory associated with this screen, or \c NULL if there is
+ *         no such inventory
  *
  * \sa Inventory
  */
@@ -85,6 +92,8 @@ void setscreeninventory(Screen *self, Inventory *inventory);
  * \brief Retrieves the scene of the screen.
  *
  * \param[in] self The screen
+ *
+ * \return The \a Scene associated with this screen
  *
  * \sa Scene
  */

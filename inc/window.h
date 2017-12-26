@@ -66,6 +66,9 @@ typedef struct window Window;
  * \param[in] winflags The flags to instantiate the SDL window with
  * \param[in] renflags The flags to instantiate the SDL renderer with
  *
+ * \return A new window of given title, geometry and initalization parameters
+ *         for it and the associated renderer
+ *
  * \sa SDL_Window
  * \sa SDL_Renderer
  */
@@ -87,6 +90,8 @@ inline Window *newwin(str title, Rect geometry) {
 
 /**
  * \brief Deallocates the memory used by a Window.
+ *
+ * \param[in,out] self The window to free
  */
 void freewindow(Window *self);
 
@@ -97,7 +102,7 @@ void freewindow(Window *self);
  * \param[in] self  The window to set the drawing color of
  * \param[in] color The color to draw
  *
- * \return 1 on success, 0 on error
+ * \return \c true on success, \c false on error
  */
 bool setwindowdrawcolor(Window *self, Color color);
 
@@ -123,8 +128,10 @@ void setwindowtitle(Window *self, str title);
  *
  * \param[in] self The window to get the renderer from
  *
+ * \return The \a Renderer associated with the window
+ *
  * \note There is no getter function for the renderer, as it should not be
- *       changedafter the window is initialized
+ *       changed after the window is initialized
  *
  * \sa SDL_Renderer
  */
@@ -135,6 +142,8 @@ Renderer *getwindowrenderer(const Window *self);
  *
  * \param[in] self The window to get the width from
  *
+ * \return The width of the window, in pixels
+ *
  * \note This parameter can not be modified, and the window can not be resized
  */
 size_t getwindoww(const Window *self);
@@ -143,6 +152,8 @@ size_t getwindoww(const Window *self);
  * \brief Returns the height of the window, in pixels
  *
  * \param[in] self The window to get the height from
+ *
+ * \return The height oof the window, in pixels
  *
  * \note This parameter can not be modified, and the window can not be resized
  */
@@ -181,8 +192,6 @@ bool setwindowcurrentscreen(Window *self, str name);
  *
  * \param[in] self The window to update
  *
- * \return 1 on success, 0 on error
- *
  * \sa renderwindow
  */
 void updatewindow(Window *self);
@@ -200,7 +209,7 @@ void renderwindow(Window *self);
  *
  * \param[in] self The window to clear
  *
- * \return 1 on success, 0 on error
+ * \return \c true on success, \c false on error
  *
  * \sa setwindowdrawcolor
  */

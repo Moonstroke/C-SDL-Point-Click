@@ -104,6 +104,8 @@ inline Color icolor(uint32_t color) {
  * \param[in] b The blue value
  * \param[in] a The alpha value (transparency)
  *
+ * \return a Color structure containing the given bytes as color channels
+ *
  * \sa SDL_Color
  * \sa color
  */

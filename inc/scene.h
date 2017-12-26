@@ -38,6 +38,8 @@ typedef struct scene Scene;
  * \param[in] n_sprites  The number of sprites the scene will contain
  * \param[in] name       The name of the scene
  *
+ * \return A new scene of given geometry, background, number of sprites to
+ *         include and name
  */
 Scene *newscene(Rect geom, Texture *background, size_t n_sprites, str name);
 

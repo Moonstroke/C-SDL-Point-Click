@@ -32,6 +32,8 @@ typedef struct inventory Inventory;
  * \param[in] size       The initial number of elements in the inventory
  * \param[in] background The background texture of the inventory
  *
+ * \return A new inventory of set geometry, size and background
+ *
  * \remark Usually, there is only one inventory in game.
  */
 Inventory *newinventory(Rect geometry, size_t size, Texture *background);
