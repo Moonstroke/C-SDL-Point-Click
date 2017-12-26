@@ -33,7 +33,7 @@ ifeq ($(STATIC),y)
 else
 	LDLIBS := -llog -larray -lSDL2
 endif
-LDFLAGS := -iquote $(INC_DIR)
+LDFLAGS := -I$(INC_DIR)
 
 .PHONY: all clean distclean doc cleandoc
 
