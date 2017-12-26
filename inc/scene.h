@@ -131,4 +131,4 @@ Sprite *getscenespritepos(const Scene *self, Point point);
 bool removescenesprite(Scene *self, const Sprite *sprite);
 
 
-#endif /* SCENE_H */
+#endif // SCENE_H

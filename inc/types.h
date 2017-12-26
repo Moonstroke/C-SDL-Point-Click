@@ -38,4 +38,4 @@ typedef const char *str; /**< A redefinition for constant srings */
  */
 #define padding(s) unsigned char _padding[s]
 
-#endif /* TYPES_H */
+#endif // TYPES_H

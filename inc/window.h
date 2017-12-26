@@ -207,4 +207,4 @@ void renderwindow(Window *self);
 bool clearwindow(Window *self);
 
 
-#endif /* WINDOW_H */
+#endif // WINDOW_H

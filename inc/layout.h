@@ -131,4 +131,4 @@ typedef enum {
  */
 bool setlayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventorygeom, size_t inventorywh);
 
-#endif /* LAYOUT_H */
+#endif // LAYOUT_H

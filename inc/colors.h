@@ -127,4 +127,4 @@ inline Color color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 
-#endif /* COLORS_H */
+#endif // COLORS_H

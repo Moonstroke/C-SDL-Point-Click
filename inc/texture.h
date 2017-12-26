@@ -121,4 +121,4 @@ bool gettexturegeom(const Texture *self, int *w, int *h);
 void drawtexture(Texture *self, Window *window, Point pos);
 
 
-#endif /* TEXTURES_H */
+#endif // TEXTURES_H

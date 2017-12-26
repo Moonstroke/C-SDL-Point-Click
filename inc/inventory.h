@@ -94,4 +94,4 @@ size_t addinventorysprite(Inventory *self, Sprite *sprite);
 bool removeinventorysprite(Inventory *self, const Sprite *sprite);
 
 
-#endif /* INVENTORY_H */
+#endif // INVENTORY_H

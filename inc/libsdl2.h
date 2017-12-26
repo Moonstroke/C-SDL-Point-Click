@@ -34,4 +34,4 @@ void clearSDL(void);
  */
 void logSDLRendererInfo(Renderer *renderer);
 
-#endif /* LIBSDL2_H */
+#endif // LIBSDL2_H
