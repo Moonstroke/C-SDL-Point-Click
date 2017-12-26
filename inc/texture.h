@@ -20,22 +20,11 @@
  * \brief The structure used to represent a texture.
  *
  * The texture can be for a sprite or the background or a scene or the inventory;
- * it consists of either a loaded picture (BMP format only) or a color-plain
- * texture.
+ * it consists of a loaded picture (BMP format only).
  */
-typedef struct texture Texture;
+typedef SDL_Texture Texture;
 
 #include "window.h"
-
-/**
- * \enum TextureType
- *
- * \brief Constants that represent the type of a texture
- */
-typedef enum {
-	TYPE_PLAIN, /**< The texture is of plain color */
-	TYPE_IMAGE  /**< \brief The texture is an image */
-} TextureType;
 
 
 
@@ -51,7 +40,7 @@ typedef enum {
  *
  * \sa SDL_Texture
  */
-Texture *loadbmptexa(str filename, const Window *window, uint32_t colorkey);
+Texture *loadbmpa(str filename, const Window *window, uint32_t colorkey);
 
 /**
  * \brief Loads an image file (BitMap format) in a SDL texture structure,
@@ -64,22 +53,9 @@ Texture *loadbmptexa(str filename, const Window *window, uint32_t colorkey);
  *
  * \sa loadbmptexa
  */
-inline Texture *loadbmptex(str filename, const Window *window) {
-	return loadbmptexa(filename, window, 0);
+inline Texture *loadbmp(str filename, const Window *window) {
+	return loadbmpa(filename, window, 0);
 }
-
-/**
- * \brief Loads a color plain texture.
- *
- * FIXME: currently only fills the whole window, doesn not limit to given rect
- *        are geometry's x and y even used?
- * \param[in] window   the window to load the texture for
- * \param[in] geometry the dimension of the texture
- * \param[in] color    the color to give the texture
- *
- * \return a new color plain texture
- */
-Texture *plaintex(const Window *window, Rect geometry, Color color);
 
 
 /**
@@ -89,15 +65,6 @@ Texture *plaintex(const Window *window, Rect geometry, Color color);
  */
 void freetexture(Texture *self);
 
-
-/**
- * \brief Is the texture color-plain?
- *
- * \param[in] self The texture to get the nature from
- *
- * \return \c true if the texture is color-plain
- */
-bool istextureplain(const Texture *self);
 
 /**
  * \brief Is the texture color-plain?
