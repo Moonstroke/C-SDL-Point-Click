@@ -1,5 +1,5 @@
 /**
- * \file math.h
+ * \file geom.h
  * \author joH1
  *
  * This file contains every function used in the project that involves
