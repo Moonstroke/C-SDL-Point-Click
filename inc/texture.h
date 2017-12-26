@@ -67,13 +67,13 @@ void freetexture(Texture *self);
 
 
 /**
- * \brief Is the texture color-plain?
+ * \brief Retrieve the geometry values of the texture: width and height.
  *
  * \param[in]  self The texture to get texture from
  * \param[out] w    The width of the texture
  * \param[out] h    The height of the texture
  *
- * \return \c true if the Texture \c self is valid
+ * \return \c true if the Texture \c self is valid and has valid geometry
  */
 bool gettexturegeom(const Texture *self, int *w, int *h);
 
