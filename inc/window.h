@@ -24,7 +24,7 @@ typedef struct window Window;
 #include "screen.h"
 
 /**
- * \defgroup "window_flags"
+ * \defgroup window_flags Window flags
  * \brief Some constant values for the window flags.
  * \{
  */

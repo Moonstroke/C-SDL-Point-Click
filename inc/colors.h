@@ -18,8 +18,8 @@
 
 
 /**
+ * \defgroup colors Colors
  * \brief Common colors in RGBA 32px format.
- * \defgroup "colors"
  * \{
  */
 /** \brief This is a macro for the black color. */
