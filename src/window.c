@@ -9,6 +9,7 @@
 #include "log.h"
 #include "libsdl2.h"
 #include "screen.h"
+#include "types.h"
 
 
 
@@ -17,8 +18,8 @@
 
 struct window {
 	SDL_Window *win;
-	SDL_Renderer *ren;
-	SDL_Rect geom;
+	Renderer *ren;
+	Rect geom;
 	Array *screens; // TODO
 	Screen *currentscreen; // This screen is the one currently displayed, so the only
 	                      // who should get a graphical update
@@ -39,7 +40,7 @@ Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlag
 		error("Could not create SDL window: %s", SDL_GetError());
 		return NULL;
 	}
-	SDL_Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
+	Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
 		error("Could not create renderer: %s", SDL_GetError());
 		return NULL;
