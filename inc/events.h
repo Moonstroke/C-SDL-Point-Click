@@ -2,6 +2,10 @@
  * \file events.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief Functions handling events (mouse motion, click, etc).
+ *
  * This file contains the definition and handling of events; mostly mouse events
  * (this is a point and click library, after all).
 */

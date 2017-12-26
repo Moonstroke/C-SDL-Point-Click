@@ -2,6 +2,10 @@
  * \file types.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief Some usefule types definitions.
+ *
  * This file contains several definitions of types used throughout the whole
  * project.
 */

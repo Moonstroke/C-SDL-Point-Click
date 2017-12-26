@@ -2,6 +2,11 @@
  * \file inventory.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief The Inventory, area where are gathered items collected throughout the
+ *        game.
+ *
  * This file contains the definition of the game inventory, used to store
  * the items collected while playing.
  */

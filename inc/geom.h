@@ -2,6 +2,10 @@
  * \file geom.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief Functions about mathematical and geometrical calculations or related.
+ *
  * This file contains every function used in the project that involves
  * mathematical calculations.
 */

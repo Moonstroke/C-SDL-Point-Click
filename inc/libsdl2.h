@@ -2,6 +2,10 @@
  * \file libsdl2.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief SDL-related functions that manage actions like start and quit.
+ *
  * This file contains the definition of several functions related to the SDL v2
  * and interfacing with it.
 */

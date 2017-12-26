@@ -2,6 +2,10 @@
  * \file layout.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief Values for the layout of the screen and dispatcher function.
+ *
  * This file contains constant values representing the spatial organization of
  * the game window, with the position of the scene and inventory, and their
  * behaviours.

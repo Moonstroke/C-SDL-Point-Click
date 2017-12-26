@@ -2,6 +2,10 @@
  * \file sprite.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief A sprite is an interactible item in the game.
+ *
  * This file contains the definition of the Sprite type, that represents an
  * interactible item in the game.
 */

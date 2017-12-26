@@ -2,6 +2,11 @@
  * \file colors.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief Macros for common colors and functions handling the conversion to and
+ *        from different types representing colors.
+ *
  * This file contains several color constants, and functions used to translate
  * colors stored as integers to structures or vice-versa.
 */

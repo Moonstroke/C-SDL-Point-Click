@@ -2,6 +2,10 @@
  * \file window.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief The window, main structure that contains all the displayed elements.
+ *
  * This file contains the definition of the game window as a C structure.
 */
 

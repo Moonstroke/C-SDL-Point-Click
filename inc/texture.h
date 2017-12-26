@@ -2,6 +2,11 @@
  * \file texture.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief The textures, or graphical data (images) loaded to display sprites or
+ *        e.g. a scene's background.
+ *
  * This file contains the definition of the texture objects.
  */
 

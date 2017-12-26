@@ -2,6 +2,10 @@
  * \file "screen.h"
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief The screen, the contents of the window.
+ *
  * This file defines a screen, that is the content of the window shown
  * during the common parts of the , where the scene is displayed and the
  * player can interact with items.

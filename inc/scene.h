@@ -2,6 +2,10 @@
  * \file scene.h
  * \author joH1
  *
+ * \version 0.1
+ *
+ * \brief The scene, the area of the screen where the main game view is located.
+ *
  * This file contains the definition of the game scene.
 */
 
