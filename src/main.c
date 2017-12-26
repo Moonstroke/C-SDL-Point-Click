@@ -7,7 +7,7 @@
 #include "events.h"
 #include "log.h"
 #include "libsdl2.h"
-#include "math.h"
+#include "geom.h"
 #include "scene.h"
 #include "screen.h"
 #include "sprite.h"

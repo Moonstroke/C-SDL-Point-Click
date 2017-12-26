@@ -10,7 +10,7 @@
 #define SPRITE_H
 
 
-#include "math.h"
+#include "geom.h"
 #include "types.h"
 
 

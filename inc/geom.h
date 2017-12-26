@@ -6,8 +6,8 @@
  * mathematical calculations.
 */
 
-#ifndef MATH_H
-#define MATH_H
+#ifndef GEOM_H
+#define GEOM_H
 
 
 #include "types.h"
@@ -59,4 +59,4 @@ inline Point point(const int x, const int y) {
 inline Rect rect(const int x, const int y, const unsigned int w, const unsigned int h) {
 	return (Rect){.x = x, .y = y, .w = w, .h = h};
 }
-#endif /* MATH_H */
+#endif /* GEOM_H */

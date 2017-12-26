@@ -5,7 +5,7 @@
 #include "array_funcs.h"
 #include "libsdl2.h"
 #include "log.h"
-#include "math.h"
+#include "geom.h"
 #include "texture.h"
 
 #define SPRITE_RESERVED_SPACE 64
