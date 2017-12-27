@@ -32,7 +32,7 @@ ifeq ($(STATIC),y)
 	          -lXrandr -lXss -lXxf86vm -lwayland-egl -lwayland-client \
 	          -lwayland-cursor -lxkbcommon
 else
-	LDLIBS := -llog -larray -lSDL2 -lSDL2_ttf
+	LDLIBS := -llog -larray -lSDL2 -lSDL2_ttf -lm
 endif
 LDFLAGS := -I$(INC_DIR)
 
