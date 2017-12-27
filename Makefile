@@ -61,7 +61,3 @@ doc: $(DOC_CFG)
 
 cleandoc:
 	rm -rf $(DOC_DIR)
-
-test:
-	echo $(SRC)
-	echo $(OBJ)
