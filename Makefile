@@ -1,6 +1,6 @@
 # y/n.
 # Specify whether the libraries should be linked statically or not
-STATIC := y
+STATIC := n
 
 # n/s/1..3
 # The optimization level for the compilation
