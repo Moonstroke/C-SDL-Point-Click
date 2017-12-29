@@ -23,7 +23,7 @@ typedef const char *str;
 /**
  * \brief A convenience macro for structure needing to be padded
  */
-#define padding(s) unsigned char _padding[s]
+#define padding(size) unsigned char _padding[size]
 
 
 #endif // TYPES_H
