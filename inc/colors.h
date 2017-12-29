@@ -21,6 +21,8 @@
 #include "types.h"
 
 
+typedef SDL_Color Color; /**< A RGBA color structure */
+
 
 /**
  * \defgroup colors Colors

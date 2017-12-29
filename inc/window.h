@@ -16,7 +16,7 @@
 #include <SDL2/SDL_render.h>
 #include <stdbool.h>
 
-#include "types.h"
+#include "colors.h"
 
 
 /**
@@ -76,7 +76,7 @@ typedef struct window Window;
  * \sa SDL_Window
  * \sa SDL_Renderer
  */
-Window *newwindow(str title, Rect geometry, WinFlags winflags, RenderFlags renflags);
+Window *newwindow(str title, Rect geometry, SDL_WindowFlags winflags, SDL_RendererFlags renflags);
 
 /**
  * \brief Instantiates a new window, using the default flags.
@@ -139,7 +139,7 @@ void setwindowtitle(Window *self, str title);
  *
  * \sa SDL_Renderer
  */
-Renderer *getwindowrenderer(const Window *self);
+SDL_Renderer *getwindowrenderer(const Window *self);
 
 /**
  * \brief Returns the width of the window, in pixels

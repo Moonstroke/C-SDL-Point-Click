@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "types.h"
+#include "geom.h"
 
 
 

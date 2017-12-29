@@ -16,7 +16,7 @@
 
 #include <stdbool.h>
 
-#include "types.h"
+#include "geom.h"
 
 
 // TODO add mouse click (move from main)

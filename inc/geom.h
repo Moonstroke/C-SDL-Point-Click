@@ -14,8 +14,13 @@
 #define GEOM_H
 
 
-#include "types.h"
+#include <SDL2/SDL_rect.h>
 
+
+
+typedef SDL_Point Point; /**< A geometric point, in cartesian coordinates */
+
+typedef SDL_Rect Rect; /**< A geometric rectangle */
 
 
 /**

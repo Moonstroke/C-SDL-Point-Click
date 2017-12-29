@@ -36,7 +36,7 @@ void clearSDL(void) {
 	}
 }
 
-void logSDLRendererInfo(Renderer *const ren) {
+void logSDLRendererInfo(SDL_Renderer *const ren) {
 	SDL_RendererInfo reninfo;
 	if(SDL_GetRendererInfo(ren, &reninfo) < 0) return;
 	info("Renderer name:  \"%s\"\n", reninfo.name);

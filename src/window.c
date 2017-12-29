@@ -7,9 +7,7 @@
 #include "array_funcs.h"
 #include "inventory.h"
 #include "log.h"
-#include "libsdl2.h"
 #include "screen.h"
-#include "types.h"
 
 
 
@@ -18,7 +16,7 @@
 
 struct window {
 	SDL_Window *win;
-	Renderer *ren;
+	SDL_Renderer *ren;
 	Rect geom;
 	Array *screens; // TODO
 	Screen *currentscreen; // This screen is the one currently displayed, so the only
@@ -29,7 +27,7 @@ struct window {
 /* ## Ctors and dtors ## */
 
 
-Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlags rf) {
+Window *newwindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
 	Window *w = malloc(sizeof(Window));
 	if(!w) {
 		error("malloc() error for window \"%s\"", t);
@@ -40,7 +38,7 @@ Window *newwindow(const str t, const Rect g, const WinFlags wf, const RenderFlag
 		error("Could not create SDL window: %s", SDL_GetError());
 		return NULL;
 	}
-	Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
+	SDL_Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
 		error("Could not create renderer: %s", SDL_GetError());
 		return NULL;
@@ -89,7 +87,7 @@ bool setwindowdrawcolor(Window *const w, const Color color) {
 void setwindowtitle(Window *const w, const str title) { SDL_SetWindowTitle(w->win, title); }
 str getwindowtitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
 
-Renderer *getwindowrenderer(const Window *const w) { return w->ren; }
+SDL_Renderer *getwindowrenderer(const Window *const w) { return w->ren; }
 
 size_t getwindoww(const Window *const w) { return w->geom.w; }
 size_t getwindowh(const Window *const w) { return w->geom.h; }

@@ -14,8 +14,8 @@
 #define LIBSDL2_H
 
 
-#include "types.h"
-
+#include <stdint.h>
+#include <SDL2/SDL_render.h>
 
 
 /**
@@ -36,6 +36,6 @@ void clearSDL(void);
  *
  * \param[in] renderer The renderer from which to log info
  */
-void logSDLRendererInfo(Renderer *renderer);
+void logSDLRendererInfo(SDL_Renderer *renderer);
 
 #endif // LIBSDL2_H
