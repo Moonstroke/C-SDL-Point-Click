@@ -10,7 +10,7 @@
 #define NAME_MAX_LEN 16
 
 struct sprite {
-	SDL_Rect geom;
+	Rect geom;
 	Texture *tex;
 	char name[NAME_MAX_LEN];
 	bool needsupdate;
@@ -47,8 +47,7 @@ void freesprite(Sprite *const s) {
 bool spriteneedsupdate(const Sprite *const s) { return s->needsupdate; }
 
 void updatesprite(Sprite *const s, Window *const win) {
-	drawtexture(s->tex, win, (SDL_Point){s->geom.x, s->geom.y});
-	//SDL_RenderCopy(getwindowrenderer(win), s->tex, NULL, &s->geom);
+	drawtexture(s->tex, win, point(s->geom.x, s->geom.y));
 	s->needsupdate = false;
 }
 
@@ -86,5 +85,5 @@ void setspritetexture(Sprite *const s, Texture *const tex) {
 }
 
 bool isptinsprite(const Sprite *const s, const Point p) {
-	return SDL_PointInRect(&p, &s->geom);
+	return isptinrect(&p, &s->geom);
 }
