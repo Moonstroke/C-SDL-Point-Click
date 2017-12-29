@@ -30,60 +30,100 @@
 
 #include <SDL2/SDL_ttf.h>
 
+#include "colors.h"
 #include "texture.h"
+#include "types.h"
 #include "window.h"
+
 
 
 /** A redefinition of the font type. */
 typedef TTF_Font Font;
 
 
-/**
- * \defgroup text_render_funcs Text rendering
- * \brief Functions that handle rendering text to the screen.
- * \{
- */
+typedef enum {
+	TEXTRENDER_FAST,
+	TEXTRENDER_OPAQUEBG,
+	TEXTRENDER_SMOOTH
+} TextRenderType;
+
 
 /**
- * \brief Renders a text fastly, without smoothing.
+ * \brief The structure holding the data for a text to render.
+ */
+typedef struct text Text;
+
+
+/**
+ * \brief Instantiates a new text for rendering.
  *
- * \param[in] text       The text to render
+ * \param[in] string     The string data of the text
  * \param[in] font       The font to render the text in
- * \param[in] text_color The color in which to render the text
- * \param[in] window     The window to render the text to
+ * \param[in] text_color The color of the text
  *
- * \return The rendering of the text, as a \a Texture
+ * \return A text for rendering, of given textual value, to be rendered in given
+ *         font and color
  */
-Texture *rendertext_fast(str text, Font *font, Color text_color, const Window *window);
+Text *newtext(str string, Font *font, Color text_color, TextRenderType type);
 
 /**
- * \brief Renders a text more nicely, but over an opaque background.
+ * \brief Deallocates the memory used by a text.
  *
- * \param[in] text       The text to render
- * \param[in] font       The font to render the text in
- * \param[in] text_color The color in which to render the text
- * \param[in] bg_color   The color for the background
- * \param[in] window     The window to render the text to
- *
- * \return The rendering of the text, as a \a Texture
+ * \param[in,out] self The text to free
  */
-Texture *rendertext_bg(str text, Font *font, Color text_color, Color bg_color, const Window *window);
+void freetext(Text *self);
+
 
 /**
- * \brief Renders a text nicely but slowly, antialiased and blended into the
- * background texture.
+ * \brief Updates the string value of the Text.
  *
- * \param[in] text       The text to render
- * \param[in] font       The font to render the text in
- * \param[in] text_color The color in which to render the text
- * \param[in] window     The window to render the text to
- *
- * \return The rendering of the text, as a \a Texture
+ * \param[in,out] self   The text
+ * \param[in]     string The string value to set
  */
-Texture *rendertext_hq(str text, Font *font, Color text_color, const Window *window);
+void settextstring(Text *self, str string);
+
+/**
+ * \brief Updates the text color of the Text.
+ *
+ * \param[in,out] self  The text
+ * \param[in]     color The text color
+ */
+void settextcolor(Text *self, Color color);
 
 
-/** \} */
+/**
+ * \brief Updates the background color of the Text.
+ *
+ * \param[in,out] self     The text
+ * \param[in]     bg_color The color to set
+ *
+ * \note The background color is only used when rendering with an opaque
+ *       background.
+ *
+ */
+void settextbgcolor(Text *self, Color bg_color);
+
+
+/**
+ * \brief Determines whether the text needs to be refreshed.
+ *
+ * \param[in] self The text
+ *
+ * \return \c true iff the text needs to be re-rendered on the screen
+ */
+bool textneedsupdate(const Text *self);
+
+
+/**
+ * \brief Draws a text on screen fastly, without smoothing.
+ *
+ * \param[in,out] self   The text to render
+ * \param[in]     window The window to render the text to
+ *
+ * \return \c true iff the text was drawn (and rendered, if needed) without
+ *         error
+ */
+bool drawtext(Text *self, Window *window, Point pos);
 
 
 #endif // TEXT_H
