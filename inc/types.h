@@ -15,7 +15,10 @@
 
 
 
-typedef const char *str; /**< A redefinition for constant srings */
+/**
+ * \brief A redefinition for constant strings
+*/
+typedef const char *str;
 
 /**
  * \brief A convenience macro for structure needing to be padded
