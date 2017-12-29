@@ -15,6 +15,7 @@
 
 
 #include <SDL2/SDL_rect.h>
+#include <stdbool.h>
 
 
 
@@ -68,4 +69,10 @@ inline Point point(const int x, const int y) {
 inline Rect rect(const int x, const int y, const unsigned int w, const unsigned int h) {
 	return (Rect){.x = x, .y = y, .w = w, .h = h};
 }
+
+inline bool isptinrect(const Point *const pt, const Rect *const rect) {
+	return (rect->x <= pt->x && pt->x <= (rect->x + rect->w)) &&
+	       (rect->y <= pt->y && pt->y <= (rect->y + rect->h));
+}
+
 #endif // GEOM_H
