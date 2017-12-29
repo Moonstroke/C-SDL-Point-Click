@@ -66,7 +66,6 @@ void updatescene(Scene *const s, Window *const win) {
 	size_t i = asize(s->sprites);
 	while(i--)
 		updatesprite(aget(s->sprites, i), win);
-	renderwindow(win);
 }
 
 str getscenename(const Scene *const s) { return s->name; }
