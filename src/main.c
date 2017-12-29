@@ -15,6 +15,7 @@
 #include "window.h"
 #include "inventory.h"
 #include "layout.h"
+#include "text.h"
 
 
 /* Static-use objects (mere references) */
@@ -24,6 +25,7 @@ static Screen *screen;
 static Scene *scene;
 static Inventory *inventory;
 static Sprite *earth, *earth2;
+static Text *tooltip;
 
 
 /* Dynamic-use objects (can change over time) */
@@ -66,7 +68,12 @@ int main(void) {
 void move(const Point p) {
 	if(heldsprite)
 		movecsprite(heldsprite, p);
+	else {
+		Sprite *const s = getscenespritepos(scene, p);
+		settextstring(tooltip, s ? getspritename(s) : "");
+	}
 }
+
 void leftdown(const Point p) {
 	clickpos = p; //point(p.x, p.y);
 	heldsprite = getscenespritepos(scene, p);
@@ -87,6 +94,8 @@ void leftup(const Point p) {
 
 
 void mainloop(void) {
+	//renderwindow(win);
+	logSDLRendererInfo(getwindowrenderer(win));
 	SDL_Event event;
 	bool done = false;
 	Point mouse;
@@ -127,6 +136,9 @@ void mainloop(void) {
 			}
 		}
 		updatewindow(win);
+		if(!drawtext(tooltip, win, point(mouse.x + 16, mouse.y)))
+			error("ouch");
+		renderwindow(win);
 	}
 }
 void initall(void) {
@@ -177,6 +189,13 @@ void initall(void) {
 	addsprite(scene, earth2);
 
 
+	/* Texts */
+	Font *ubuntu = TTF_OpenFont("fonts/ubuntu_mono-regular.ttf", 16);
+	if(!ubuntu) {
+		fatal("Font could not be loaded: %s", TTF_GetError());
+		exit(1);
+	}
+	tooltip = newtext("", ubuntu, color(0xff, 0xff, 0xff), TEXTRENDER_FAST);
 	/* Seting handlers */
 
 	set_onmousedown(SDL_BUTTON_LEFT, leftdown);
