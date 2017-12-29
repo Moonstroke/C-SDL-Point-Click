@@ -34,8 +34,6 @@ void freetexture(Texture *const t) {
 void drawtexture(Texture *const t, Window *const win, const Point pos) {
 	Rect r = {.x = pos.x, .y = pos.y};
 	SDL_QueryTexture(t, NULL, NULL, &r.w, &r.h);
-	Color backup;
-	Renderer *ren = getwindowrenderer(win);
 	SDL_RenderCopy(getwindowrenderer(win), t, NULL, &r);
 }
 
