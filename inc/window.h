@@ -150,7 +150,7 @@ SDL_Renderer *getWindowRenderer(const Window *self);
  *
  * \note This parameter can not be modified, and the window can not be resized
  */
-size_t getWindowW(const Window *self);
+size_t getWindowWidth(const Window *self);
 
 /**
  * \brief Returns the height of the window, in pixels
@@ -161,7 +161,7 @@ size_t getWindowW(const Window *self);
  *
  * \note This parameter can not be modified, and the window can not be resized
  */
-size_t getWindowH(const Window *self);
+size_t getWindowHeight(const Window *self);
 
 
 /**

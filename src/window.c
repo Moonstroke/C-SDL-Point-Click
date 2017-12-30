@@ -89,8 +89,8 @@ str getWindowTitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
 
 SDL_Renderer *getWindowRenderer(const Window *const w) { return w->ren; }
 
-size_t getWindowW(const Window *const w) { return w->geom.w; }
-size_t getWindowH(const Window *const w) { return w->geom.h; }
+size_t getWindowWidth(const Window *const w) { return w->geom.w; }
+size_t getWindowHeight(const Window *const w) { return w->geom.h; }
 
 
 /* ## Technical functions ## */

@@ -2,7 +2,7 @@
 
 
 bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect *const ig, const size_t d) {
-	const size_t winw = getWindowW(w), winh = getWindowH(w);
+	const size_t winw = getWindowWidth(w), winh = getWindowHeight(w);
 	switch(l) {
 		case SCENE_ONLY:
 			ig->x = ig->y = ig->w = ig->h = 0;
