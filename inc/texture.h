@@ -54,9 +54,9 @@ Texture *loadBMPA(str fileName, const Window *window, uint32_t colorKey);
  * \param[in] fileName The file to load
  * \param[in] window   The renderer to load the texture for
  *
- * \return loadbmptexa(filename, win, 0)
+ * \return loadBMPA(filename, win, 0)
  *
- * \sa loadbmptexa
+ * \sa loadBMPA
  */
 inline Texture *loadBMP(str fileName, const Window *window) {
 	return loadBMPA(fileName, window, 0);
