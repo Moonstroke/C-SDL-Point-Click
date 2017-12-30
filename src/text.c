@@ -20,7 +20,7 @@ struct text {
 };
 
 
-Text *newtext(const str s, Font *const f, const Color tc, TextRenderType ty) {
+Text *newText(const str s, Font *const f, const Color tc, TextRenderType ty) {
 	Text *const t = malloc(sizeof(Text));
 	if(!t)
 		return NULL;
@@ -32,20 +32,20 @@ Text *newtext(const str s, Font *const f, const Color tc, TextRenderType ty) {
 	return t;
 }
 
-void freetext(Text *const t) {
+void freeText(Text *const t) {
 	SDL_DestroyTexture(t->rendered);
 	TTF_CloseFont(t->font);
 	free(t);
 }
 
-void settextstring(Text *const t, const str s) {
+void setTextString(Text *const t, const str s) {
 	if(strcmp(t->txt, s)) {
 		t->txt = s;
 		t->needsupdate = true;
 	}
 }
 
-void settextbgcolor(Text *const t, Color c) {
+void setTextBgColor(Text *const t, Color c) {
 	t->bg_color = c;
 	t->needsupdate = true;
 }
@@ -67,7 +67,7 @@ static inline SDL_Surface *getsurface(const Text *const t) {
 	return NULL;
 }
 
-bool drawtext(Text *const t, Window *const w, Point p) {
+bool drawText(Text *const t, Window *const w, Point p) {
 	if(t->needsupdate) {
 		if(strlen(t->txt)) {
 			SDL_Surface *const surf = getsurface(t);
@@ -75,7 +75,7 @@ bool drawtext(Text *const t, Window *const w, Point p) {
 				error("Unable to render text \"%s\"", t->txt);
 				return false;
 			}
-			Texture *const tex = SDL_CreateTextureFromSurface(getwindowrenderer(w), surf);
+			Texture *const tex = SDL_CreateTextureFromSurface(getWindowRenderer(w), surf);
 			SDL_FreeSurface(surf);
 			if(!tex) {
 				error("Unable to create texture from rendered text surface");
@@ -87,7 +87,7 @@ bool drawtext(Text *const t, Window *const w, Point p) {
 		t->needsupdate = false;
 	}
 	if(t->rendered) {
-		drawtexture(t->rendered, w, p);
+		drawTexture(t->rendered, w, p);
 	}
 	return true;
 }

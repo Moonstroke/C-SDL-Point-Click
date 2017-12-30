@@ -41,14 +41,14 @@ typedef struct inventory Inventory;
  *
  * \remark Usually, there is only one inventory in game.
  */
-Inventory *newinventory(Rect geometry, size_t size, Texture *background);
+Inventory *newInventory(Rect geometry, size_t size, Texture *background);
 
 /**
  * \brief Destroys and frees memory of the game inventory.
  *
  * \param[in] self The inventory to deallocate
  */
-void freeinventory(Inventory *self);
+void freeInventory(Inventory *self);
 
 
 /**
@@ -58,7 +58,7 @@ void freeinventory(Inventory *self);
  * \param[in] self   The inventory to update
  * \param[in] window The window to update the inventory to
  */
-void updateinventory(const Inventory *self, Window *window);
+void updateInventory(const Inventory *self, Window *window);
 
 
 /**
@@ -68,7 +68,7 @@ void updateinventory(const Inventory *self, Window *window);
  *
  * \return The size of the game inventory, i.e. the number of items it holds.
  */
-size_t inventorysize(const Inventory *self);
+size_t inventorySize(const Inventory *self);
 
 /**
  * \brief Returnes the \c index'th element of the inventory.
@@ -78,7 +78,7 @@ size_t inventorysize(const Inventory *self);
  *
  * \return An element of the inventory, identified by its position.
  */
-Sprite *getinventorysprite(const Inventory *self, ssize_t index);
+Sprite *getInventorySprite(const Inventory *self, ssize_t index);
 
 /**
  * \brief Adds an item to the inventory.
@@ -88,7 +88,7 @@ Sprite *getinventorysprite(const Inventory *self, ssize_t index);
  *
  * \return The index of the added element, or \c -1 if an error occurred.
  */
-size_t addinventorysprite(Inventory *self, Sprite *sprite);
+size_t addInventorySprite(Inventory *self, Sprite *sprite);
 
 /**
  * \brief Removes an element of the inventory.
@@ -98,7 +98,7 @@ size_t addinventorysprite(Inventory *self, Sprite *sprite);
  *
  * \return \c true if the item was successfully removed.
  */
-bool removeinventorysprite(Inventory *self, const Sprite *sprite);
+bool removeInventorySprite(Inventory *self, const Sprite *sprite);
 
 
 #endif // INVENTORY_H

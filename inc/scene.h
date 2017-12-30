@@ -40,20 +40,20 @@ typedef struct scene Scene;
  *
  * \param[in] geom       The geometry of the scene
  * \param[in] background The background texture for the scene
- * \param[in] n_sprites  The number of sprites the scene will contain
+ * \param[in] numSprites  The number of sprites the scene will contain
  * \param[in] name       The name of the scene
  *
  * \return A new scene of given geometry, background, number of sprites to
  *         include and name
  */
-Scene *newscene(Rect geom, Texture *background, size_t n_sprites, str name);
+Scene *newScene(Rect geom, Texture *background, size_t numSprites, str name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
  *
  * \param[in] self The scene to free
  */
-void freescene(Scene *self);
+void freeScene(Scene *self);
 
 /**
  * \brief Verifies whether the scene needs to be redrawn on screen.
@@ -63,7 +63,7 @@ void freescene(Scene *self);
  *
  * \return \c true if the scene needs an update
  */
-bool sceneneedsupdate(const Scene *self);
+bool sceneNeedsUpdate(const Scene *self);
 
 /**
  * \brief Updates the scene on screen.
@@ -71,7 +71,7 @@ bool sceneneedsupdate(const Scene *self);
  * \param[in] self  The scene to update
  * \param[in] window The window to update the scene to
  */
-void updatescene(Scene *self, Window *window);
+void updateScene(Scene *self, Window *window);
 
 /**
  * \brief Retrieves the name of the scene.
@@ -80,7 +80,7 @@ void updatescene(Scene *self, Window *window);
  *
  * \return The name of the scene
  */
-str getscenename(const Scene *self);
+str getSceneName(const Scene *self);
 
 /**
  * \brief Modifies the name of the scene.
@@ -88,7 +88,7 @@ str getscenename(const Scene *self);
  * \param[in] self The scene to update the name of
  * \param[in] name The name to give to the scene
  */
-void setscenename(Scene *self, str name);
+void setSceneName(Scene *self, str name);
 
 /**
  * \brief Adds a Sprite to the scene.
@@ -100,7 +100,7 @@ void setscenename(Scene *self, str name);
  *
  *\sa Sprite
  */
-size_t addsprite(Scene *self, Sprite *sprite);
+size_t addSprite(Scene *self, Sprite *sprite);
 
 /**
  * \brief Retrieves a Sprite by its index in the scene.
@@ -113,7 +113,7 @@ size_t addsprite(Scene *self, Sprite *sprite);
  *
  * \sa Sprite
  */
-Sprite *getsprite(const Scene *self, size_t index);
+Sprite *getSprite(const Scene *self, size_t index);
 
 /**
  * \brief Retrieves a Sprite by its position on screen
@@ -124,7 +124,7 @@ Sprite *getsprite(const Scene *self, size_t index);
  * \return A Sprite from the scene that contains the given position or
  *         NULL if none does
  */
-Sprite *getscenespritepos(const Scene *self, Point point);
+Sprite *getSceneSpritePos(const Scene *self, Point point);
 
 /**
  * \brief Remove a sprite from the scene
@@ -135,7 +135,7 @@ Sprite *getscenespritepos(const Scene *self, Point point);
  * \return \c true if the scene contained the sprite and it has been successfully
  *         removed
  */
-bool removescenesprite(Scene *self, const Sprite *sprite);
+bool removeSceneSprite(Scene *self, const Sprite *sprite);
 
 
 #endif // SCENE_H

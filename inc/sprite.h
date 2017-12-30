@@ -41,14 +41,14 @@ typedef struct sprite Sprite;
  *
  * \return a newly-allocated sprite
  */
-Sprite *newsprite(Texture *tex, Point point, str name);
+Sprite *newSprite(Texture *tex, Point point, str name);
 
 /**
  * \brief Frees memory of a Sprite.
  *
  * \param[in] self The sprite to free
  */
-void freesprite(Sprite *self);
+void freeSprite(Sprite *self);
 
 /**
  * \brief Checks whether the sprite needs to be redrawn on screen.
@@ -57,7 +57,7 @@ void freesprite(Sprite *self);
  *
  * \return \c true if the sprite needs to be updated on the screen
  */
-bool spriteneedsupdate(const Sprite *self);
+bool spriteNeedsUpdate(const Sprite *self);
 
 /**
  * \brief Updates the Sprite.
@@ -65,7 +65,7 @@ bool spriteneedsupdate(const Sprite *self);
  * \param[in] self   the sprite to update
  * \param[in] window the renderer to update the sprite to
  */
-void updatesprite(Sprite *self, Window *window);
+void updateSprite(Sprite *self, Window *window);
 
 /**
  * \brief Retrieves the name of the Sprite.
@@ -74,7 +74,7 @@ void updatesprite(Sprite *self, Window *window);
  *
  * \return The name of the sprite
  */
-str getspritename(const Sprite *self);
+str getSpriteName(const Sprite *self);
 
 /**
  * \brief Modifies the name of the sprite.
@@ -82,7 +82,7 @@ str getspritename(const Sprite *self);
  * \param[in] self The sprite to update the name of
  * \param[in] name The name to give to the sprite
  */
-void setspritename(Sprite *self, str name);
+void setSpriteName(Sprite *self, str name);
 
 /**
  * \brief Returns the X position of the sprite.
@@ -91,7 +91,7 @@ void setspritename(Sprite *self, str name);
  *
  * \return The abscissa of the sprite
  */
-int getspritex(const Sprite *self);
+int getSpriteX(const Sprite *self);
 
 /**
  * \brief Returns the Y position of the sprite.
@@ -100,7 +100,7 @@ int getspritex(const Sprite *self);
  *
  * \return The ordinate of the sprite
  */
-int getspritey(const Sprite *self);
+int getSpriteY(const Sprite *self);
 
 /**
  * \brief Returns the width of the sprite.
@@ -109,7 +109,7 @@ int getspritey(const Sprite *self);
  *
  * \return The width of the sprite
  */
-int getspritew(const Sprite *self);
+int getSpriteW(const Sprite *self);
 
 /**
  * \brief Returns the height of the sprite.
@@ -118,7 +118,7 @@ int getspritew(const Sprite *self);
  *
  * \return The height of the sprite
  */
-int getspriteh(const Sprite *self);
+int getSpriteH(const Sprite *self);
 
 
 /**
@@ -127,7 +127,7 @@ int getspriteh(const Sprite *self);
  * \param[in] self The sprite to displace
  * \param[in] to   The destination of the displacement (left-upper corner)
  */
-void movesprite(Sprite *self, Point to);
+void moveSprite(Sprite *self, Point to);
 
 /**
  * \brief Moves the sprite and centers it around given position.
@@ -135,8 +135,8 @@ void movesprite(Sprite *self, Point to);
  * \param[in] self The sprite to displace
  * \param[in] to   The destination of the displacement (center of the sprite)
  */
-inline void movecsprite(Sprite *self, Point to) {
-	movesprite(self, point(to.x - getspritew(self) / 2, to.y - getspriteh(self) / 2));
+inline void moveSpriteC(Sprite *self, Point to) {
+	moveSprite(self, point(to.x - getSpriteW(self) / 2, to.y - getSpriteH(self) / 2));
 }
 
 /**
@@ -145,7 +145,7 @@ inline void movecsprite(Sprite *self, Point to) {
  * \param[in] self The sprite to set the texture to
  * \param[in] tex  The texture to set to the sprite
  */
-void setspritetexture(Sprite *self, Texture *tex);
+void setSpriteTexture(Sprite *self, Texture *tex);
 
 
 /**
@@ -156,7 +156,7 @@ void setspritetexture(Sprite *self, Texture *tex);
  *
  * \return \c true if the point is geometrically within the bounds of the sprite
  */
-bool isptinsprite(const Sprite *self, Point point);
+bool isPointInSprite(const Sprite *self, Point point);
 
 
 #endif // SPRITE_H

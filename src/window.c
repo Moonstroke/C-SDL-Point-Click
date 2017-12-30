@@ -27,7 +27,7 @@ struct window {
 /* ## Ctors and dtors ## */
 
 
-Window *newwindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
+Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
 	Window *w = malloc(sizeof(Window));
 	if(!w) {
 		error("malloc() error for window \"%s\"", t);
@@ -56,15 +56,15 @@ Window *newwindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 	w->win = win;
 	w->ren = ren;
 	w->geom = g;
-	setwindowtitle(w, t);
+	setWindowTitle(w, t);
 	w->screens = screens;
 	w->currentscreen = NULL;
 	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
 	return w;
 }
-extern Window *newwin(str title, Rect geometry);
+extern Window *newWin(str title, Rect geometry);
 
-void freewindow(Window *const w) {
+void freeWindow(Window *const w) {
 	const str t = SDL_GetWindowTitle(w->win);
 	const int l = strlen(t) + 1;
 	char title[l];
@@ -80,22 +80,22 @@ void freewindow(Window *const w) {
 /* ## Getters and setters ## */
 
 
-bool setwindowdrawcolor(Window *const w, const Color color) {
+bool setWindowDrawColor(Window *const w, const Color color) {
 	return SDL_SetRenderDrawColor(w->ren, color.r, color.g, color.b, color.a) == 0;
 }
 
-void setwindowtitle(Window *const w, const str title) { SDL_SetWindowTitle(w->win, title); }
-str getwindowtitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
+void setWindowTitle(Window *const w, const str title) { SDL_SetWindowTitle(w->win, title); }
+str getWindowTitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
 
-SDL_Renderer *getwindowrenderer(const Window *const w) { return w->ren; }
+SDL_Renderer *getWindowRenderer(const Window *const w) { return w->ren; }
 
-size_t getwindoww(const Window *const w) { return w->geom.w; }
-size_t getwindowh(const Window *const w) { return w->geom.h; }
+size_t getWindowW(const Window *const w) { return w->geom.w; }
+size_t getWindowH(const Window *const w) { return w->geom.h; }
 
 
 /* ## Technical functions ## */
 
-ssize_t addwindowscreen(Window *const w, Screen *const s) {
+ssize_t addWindowScreen(Window *const w, Screen *const s) {
 	const ssize_t i = aappend(w->screens, s);
 	if(i == 0)
 		w->currentscreen = s;
@@ -104,10 +104,10 @@ ssize_t addwindowscreen(Window *const w, Screen *const s) {
 
 static str _name = "";
 static bool cmpscreenname(const void *const item) {
-	return strcmp(getscreenname((Screen*)item), _name) == 0;
+	return strcmp(getScreenName((Screen*)item), _name) == 0;
 }
 
-bool setwindowcurrentscreen(Window *const w, const str name) {
+bool setWindowCurrentScreen(Window *const w, const str name) {
 	_name = name;
 	Screen *s = acond(w->screens, cmpscreenname);
 	if(s) {
@@ -117,18 +117,18 @@ bool setwindowcurrentscreen(Window *const w, const str name) {
 	return false;
 }
 
-void updatewindow(Window *const w) {
-	clearwindow(w);
+void updateWindow(Window *const w) {
+	clearWindow(w);
 	if(w->currentscreen) {
-		updatescreen(w->currentscreen, w);
+		updateScreen(w->currentscreen, w);
 		return;
 	}
-	warning("Window \"%s\" has no current screen", getwindowtitle(w));
+	warning("Window \"%s\" has no current screen", getWindowTitle(w));
 }
 
-bool clearwindow(Window *const w) {
+bool clearWindow(Window *const w) {
 	return SDL_RenderClear(w->ren) == 0;
 }
-void renderwindow(Window *const w) {
+void renderWindow(Window *const w) {
 	SDL_RenderPresent(w->ren);
 }

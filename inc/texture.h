@@ -37,29 +37,29 @@ typedef SDL_Texture Texture;
  * \brief Loads an image file (BitMap format) and wraps it in a SDL texture
           structure.
  *
- * \param[in] filename The file to load
+ * \param[in] fileName The file to load
  * \param[in] window   The renderer to load the texture for
- * \param[in] colorkey The colorkey used for transparency (FIXME does not work)
+ * \param[in] colorKey The colorkey used for transparency (FIXME does not work)
  *
  * \return a newly-loaded texture from given BMP file
  *
  * \sa SDL_Texture
  */
-Texture *loadbmpa(str filename, const Window *window, uint32_t colorkey);
+Texture *loadBMPA(str fileName, const Window *window, uint32_t colorKey);
 
 /**
  * \brief Loads an image file (BitMap format) in a SDL texture structure,
           ignoring the color key for transparency.
  *
- * \param[in] filename The file to load
+ * \param[in] fileName The file to load
  * \param[in] window   The renderer to load the texture for
  *
  * \return loadbmptexa(filename, win, 0)
  *
  * \sa loadbmptexa
  */
-inline Texture *loadbmp(str filename, const Window *window) {
-	return loadbmpa(filename, window, 0);
+inline Texture *loadBMP(str fileName, const Window *window) {
+	return loadBMPA(fileName, window, 0);
 }
 
 
@@ -68,7 +68,7 @@ inline Texture *loadbmp(str filename, const Window *window) {
  *
  * \param[in] self The texture to free
  */
-void freetexture(Texture *self);
+void freeTexture(Texture *self);
 
 
 /**
@@ -80,7 +80,7 @@ void freetexture(Texture *self);
  *
  * \return \c true if the Texture \c self is valid and has valid geometry
  */
-bool gettexturegeom(const Texture *self, int *w, int *h);
+bool getTextureGeom(const Texture *self, int *w, int *h);
 
 
 /**
@@ -90,7 +90,7 @@ bool gettexturegeom(const Texture *self, int *w, int *h);
  * \param[in] window The renderer to render the texture to
  * \param[in] pos    The position at which to render the texture
  */
-void drawtexture(Texture *self, Window *window, Point pos);
+void drawTexture(Texture *self, Window *window, Point pos);
 
 
 #endif // TEXTURES_H

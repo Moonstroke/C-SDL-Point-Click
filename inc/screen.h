@@ -43,14 +43,14 @@ typedef struct screen Screen;
  *
  * \return A screen of given name
  */
-Screen *newscreen(str name);
+Screen *newScreen(str name);
 
 /**
  * \brief Deallocates a screen.
  *
  * \param[in,out] self The screen to free
  */
-void freescreen(Screen *self);
+void freeScreen(Screen *self);
 
 
 /**
@@ -60,7 +60,7 @@ void freescreen(Screen *self);
  *
  * \return The name of the screen
  */
-str getscreenname(const Screen *self);
+str getScreenName(const Screen *self);
 
 /**
  * \brief Updates the name of the screen.
@@ -68,7 +68,7 @@ str getscreenname(const Screen *self);
  * \param[in,out] self The screen
  * \param[in]  name The new name to give to the screen
  */
-void setscreenname(Screen *self, str name);
+void setScreenName(Screen *self, str name);
 
 
 /**
@@ -81,7 +81,7 @@ void setscreenname(Screen *self, str name);
  *
  * \sa Inventory
  */
-Inventory *getscreeninventory(const Screen *self);
+Inventory *getScreenInventory(const Screen *self);
 
 /**
  * \brief Updates the inventory of the screen.
@@ -89,7 +89,7 @@ Inventory *getscreeninventory(const Screen *self);
  * \param[in,out] self  The screen
  * \param[in] inventory The new inventory of the screen
  */
-void setscreeninventory(Screen *self, Inventory *inventory);
+void setScreenInventory(Screen *self, Inventory *inventory);
 
 
 /**
@@ -101,7 +101,7 @@ void setscreeninventory(Screen *self, Inventory *inventory);
  *
  * \sa Scene
  */
-Scene *getscreenscene(const Screen *self);
+Scene *getScreenScene(const Screen *self);
 
 /**
  * \brief Changes the scene associated with this screen.
@@ -109,7 +109,7 @@ Scene *getscreenscene(const Screen *self);
  * \param[in,out] self The screen
  * \param[in]  scene The new scene
  */
-void setscreenscene(Screen *self, Scene *scene);
+void setScreenScene(Screen *self, Scene *scene);
 
 
 /**
@@ -118,6 +118,6 @@ void setscreenscene(Screen *self, Scene *scene);
  * \param[in,out] self   The screen
  * \param[in,out] window The window
  */
-void updatescreen(Screen *self, Window *window);
+void updateScreen(Screen *self, Window *window);
 
 #endif // SCREEN_H

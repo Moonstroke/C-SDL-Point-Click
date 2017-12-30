@@ -73,15 +73,15 @@ inline Rect rect(const int x, const int y, const unsigned int w, const unsigned 
 /**
  * \brief Determines whether a point belongs inside the bounds of a rectangle.
  *
- * \param[in] pt   The point
+ * \param[in] point   The point
  * \param[in] rect The rectangle
  *
  * \return \c true iff the point coordinates are within the bounds of the
  *         rectangle's coordinates
  */
-inline bool isptinrect(const Point *const pt, const Rect *const rect) {
-	return (rect->x <= pt->x && pt->x <= (rect->x + rect->w)) &&
-	       (rect->y <= pt->y && pt->y <= (rect->y + rect->h));
+inline bool isPointInRect(const Point *const point, const Rect *const rect) {
+	return (rect->x <= point->x && point->x <= (rect->x + rect->w)) &&
+	       (rect->y <= point->y && point->y <= (rect->y + rect->h));
 }
 
 #endif // GEOM_H

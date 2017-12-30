@@ -82,22 +82,22 @@ typedef struct text Text;
 /**
  * \brief Instantiates a new text for rendering.
  *
- * \param[in] string     The string data of the text
- * \param[in] font       The font to render the text in
- * \param[in] text_color The color of the text
- * \param[in] type       The type of rendering to set for the text
+ * \param[in] string    The string data of the text
+ * \param[in] font      The font to render the text in
+ * \param[in] textColor The color of the text
+ * \param[in] type      The type of rendering to set for the text
  *
  * \return A text for rendering, of given textual value, to be rendered in given
  *         font and color
  */
-Text *newtext(str string, Font *font, Color text_color, TextRenderType type);
+Text *newText(str string, Font *font, Color textColor, TextRenderType type);
 
 /**
  * \brief Deallocates the memory used by a text.
  *
  * \param[in,out] self The text to free
  */
-void freetext(Text *self);
+void freeText(Text *self);
 
 
 /**
@@ -106,7 +106,7 @@ void freetext(Text *self);
  * \param[in,out] self   The text
  * \param[in]     string The string value to set
  */
-void settextstring(Text *self, str string);
+void setTextString(Text *self, str string);
 
 /**
  * \brief Updates the text color of the Text.
@@ -114,20 +114,20 @@ void settextstring(Text *self, str string);
  * \param[in,out] self  The text
  * \param[in]     color The text color
  */
-void settextcolor(Text *self, Color color);
+void setTextColor(Text *self, Color color);
 
 
 /**
  * \brief Updates the background color of the Text.
  *
- * \param[in,out] self     The text
- * \param[in]     bg_color The color to set
+ * \param[in,out] self    The text
+ * \param[in]     bgColor The color to set
  *
  * \note The background color is only used when rendering with an opaque
  *       background.
  *
  */
-void settextbgcolor(Text *self, Color bg_color);
+void setTextBgColor(Text *self, Color bgColor);
 
 
 /**
@@ -137,7 +137,7 @@ void settextbgcolor(Text *self, Color bg_color);
  *
  * \return \c true iff the text needs to be re-rendered on the screen
  */
-bool textneedsupdate(const Text *self);
+bool textNeedsUpdate(const Text *self);
 
 
 /**
@@ -151,7 +151,7 @@ bool textneedsupdate(const Text *self);
  * \return \c true iff the text was drawn (and rendered, if needed) without
  *         error
  */
-bool drawtext(Text *self, Window *window, Point pos);
+bool drawText(Text *self, Window *window, Point pos);
 
 
 #endif // TEXT_H

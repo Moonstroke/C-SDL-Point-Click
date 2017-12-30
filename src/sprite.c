@@ -18,25 +18,25 @@ struct sprite {
 };
 
 
-Sprite *newsprite(Texture *const tex, const Point p, const str name) {
+Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 	Sprite *s = malloc(sizeof(Sprite));
 	if(!s) {
 		error("malloc() error in newsprite() for sprite");
 		return NULL;
 	}
 	s->tex = tex;
-	gettexturegeom(tex, &s->geom.w, &s->geom.h);
+	getTextureGeom(tex, &s->geom.w, &s->geom.h);
 	s->geom.x = p.x;
 	s->geom.y = p.y;
-	setspritename(s, name);
+	setSpriteName(s, name);
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
 	verbose("new sprite \"%s\" instantiated", s->name);
 	s->needsupdate = true;
 	return s;
 }
 
-void freesprite(Sprite *const s) {
-	freetexture(s->tex);
+void freeSprite(Sprite *const s) {
+	freeTexture(s->tex);
 	char name [NAME_MAX_LEN];
 	strncpy(name, s->name, NAME_MAX_LEN);
 	free(s);
@@ -44,17 +44,17 @@ void freesprite(Sprite *const s) {
 }
 
 
-bool spriteneedsupdate(const Sprite *const s) { return s->needsupdate; }
+bool spriteNeedsUpdate(const Sprite *const s) { return s->needsupdate; }
 
-void updatesprite(Sprite *const s, Window *const win) {
-	drawtexture(s->tex, win, point(s->geom.x, s->geom.y));
+void updateSprite(Sprite *const s, Window *const win) {
+	drawTexture(s->tex, win, point(s->geom.x, s->geom.y));
 	s->needsupdate = false;
 }
 
 
-str getspritename(const Sprite *const s) { return s->name; }
+str getSpriteName(const Sprite *const s) { return s->name; }
 
-void setspritename(Sprite *const s, const str name) {
+void setSpriteName(Sprite *const s, const str name) {
 	if(name && strlen(name)) {
 		int l = strlen(name) + 1;
 		if(l > NAME_MAX_LEN) {
@@ -66,24 +66,24 @@ void setspritename(Sprite *const s, const str name) {
 		s->name[0] = '\0';
 }
 
-int getspritex(const Sprite *const s) { return s->geom.x; }
-int getspritey(const Sprite *const s) { return s->geom.y; }
-int getspritew(const Sprite *const s) { return s->geom.w; }
-int getspriteh(const Sprite *const s) { return s->geom.h; }
+int getSpriteX(const Sprite *const s) { return s->geom.x; }
+int getSpriteY(const Sprite *const s) { return s->geom.y; }
+int getSpriteW(const Sprite *const s) { return s->geom.w; }
+int getSpriteH(const Sprite *const s) { return s->geom.h; }
 
 
-void movesprite(Sprite *const s, const Point to) {
+void moveSprite(Sprite *const s, const Point to) {
 	s->geom.x = to.x;
 	s->geom.y = to.y;
 	s->needsupdate = true;
 }
-extern void movecsprite(Sprite *s, const Point to);
+extern void moveSpriteC(Sprite *s, const Point to);
 
 void setspritetexture(Sprite *const s, Texture *const tex) {
 	s->tex = tex;
 	s->needsupdate = true;
 }
 
-bool isptinsprite(const Sprite *const s, const Point p) {
-	return isptinrect(&p, &s->geom);
+bool isPointInSprite(const Sprite *const s, const Point p) {
+	return isPointInRect(&p, &s->geom);
 }

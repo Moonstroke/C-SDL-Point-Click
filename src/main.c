@@ -59,33 +59,32 @@ int main(void) {
 	mainloop();
 
 	info("\nClean and Exit");
-	freewindow(win);
-
+	freeWindow(win);
 	return EXIT_SUCCESS;
 }
 
 
 void move(const Point p) {
 	if(heldsprite)
-		movecsprite(heldsprite, p);
+		moveSpriteC(heldsprite, p);
 	else {
-		Sprite *const s = getscenespritepos(scene, p);
-		settextstring(tooltip, s ? getspritename(s) : "");
+		Sprite *const s = getSceneSpritePos(scene, p);
+		setTextString(tooltip, s ? getSpriteName(s) : "");
 	}
 }
 
 void leftdown(const Point p) {
 	clickpos = p; //point(p.x, p.y);
-	heldsprite = getscenespritepos(scene, p);
+	heldsprite = getSceneSpritePos(scene, p);
 }
 void leftup(const Point p) {
 	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) { // the event is a mouse click
 		if(heldsprite) {
-			removescenesprite(scene, heldsprite);
-			addinventorysprite(inventory, heldsprite);
-			debug("sprite pos = (%d, %d)", getspritex(heldsprite), getspritey(heldsprite));
+			removeSceneSprite(scene, heldsprite);
+			addInventorySprite(inventory, heldsprite);
+			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
 		}
-		debug("inventory size = %d", inventorysize(inventory));
+		debug("inventory size = %d", inventorySize(inventory));
 		debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
 	}
 
@@ -95,26 +94,26 @@ void leftup(const Point p) {
 
 void mainloop(void) {
 	//renderwindow(win);
-	logSDLRendererInfo(getwindowrenderer(win));
+	logSDLRendererInfo(getWindowRenderer(win));
 	SDL_Event event;
 	bool done = false;
 	Point mouse;
 	while(!done) {
 		while(SDL_PollEvent(&event)) {
 			// TODO use SDL_AddEventWatch()?
-			mouse = mousepos();
+			mouse = mousePos();
 			switch(event.type) {
 				case SDL_MOUSEBUTTONDOWN:
-					onmousedown(event.button.button)(mouse);
+					onMouseDown(event.button.button)(mouse);
 					break;
 				case SDL_MOUSEBUTTONUP:
-					onmouseup(event.button.button)(mouse);
+					onMouseUp(event.button.button)(mouse);
 					break;
 				case SDL_MOUSEWHEEL:
 					// TODO
 					break;
 				case SDL_MOUSEMOTION:
-					onmousemove()(mouse);
+					onMouseMove()(mouse);
 					break;
 				case SDL_KEYDOWN:
 					// The window can be closed with ESC, CTRL+q or CTRL+w
@@ -135,10 +134,10 @@ void mainloop(void) {
 				default: break;
 			}
 		}
-		updatewindow(win);
-		if(!drawtext(tooltip, win, point(mouse.x + 16, mouse.y)))
+		updateWindow(win);
+		if(!drawText(tooltip, win, point(mouse.x + 16, mouse.y)))
 			error("ouch");
-		renderwindow(win);
+		renderWindow(win);
 	}
 }
 void initall(void) {
@@ -153,40 +152,40 @@ void initall(void) {
 	LayoutValues layout = SCENE_INVENTORY_BELOW;
 
 	wingeom = rect(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480);
-	win = newwin("App window", wingeom);
+	win = newWin("App window", wingeom);
 
 	const int inventh = 80;
-	setlayout(win, layout, &scenegeom, &inventorygeom, inventh);
+	setLayout(win, layout, &scenegeom, &inventorygeom, inventh);
 
 
 	/* Screen(s) */
-	screen = newscreen("Game screen");
-	addwindowscreen(win, screen);
+	screen = newScreen("Game screen");
+	addWindowScreen(win, screen);
 
 
 	/* Scene(s) */
 
-	Texture *scenebg = loadbmp("img/background.bmp", win);
-	scene = newscene(scenegeom, scenebg, 2, "Scene1");
-	setscreenscene(screen, scene);
+	Texture *scenebg = loadBMP("img/background.bmp", win);
+	scene = newScene(scenegeom, scenebg, 2, "Scene1");
+	setScreenScene(screen, scene);
 
 
 	/* Inventory */
 
 	Texture *inventbg = NULL; //loadbmp("img/inventory.bmp", win);
-	inventory = newinventory(inventorygeom, 8, inventbg);
-	setscreeninventory(screen, inventory);
+	inventory = newInventory(inventorygeom, 8, inventbg);
+	setScreenInventory(screen, inventory);
 
 
 	/* Sprites */
 
-	Texture *earthtex = loadbmpa("img/earth.bmp", win, BLACK);
-	earth = newsprite(earthtex, point(192, 240), "Earth");
-	addsprite(scene, earth);
+	Texture *earthtex = loadBMPA("img/earth.bmp", win, BLACK);
+	earth = newSprite(earthtex, point(192, 240), "Earth");
+	addSprite(scene, earth);
 
-	Texture *earth2tex = loadbmp("img/earth2.bmp", win);
-	earth2 = newsprite(earth2tex, point(384, 240), "Earth2");
-	addsprite(scene, earth2);
+	Texture *earth2tex = loadBMP("img/earth2.bmp", win);
+	earth2 = newSprite(earth2tex, point(384, 240), "Earth2");
+	addSprite(scene, earth2);
 
 
 	/* Texts */
@@ -195,12 +194,12 @@ void initall(void) {
 		fatal("Font could not be loaded: %s", TTF_GetError());
 		exit(1);
 	}
-	tooltip = newtext("", ubuntu, color(0xff, 0xff, 0xff), TEXTRENDER_FAST);
+	tooltip = newText("", ubuntu, color(0xff, 0xff, 0xff), TEXTRENDER_FAST);
 	/* Seting handlers */
 
-	set_onmousedown(SDL_BUTTON_LEFT, leftdown);
-	set_onmouseup(SDL_BUTTON_LEFT, leftup);
-	set_onmousemove(move);
+	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);
+	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
+	set_OnMouseMove(move);
 
 
 	/* Sandbox */

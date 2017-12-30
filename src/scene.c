@@ -21,7 +21,7 @@ struct scene {
 };
 
 
-Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str name) {
+Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str name) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newscene() for scene \"%s\"", name);
@@ -32,7 +32,7 @@ Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str n
 		error("while creating array for %d sprites", size);
 		return NULL;
 	}
-	setscenename(s, name);
+	setSceneName(s, name);
 	s->sprites = sprites;
 	s->background = tex;
 	s->geom = g; // TODO use it somewhere
@@ -40,11 +40,11 @@ Scene *newscene(const Rect g, Texture *const tex, const size_t size, const str n
 	return s;
 }
 
-void freescene(Scene *const s) {
+void freeScene(Scene *const s) {
 	if(s->background)
-		freetexture(s->background);
+		freeTexture(s->background);
 	const size_t n = asize(s->sprites);
-	afreer(s->sprites, (void(*)(void*))&freesprite);
+	afreer(s->sprites, (void(*)(void*))&freeSprite);
 	verbose("freed %d sprites from scene\n", n);
 	char name[NAME_MAX_LEN];
 	strncpy(name, s->name, NAME_MAX_LEN);
@@ -52,25 +52,25 @@ void freescene(Scene *const s) {
 	verbose("freed scene \"%s\"", name);
 }
 
-bool sceneneedsupdate(const Scene *const s) {
+bool sceneNeedsUpdate(const Scene *const s) {
 	bool update = 0;
 	size_t i = asize(s->sprites);
 	while(--i)
-		update += spriteneedsupdate(aget(s->sprites, i));
+		update += spriteNeedsUpdate(aget(s->sprites, i));
 	return update;
 }
 
-void updatescene(Scene *const s, Window *const win) {
+void updateScene(Scene *const s, Window *const win) {
 	if(s->background)
-		drawtexture(s->background, win, point(s->geom.x, s->geom.y));
+		drawTexture(s->background, win, point(s->geom.x, s->geom.y));
 	size_t i = asize(s->sprites);
 	while(i--)
-		updatesprite(aget(s->sprites, i), win);
+		updateSprite(aget(s->sprites, i), win);
 }
 
-str getscenename(const Scene *const s) { return s->name; }
+str getSceneName(const Scene *const s) { return s->name; }
 
-void setscenename(Scene *const s, const str name) {
+void setSceneName(Scene *const s, const str name) {
 	if(name && strlen(name)) {
 		size_t l = strlen(name) + 1;
 		if(l > NAME_MAX_LEN) {
@@ -82,25 +82,25 @@ void setscenename(Scene *const s, const str name) {
 		s->name[0] = '\0';
 }
 
-size_t addsprite(Scene *const s, Sprite *const sprite) {
+size_t addSprite(Scene *const s, Sprite *const sprite) {
 	return aappend(s->sprites, sprite);
 }
 
-Sprite *getsprite(const Scene *const s, const size_t i) {
+Sprite *getSprite(const Scene *const s, const size_t i) {
 	return aget(s->sprites, i);
 }
 
-Sprite *getscenespritepos(const Scene *const s, const Point p) {
+Sprite *getSceneSpritePos(const Scene *const s, const Point p) {
 	size_t i = asize(s->sprites);
 	Sprite *sp;
 	while(i--) {
 		sp = aget(s->sprites, i);
-		if(isptinsprite(sp, p))
+		if(isPointInSprite(sp, p))
 			return sp;
 	}
 	return NULL;
 }
 
-bool removescenesprite(Scene *const s, const Sprite *const sp) {
+bool removeSceneSprite(Scene *const s, const Sprite *const sp) {
 	return aremove(s->sprites, sp);
 }

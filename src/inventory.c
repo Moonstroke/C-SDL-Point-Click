@@ -18,7 +18,7 @@ struct inventory {
 };
 
 
-Inventory *newinventory(const Rect g, const size_t size, Texture *const bg) {
+Inventory *newInventory(const Rect g, const size_t size, Texture *const bg) {
 	Inventory *i = malloc(sizeof(Inventory));
 	if(i == NULL)
 		return NULL;
@@ -31,39 +31,39 @@ Inventory *newinventory(const Rect g, const size_t size, Texture *const bg) {
 	return i;
 }
 
-void freeinventory(Inventory *const i) {
-	afreer(i->sprites, (void(*)(void*))&freesprite);
+void freeInventory(Inventory *const i) {
+	afreer(i->sprites, (void(*)(void*))&freeSprite);
 	free(i);
 	verbose("freed %d sprites from inventory", asize(i->sprites));
 }
 
 
-void updateinventory(const Inventory *const i, Window *const win) {
+void updateInventory(const Inventory *const i, Window *const win) {
 	if(i->background)
-		drawtexture(i->background, win, point(i->geom.x, i->geom.y));
+		drawTexture(i->background, win, point(i->geom.x, i->geom.y));
 	size_t k = asize(i->sprites);
 	while(k--)
-		updatesprite(aget(i->sprites, k), win);
+		updateSprite(aget(i->sprites, k), win);
 }
 
 
-size_t inventorysize(const Inventory *const i) {
+size_t inventorySize(const Inventory *const i) {
 	return asize(i->sprites);
 }
 
-Sprite *getinventorysprite(const Inventory *const i, const ssize_t n) {
+Sprite *getInventorySprite(const Inventory *const i, const ssize_t n) {
 	return aget(i->sprites, n);
 }
 
-size_t addinventorysprite(Inventory *const i, Sprite *const s) {
+size_t addInventorySprite(Inventory *const i, Sprite *const s) {
 	// FIXME sprite does not appear on screen
 	const size_t index = aappend(i->sprites, s);
 	Point dest = point(i->geom.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
 	                   i->geom.y + SPRITE_RESERVED_SPACE / 2);
-	movecsprite(s, dest);
+	moveSpriteC(s, dest);
 	return index;
 }
 
-bool removeinventorysprite(Inventory *const i, const Sprite *const s) {
+bool removeInventorySprite(Inventory *const i, const Sprite *const s) {
 	return aremove(i->sprites, s);
 }

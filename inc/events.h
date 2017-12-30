@@ -26,7 +26,7 @@
  *
  * \return The position of the mouse cursor
  */
-Point mousepos(void);
+Point mousePos(void);
 
 
 /* ## Mouse events handlers ## */
@@ -37,7 +37,7 @@ Point mousepos(void);
  * A mouse event handler is a procedure with a single argument, a 2D vector --
  * usually the mouse position on screen.
  */
-typedef void (*mousehandler)(Point);
+typedef void (*MouseHandler)(Point);
 
 /**
  * \brief Defines the procedure to execute when a mouse button is pressed.
@@ -49,7 +49,7 @@ typedef void (*mousehandler)(Point);
  *
  * \sa SDL_MouseButtonEvent
  */
-bool set_onmousedown(uint8_t button, mousehandler handler);
+bool set_OnMouseDown(uint8_t button, MouseHandler handler);
 
 /**
  * \brief Gets the handler for given mouse button pressed.
@@ -58,7 +58,7 @@ bool set_onmousedown(uint8_t button, mousehandler handler);
  *
  * \return The handler for given mouse button
  */
-mousehandler onmousedown(uint8_t button);
+MouseHandler onMouseDown(uint8_t button);
 
 
 /**
@@ -71,7 +71,7 @@ mousehandler onmousedown(uint8_t button);
  *
  * \sa SDL_MouseButtonEvent
  */
-bool set_onmouseup(uint8_t button, mousehandler handler);
+bool set_OnMouseUp(uint8_t button, MouseHandler handler);
 
 /**
  * \brief Gets the handler for given mouse button released.
@@ -80,7 +80,7 @@ bool set_onmouseup(uint8_t button, mousehandler handler);
  *
  * \return The handler for given mouse button
  */
-mousehandler onmouseup(uint8_t button);
+MouseHandler onMouseUp(uint8_t button);
 
 /**
  * \brief Sets the mouse motion handler
@@ -89,14 +89,14 @@ mousehandler onmouseup(uint8_t button);
  *
  * \return \c true if the mouse motion handler could be set
  */
-bool set_onmousemove(mousehandler handler);
+bool set_OnMouseMove(MouseHandler handler);
 
 /**
  * \brief Gets the handler for mouse moved.
  *
  * \return The handler for given mouse button
  */
-mousehandler onmousemove(void);
+MouseHandler onMouseMove(void);
 
 
 /* ## Keyboard events handlers ## */

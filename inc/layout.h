@@ -129,13 +129,13 @@ typedef enum {
  *
  * \param window        The window to set layout of
  * \param layout        The layout value to set to the window
- * \param scenegeom     The geometry of the scene (width, height and position)
- * \param inventorygeom The geometry ofh the inventory
- * \param inventorywh   The dimension to set to the inventory:
+ * \param sceneGeom     The geometry of the scene (width, height and position)
+ * \param inventoryGeom The geometry ofh the inventory
+ * \param inventoryWH   The dimension to set to the inventory:
  *                      width if layout is vertical, or height if horizontal
  *
  * \return A flag indicating whether dispatching the layout ended correctly
  */
-bool setlayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventorygeom, size_t inventorywh);
+bool setLayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventoryGeom, size_t inventoryWH);
 
 #endif // LAYOUT_H

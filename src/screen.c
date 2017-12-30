@@ -22,29 +22,29 @@ struct screen {
 
 /* ## Ctors and dtors ## */
 
-Screen *newscreen(const str name) {
+Screen *newScreen(const str name) {
 	Screen *s = malloc(sizeof(Screen));
 	if(s == NULL)
 		return NULL;
 	s->inventory = NULL;
 	s->scene = NULL;
-	setscreenname(s, name);
+	setScreenName(s, name);
 	return s;
 }
 
-void freescreen(Screen *const s) {
+void freeScreen(Screen *const s) {
 	if(s->inventory)
-		freeinventory(s->inventory);
+		freeInventory(s->inventory);
 	if(s->scene)
-		freescene(s->scene);
+		freeScene(s->scene);
 	free(s);
 }
 
 
 /* ## Getters and setters ## */
-str getscreenname(const Screen *const s) { return s->name; }
+str getScreenName(const Screen *const s) { return s->name; }
 
-void setscreenname(Screen *const s, const str name) {
+void setScreenName(Screen *const s, const str name) {
 	const unsigned int l = strlen(name) + 1;
 	if(l > NAME_MAX_LEN)
 		warning("\"%s\" is too long, will be truncated to %u characters", name, NAME_MAX_LEN);
@@ -53,21 +53,21 @@ void setscreenname(Screen *const s, const str name) {
 }
 
 
-Inventory *getscreeninventory(const Screen *const s) { return s->inventory; }
+Inventory *getScreenInventory(const Screen *const s) { return s->inventory; }
 
-void setscreeninventory(Screen *const s, Inventory *const i) { s->inventory = i; }
+void setScreenInventory(Screen *const s, Inventory *const i) { s->inventory = i; }
 
 
-Scene *getscreenscene(const Screen *const s) { return s->scene; }
-void setscreenscene(Screen *const s, Scene *const scene) { s->scene = scene; }
+Scene *getScreenScene(const Screen *const s) { return s->scene; }
+void setScreenScene(Screen *const s, Scene *const scene) { s->scene = scene; }
 
 
 /* ## Technical functions ## */
 
-void updatescreen(Screen *s, Window *w) {
+void updateScreen(Screen *s, Window *w) {
 	if(s->inventory)
-		updateinventory(s->inventory, w);
+		updateInventory(s->inventory, w);
 	if(s->scene)
-		updatescene(s->scene, w);
+		updateScene(s->scene, w);
 }
 

@@ -67,8 +67,8 @@ typedef struct window Window;
  *
  * \param[in] title    The title of the window (visible on the title bar)
  * \param[in] geometry The dimensions and position of the window
- * \param[in] winflags The flags to instantiate the SDL window with
- * \param[in] renflags The flags to instantiate the SDL renderer with
+ * \param[in] winFlags The flags to instantiate the SDL window with
+ * \param[in] renFlags The flags to instantiate the SDL renderer with
  *
  * \return A new window of given title, geometry and initalization parameters
  *         for it and the associated renderer
@@ -76,7 +76,7 @@ typedef struct window Window;
  * \sa SDL_Window
  * \sa SDL_Renderer
  */
-Window *newwindow(str title, Rect geometry, SDL_WindowFlags winflags, SDL_RendererFlags renflags);
+Window *newWindow(str title, Rect geometry, SDL_WindowFlags winFlags, SDL_RendererFlags renFlags);
 
 /**
  * \brief Instantiates a new window, using the default flags.
@@ -84,12 +84,12 @@ Window *newwindow(str title, Rect geometry, SDL_WindowFlags winflags, SDL_Render
  * \param[in] title    The title of the window (visible on the title bar)
  * \param[in] geometry The dimensions and position of the window
  *
- * \return newwindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS)
+ * \return newWindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS)
  *
- * \sa newwindow
+ * \sa newWindow
  */
-inline Window *newwin(str title, Rect geometry) {
-	return newwindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
+inline Window *newWin(str title, Rect geometry) {
+	return newWindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
 }
 
 /**
@@ -97,7 +97,7 @@ inline Window *newwin(str title, Rect geometry) {
  *
  * \param[in,out] self The window to free
  */
-void freewindow(Window *self);
+void freeWindow(Window *self);
 
 
 /**
@@ -108,7 +108,7 @@ void freewindow(Window *self);
  *
  * \return \c true on success, \c false on error
  */
-bool setwindowdrawcolor(Window *self, Color color);
+bool setWindowDrawColor(Window *self, Color color);
 
 /**
  * \brief Retrieves the title of the window
@@ -117,7 +117,7 @@ bool setwindowdrawcolor(Window *self, Color color);
  *
  * \return The title of the window, as seen on the title bar on the desktop
  */
-str getwindowtitle(const Window *self);
+str getWindowTitle(const Window *self);
 
 /**
  * \brief Updates the title of the window
@@ -125,7 +125,7 @@ str getwindowtitle(const Window *self);
  * \param[in] self  The window to set the title to
  * \param[in] title The title to give to the window
  */
-void setwindowtitle(Window *self, str title);
+void setWindowTitle(Window *self, str title);
 
 /**
  * \brief Gets the renderer associated to this window
@@ -139,7 +139,7 @@ void setwindowtitle(Window *self, str title);
  *
  * \sa SDL_Renderer
  */
-SDL_Renderer *getwindowrenderer(const Window *self);
+SDL_Renderer *getWindowRenderer(const Window *self);
 
 /**
  * \brief Returns the width of the window, in pixels
@@ -150,7 +150,7 @@ SDL_Renderer *getwindowrenderer(const Window *self);
  *
  * \note This parameter can not be modified, and the window can not be resized
  */
-size_t getwindoww(const Window *self);
+size_t getWindowW(const Window *self);
 
 /**
  * \brief Returns the height of the window, in pixels
@@ -161,7 +161,7 @@ size_t getwindoww(const Window *self);
  *
  * \note This parameter can not be modified, and the window can not be resized
  */
-size_t getwindowh(const Window *self);
+size_t getWindowH(const Window *self);
 
 
 /**
@@ -176,7 +176,7 @@ size_t getwindowh(const Window *self);
  * \note If this is the first screen of the window, it is automatically set as
  *       the current screen.
  */
-ssize_t addwindowscreen(Window *self, Screen *screen);
+ssize_t addWindowScreen(Window *self, Screen *screen);
 
 /**
  * \brief Sets the current screen of the window.
@@ -187,7 +187,7 @@ ssize_t addwindowscreen(Window *self, Screen *screen);
  * \return \c true iff the name could be associated with a screen, which in turn
  *         could be set as the current screen
  */
-bool setwindowcurrentscreen(Window *self, str name);
+bool setWindowCurrentScreen(Window *self, str name);
 
 /**
  * \brief Updates the window and its content (scene and sprites).
@@ -198,14 +198,14 @@ bool setwindowcurrentscreen(Window *self, str name);
  *
  * \sa renderwindow
  */
-void updatewindow(Window *self);
+void updateWindow(Window *self);
 
 /**
  * \brief Renders The window on screen.
  *
  * \param[in] self the window to render
  */
-void renderwindow(Window *self);
+void renderWindow(Window *self);
 
 /**
  * \brief Clears the window and fills it with color specified in
@@ -217,7 +217,7 @@ void renderwindow(Window *self);
  *
  * \sa setwindowdrawcolor
  */
-bool clearwindow(Window *self);
+bool clearWindow(Window *self);
 
 
 #endif // WINDOW_H
