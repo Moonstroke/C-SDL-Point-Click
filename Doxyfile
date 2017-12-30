@@ -6,7 +6,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "C+SDL / Point & Click"
 PROJECT_NUMBER         =
-PROJECT_BRIEF          = "Point & Click games library using the SDL v2"
+PROJECT_BRIEF          = "Point & Click game library using the SDL v2"
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = doc
 CREATE_SUBDIRS         = NO
