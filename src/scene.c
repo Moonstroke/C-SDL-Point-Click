@@ -64,8 +64,11 @@ void updateScene(Scene *const s, Window *const win) {
 	if(s->background)
 		drawTexture(s->background, win, point(s->geom.x, s->geom.y));
 	size_t i = asize(s->sprites);
-	while(i--)
-		updateSprite(aget(s->sprites, i), win);
+	while(i--) {
+		Sprite *const s = aget(s->sprites, i);
+		if(spriteNeedsUpdate(s)
+			updateSprite(s, win);
+	}
 }
 
 str getSceneName(const Scene *const s) { return s->name; }
