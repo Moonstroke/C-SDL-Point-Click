@@ -60,6 +60,8 @@ int main(void) {
 
 	info("\nClean and Exit");
 	freeWindow(win);
+	freeText(tooltip);
+
 	return EXIT_SUCCESS;
 }
 
