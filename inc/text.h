@@ -41,9 +41,34 @@
 typedef TTF_Font Font;
 
 
+/**
+ * \brief This enum defines the different types of rendering for the text.
+ */
 typedef enum {
+	/**
+	 * \brief The text is rendered without smoothing or alpha blending.
+	 *
+	 * This rendering is the fastest, but not necessarily the most eye-pleasing.
+	 */
 	TEXTRENDER_FAST,
+
+	/**
+	 * \brief The text is rendered smoothly, but the background is opaque and no
+	 *        blending is made with the scene behind.
+	 *
+	 * The rendering is slower than \a TEXTRENDER_FAST, but the clipping on the
+	 * scene should be as fast.
+	 */
 	TEXTRENDER_OPAQUEBG,
+
+	/**
+	 * \brief This rendering mode is the slowest, but also the nicest. The text
+	 *        is rendered smoothly and blended into the background scene.
+	 *
+	 * The rendering is as fast as \a TEXTRENDER_OPAQUEBG, but clipping on the
+	 * scene can be longer. This mode should be used only if high quality is
+	 * needed and the text will not change frequently.
+	 */
 	TEXTRENDER_SMOOTH
 } TextRenderType;
 
@@ -60,6 +85,7 @@ typedef struct text Text;
  * \param[in] string     The string data of the text
  * \param[in] font       The font to render the text in
  * \param[in] text_color The color of the text
+ * \param[in] type       The type of rendering to set for the text
  *
  * \return A text for rendering, of given textual value, to be rendered in given
  *         font and color
@@ -119,6 +145,8 @@ bool textneedsupdate(const Text *self);
  *
  * \param[in,out] self   The text to render
  * \param[in]     window The window to render the text to
+ * \param[in]     pos    The position where to clip the text in the window
+ *                       (left-up corner)
  *
  * \return \c true iff the text was drawn (and rendered, if needed) without
  *         error
