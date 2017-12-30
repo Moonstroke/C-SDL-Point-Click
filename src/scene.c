@@ -53,11 +53,11 @@ void freeScene(Scene *const s) {
 }
 
 bool sceneNeedsUpdate(const Scene *const s) {
-	bool update = 0;
+	bool needsupdate = false;
 	size_t i = asize(s->sprites);
-	while(--i)
-		update += spriteNeedsUpdate(aget(s->sprites, i));
-	return update;
+	while(--i && !needsupdate)
+		needsupdate = spriteNeedsUpdate(aget(s->sprites, i));
+	return needsupdate;
 }
 
 void updateScene(Scene *const s, Window *const win) {
