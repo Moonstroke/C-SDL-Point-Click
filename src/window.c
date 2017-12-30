@@ -80,17 +80,29 @@ void freeWindow(Window *const w) {
 /* ## Getters and setters ## */
 
 
-bool setWindowDrawColor(Window *const w, const Color color) {
-	return SDL_SetRenderDrawColor(w->ren, color.r, color.g, color.b, color.a) == 0;
+bool setWindowDrawColor(Window *const w, const Color c) {
+	return SDL_SetRenderDrawColor(w->ren, c.r, c.g, c.b, c.a) == 0;
 }
 
-void setWindowTitle(Window *const w, const str title) { SDL_SetWindowTitle(w->win, title); }
-str getWindowTitle(const Window *const w) { return SDL_GetWindowTitle(w->win); }
+void setWindowTitle(Window *const w, const str title) {
+	SDL_SetWindowTitle(w->win, title);
+}
 
-SDL_Renderer *getWindowRenderer(const Window *const w) { return w->ren; }
+str getWindowTitle(const Window *const w) {
+	return SDL_GetWindowTitle(w->win);
+}
 
-size_t getWindowWidth(const Window *const w) { return w->geom.w; }
-size_t getWindowHeight(const Window *const w) { return w->geom.h; }
+SDL_Renderer *getWindowRenderer(const Window *const w) {
+	return w->ren;
+}
+
+size_t getWindowWidth(const Window *const w) {
+	return w->geom.w;
+}
+
+size_t getWindowHeight(const Window *const w) {
+	return w->geom.h;
+}
 
 
 /* ## Technical functions ## */
@@ -126,9 +138,10 @@ void updateWindow(Window *const w) {
 	warning("Window \"%s\" has no current screen", getWindowTitle(w));
 }
 
-bool clearWindow(Window *const w) {
-	return SDL_RenderClear(w->ren) == 0;
-}
 void renderWindow(Window *const w) {
 	SDL_RenderPresent(w->ren);
+}
+
+bool clearWindow(Window *const w) {
+	return SDL_RenderClear(w->ren) == 0;
 }
