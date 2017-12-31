@@ -14,7 +14,7 @@ Texture *loadBMPA(const str f, const Window *const w, uint32_t c) {
 		error("Could not load BMP file \"%s\": %s", f, SDL_GetError());
 		return NULL;
 	}
-	if(colorkey)
+	if(c)
 		SDL_SetColorKey(bmp, true, c); // FIXME
 	Texture *tex = SDL_CreateTextureFromSurface(getWindowRenderer(w), bmp);
 	SDL_FreeSurface(bmp); // TODO make sure this won't call SDL_SetError()
