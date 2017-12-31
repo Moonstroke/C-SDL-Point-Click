@@ -136,6 +136,6 @@ typedef enum {
  *
  * \return A flag indicating whether dispatching the layout ended correctly
  */
-bool setLayout(const Window *window, LayoutValues layout, Rect *scenegeom, Rect *inventoryGeom, size_t inventoryWH);
+bool setLayout(const Window *window, LayoutValues layout, Rect *sceneGeom, Rect *inventoryGeom, size_t inventoryWH);
 
 #endif // LAYOUT_H
