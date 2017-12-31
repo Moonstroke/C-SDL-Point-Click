@@ -56,7 +56,7 @@ int main(void) {
 	initall();
 
 	info("\nMain events loop");
-	mainloop();
+	windowRun(win);
 
 	info("\nClean and Exit");
 	freeWindow(win);
@@ -202,7 +202,7 @@ void initall(void) {
 	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);
 	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
 	set_OnMouseMove(move);
-
+	setWindowGameLoop(win, mainloop);
 
 	/* Sandbox */
 	debug("\nSANDBOX\n");

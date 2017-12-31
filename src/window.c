@@ -21,6 +21,7 @@ struct window {
 	Array *screens; // TODO
 	Screen *currentscreen; // This screen is the one currently displayed, so the only
 	                      // who should get a graphical update
+	void (*gameloop)(void);
 };
 
 
@@ -144,4 +145,13 @@ void renderWindow(Window *const w) {
 
 bool clearWindow(Window *const w) {
 	return SDL_RenderClear(w->ren) == 0;
+}
+
+void setWindowGameLoop(Window *const w, void (*const f)(void)) {
+	w->gameloop = f;
+}
+
+void windowRun(const Window *const w) {
+	if(w->gameloop)
+		w->gameloop();
 }

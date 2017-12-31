@@ -220,4 +220,27 @@ void renderWindow(Window *self);
 bool clearWindow(Window *self);
 
 
+/**
+ * \brief Specify the function to be run as the main game loop.
+ *
+ * The main loop is the function in which the game is actually orchestrated.
+ * It manages time, handles events, and respond to player interaction.
+ *
+ * \param[in,out] self The window
+ * \param gameLoop The game function
+ */
+void setWindowGameLoop(Window *self, void (*gameLoop)(void));
+
+/**
+ * \brief Runs the game.
+ *
+ * Executes the function given as game loop.
+ *
+ * \param[in] self The window
+ *
+ * \sa setWindowGameLoop
+ */
+void windowRun(const Window *self);
+
+
 #endif // WINDOW_H
