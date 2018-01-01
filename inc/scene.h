@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "types.h"
+#include "libmisc.h"
 #include "geom.h"
 
 

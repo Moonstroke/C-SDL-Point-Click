@@ -32,7 +32,7 @@
 
 #include "colors.h"
 #include "texture.h"
-#include "types.h"
+#include "libmisc.h"
 #include "window.h"
 
 

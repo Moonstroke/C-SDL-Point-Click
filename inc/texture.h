@@ -18,7 +18,7 @@
 #include <SDL2/SDL_pixels.h>
 #include <stdbool.h>
 
-#include "types.h"
+#include "libmisc.h"
 
 
 /**

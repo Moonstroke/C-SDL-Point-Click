@@ -15,7 +15,7 @@
 #define INVENTORY_H
 
 
-#include "types.h"
+#include "libmisc.h"
 
 
 
