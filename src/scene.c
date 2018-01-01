@@ -24,7 +24,7 @@ struct scene {
 Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str name) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
-		error("malloc() error in newscene() for scene \"%s\"", name);
+		error("malloc() error in newScene() for scene \"%s\"", name);
 		return NULL;
 	}
 	Array *sprites = newarray(size);
