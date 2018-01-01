@@ -15,7 +15,7 @@ static bool set_atexit;
 
 void initSDL(const uint32_t flags) {
 	int ok = SDL_Init(flags);
-	if(ok != 0) {
+	if(ok) {
 		error("Could not load SDL2: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
