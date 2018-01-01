@@ -18,7 +18,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "types.h"
 #include "window.h"
 
 

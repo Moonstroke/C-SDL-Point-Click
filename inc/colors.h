@@ -18,7 +18,6 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_stdinc.h>
 
-#include "types.h"
 
 
 typedef SDL_Color Color; /**< A RGBA color structure */
