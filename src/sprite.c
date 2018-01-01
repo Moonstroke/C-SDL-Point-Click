@@ -21,7 +21,7 @@ struct sprite {
 Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 	Sprite *s = malloc(sizeof(Sprite));
 	if(!s) {
-		error("malloc() error in newsprite() for sprite");
+		error("malloc() error in newSprite() for sprite \"%s\"", name);
 		return NULL;
 	}
 	s->tex = tex;
@@ -79,7 +79,7 @@ void moveSprite(Sprite *const s, const Point to) {
 }
 extern void moveSpriteC(Sprite *s, const Point to);
 
-void setspritetexture(Sprite *const s, Texture *const tex) {
+void setSpriteTexture(Sprite *const s, Texture *const tex) {
 	s->tex = tex;
 	s->needsupdate = true;
 }
