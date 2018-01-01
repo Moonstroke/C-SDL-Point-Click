@@ -29,7 +29,7 @@ Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str n
 	}
 	Array *sprites = newarray(size);
 	if(sprites == NULL) {
-		error("while creating array for %d sprites", size);
+		error("error in newScene() while creating array for %u sprites", size);
 		return NULL;
 	}
 	setSceneName(s, name);
