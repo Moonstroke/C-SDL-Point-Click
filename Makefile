@@ -1,4 +1,8 @@
 # y/n.
+# Enables debugging symbols (gdb)
+DEBUG := n
+
+# y/n.
 # Specify whether the libraries should be linked statically or not
 STATIC := n
 
@@ -26,6 +30,9 @@ DOC_DIR := doc
 
 CC := gcc
 CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded
+ifeq ($(DEBUG), y)
+	CFLAGS += -g
+endif
 ifeq ($(STATIC),y)
 	LDLIBS := -Wl,-dn -llog -larray -lSDL2 -Wl,-dy -lSDL2_ttf -lm -ldl -lasound \
 	          -lpthread -lpulse -lsndio -lX11 -lXext -lXcursor -lXinerama -lXi \
