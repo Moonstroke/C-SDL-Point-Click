@@ -10,11 +10,9 @@
 #include "texture.h"
 
 
-#define NAME_MAX_LEN 16
-
 
 struct scene {
-	char name[NAME_MAX_LEN];
+	str name;
 	Array *sprites;
 	Texture *background;
 	Rect geom;
@@ -27,27 +25,37 @@ Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str n
 		error("malloc() error in newScene() for scene \"%s\"", name);
 		return NULL;
 	}
+
 	Array *sprites = newarray(size);
 	if(sprites == NULL) {
 		error("error in newScene() while creating array for %u sprites", size);
 		return NULL;
 	}
-	setSceneName(s, name);
 	s->sprites = sprites;
+
+	// So that we don't call free() on it
+	s->name = NULL;
+	setSceneName(s, name);
+
 	s->background = tex;
+
 	s->geom = g; // TODO use it somewhere
+
 	verbose("Init (%dx%d) scene \"%s\" with %d sprite slots", g.w, g.h, name, size);
 	return s;
 }
 
 void freeScene(Scene *const s) {
+	const size_t n = asize(s->sprites);
+	const unsigned int l = strlen(s->name) + 1;
+	char name[l];
+	strcpy(name, s->name);
+
 	if(s->background)
 		freeTexture(s->background);
-	const size_t n = asize(s->sprites);
 	afreer(s->sprites, (void(*)(void*))&freeSprite);
 	verbose("freed %d sprites from scene\n", n);
-	char name[NAME_MAX_LEN];
-	strncpy(name, s->name, NAME_MAX_LEN);
+	free((char*)s->name);
 	free(s);
 	verbose("freed scene \"%s\"", name);
 }
@@ -70,16 +78,18 @@ void updateScene(Scene *const s, Window *const win) {
 
 str getSceneName(const Scene *const s) { return s->name; }
 
-void setSceneName(Scene *const s, const str name) {
-	if(name && strlen(name)) {
-		size_t l = strlen(name) + 1;
-		if(l > NAME_MAX_LEN) {
-			warning("name \"%s\" is too long, will be truncated to %d chars", name, NAME_MAX_LEN);
-			l = NAME_MAX_LEN;
-		}
-		strncpy(s->name, name, l);
-	} else
-		s->name[0] = '\0';
+bool setSceneName(Scene *const s, const str name) {
+	if(!name)
+		return false;
+	str new = strdup(name);
+	if(!new) {
+		warning("strdup() failed in setSceneName() \"%s\"", name);
+		return false;
+	}
+	if(s->name)
+		free((char*)s->name);
+	s->name = new;
+	return 0;
 }
 
 size_t addSprite(Scene *const s, Sprite *const sprite) {

@@ -10,11 +10,8 @@
 
 
 
-#define NAME_MAX_LEN 16
-
-
 struct screen {
-	char name[NAME_MAX_LEN];
+	str name;
 	Inventory *inventory;
 	Scene *scene;
 };
@@ -28,6 +25,8 @@ Screen *newScreen(const str name) {
 		return NULL;
 	s->inventory = NULL;
 	s->scene = NULL;
+	s->name = NULL;
+	debug("coucou");
 	setScreenName(s, name);
 	return s;
 }
@@ -37,6 +36,7 @@ void freeScreen(Screen *const s) {
 		freeInventory(s->inventory);
 	if(s->scene)
 		freeScene(s->scene);
+	free((char*)s->name);
 	free(s);
 }
 
@@ -44,12 +44,18 @@ void freeScreen(Screen *const s) {
 /* ## Getters and setters ## */
 str getScreenName(const Screen *const s) { return s->name; }
 
-void setScreenName(Screen *const s, const str name) {
-	const unsigned int l = strlen(name) + 1;
-	if(l > NAME_MAX_LEN)
-		warning("\"%s\" is too long, will be truncated to %u characters", name, NAME_MAX_LEN);
-	strncpy(s->name, name, l);
-	s->name[l - 1] = '\0';
+bool setScreenName(Screen *const s, const str name) {
+	if(!name)
+		return false;
+	str new = strdup(name);
+	if(!new) {
+		warning("strdup() failed in setScreenName() \"%s\"", name);
+		return false;
+	}
+	if(s->name)
+		free((char*)s->name);
+	s->name = new;
+	return true;
 }
 
 

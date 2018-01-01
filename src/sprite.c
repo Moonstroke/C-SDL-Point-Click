@@ -1,18 +1,17 @@
 #include "sprite.h"
 
 
-#include <stdint.h>
+#include <string.h>
 
 #include "log.h"
 #include "texture.h"
 
 
-#define NAME_MAX_LEN 16
 
 struct sprite {
 	Rect geom;
 	Texture *tex;
-	char name[NAME_MAX_LEN];
+	str name;
 	bool needsupdate;
 	padding(7);
 };
@@ -24,22 +23,35 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 		error("malloc() error in newSprite() for sprite \"%s\"", name);
 		return NULL;
 	}
+
 	s->tex = tex;
-	getTextureGeom(tex, &s->geom.w, &s->geom.h);
+
+	getTextureGeom(s->tex, &s->geom.w, &s->geom.h);
 	s->geom.x = p.x;
 	s->geom.y = p.y;
+
+	// so that we don't call free() on s->name
+	s->name = NULL;
 	setSpriteName(s, name);
+
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
 	verbose("new sprite \"%s\" instantiated", s->name);
+
 	s->needsupdate = true;
 	return s;
 }
 
 void freeSprite(Sprite *const s) {
+	// we firstly copy the name of the sprite to print it
+	const unsigned int l = strlen(s->name) + 1;
+	char name[l];
+	strcpy(name, s->name);
+
+	// we do the real deallocation
 	freeTexture(s->tex);
-	char name [NAME_MAX_LEN];
-	strncpy(name, s->name, NAME_MAX_LEN);
+	free((char*)s->name);
 	free(s);
+
 	verbose("freed sprite \"%s\"", name);
 }
 
@@ -54,16 +66,18 @@ void updateSprite(Sprite *const s, Window *const win) {
 
 str getSpriteName(const Sprite *const s) { return s->name; }
 
-void setSpriteName(Sprite *const s, const str name) {
-	if(name && strlen(name)) {
-		int l = strlen(name) + 1;
-		if(l > NAME_MAX_LEN) {
-			warning("name \"%s\" is too long, will be truncated to %d chars", name, NAME_MAX_LEN);
-			l = NAME_MAX_LEN;
-		}
-		strncpy(s->name, name, l);
-	} else
-		s->name[0] = '\0';
+bool setSpriteName(Sprite *const s, const str name) {
+	if(!name)
+		return false;
+	str new = strdup(name);
+	if(!new) {
+		warning("strdup() failed in setSpriteName() \"%s\"", name);
+		return false;
+	}
+	if(s->name)
+		free((char*)s->name);
+	s->name = new;
+	return true;
 }
 
 int getSpriteX(const Sprite *const s) { return s->geom.x; }

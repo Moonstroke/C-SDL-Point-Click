@@ -85,10 +85,15 @@ str getSceneName(const Scene *self);
 /**
  * \brief Modifies the name of the scene.
  *
+ * \note The string is copied using \c malloc().
+ *
  * \param[in] self The scene to update the name of
  * \param[in] name The name to give to the scene
+ *
+ * \return \c true if setting the name happened nominally (\c malloc() succeeded
+ *         and \a name is not \c NULL)
  */
-void setSceneName(Scene *self, str name);
+bool setSceneName(Scene *self, str name);
 
 /**
  * \brief Adds a Sprite to the scene.
