@@ -130,12 +130,12 @@ void setWindowTitle(Window *self, str title);
 /**
  * \brief Gets the renderer associated to this window
  *
+ * \note There is no getter function for the renderer, as it should not be
+ *       changed after the window is initialized
+ *
  * \param[in] self The window to get the renderer from
  *
  * \return The \a Renderer associated with the window
- *
- * \note There is no getter function for the renderer, as it should not be
- *       changed after the window is initialized
  *
  * \sa SDL_Renderer
  */
@@ -144,22 +144,22 @@ SDL_Renderer *getWindowRenderer(const Window *self);
 /**
  * \brief Returns the width of the window, in pixels
  *
+ * \note This parameter can not be modified, and the window can not be resized
+ *
  * \param[in] self The window to get the width from
  *
  * \return The width of the window, in pixels
- *
- * \note This parameter can not be modified, and the window can not be resized
  */
 size_t getWindowWidth(const Window *self);
 
 /**
  * \brief Returns the height of the window, in pixels
  *
+ * \note This parameter can not be modified, and the window can not be resized
+ *
  * \param[in] self The window to get the height from
  *
  * \return The height oof the window, in pixels
- *
- * \note This parameter can not be modified, and the window can not be resized
  */
 size_t getWindowHeight(const Window *self);
 
@@ -167,14 +167,14 @@ size_t getWindowHeight(const Window *self);
 /**
  * \brief Adds a screen to the window.
  *
+ * \note If this is the first screen of the window, it is automatically set as
+ *       the current screen.
+ *
  * \param[in,out] self   The window
  * \param[in]     screen The screen to add
  *
  * \return The position of the screen in the window, or \c -1 if an error
  *         occurred
- *
- * \note If this is the first screen of the window, it is automatically set as
- *       the current screen.
  */
 ssize_t addWindowScreen(Window *self, Screen *screen);
 

@@ -120,12 +120,11 @@ void setTextColor(Text *self, Color color);
 /**
  * \brief Updates the background color of the Text.
  *
- * \param[in,out] self    The text
- * \param[in]     bgColor The color to set
- *
  * \note The background color is only used when rendering with an opaque
  *       background.
  *
+ * \param[in,out] self    The text
+ * \param[in]     bgColor The color to set
  */
 void setTextBgColor(Text *self, Color bgColor);
 
