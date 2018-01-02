@@ -70,7 +70,7 @@ void move(const Point p) {
 	if(heldsprite)
 		moveSpriteC(heldsprite, p);
 	else {
-		Sprite *const s = getSceneSpritePos(scene, p);
+		Sprite *const s = getInventorySpritePos(inventory, p);
 		setTextString(tooltip, s ? getSpriteName(s) : "");
 	}
 }
