@@ -6,7 +6,7 @@
 
 
 
-str strdup(const str orig) {
+str strcopy(const str orig) {
 	if(!orig)
 		return NULL;
 	const unsigned int l = strlen(orig) + 1;

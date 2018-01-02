@@ -36,7 +36,7 @@ typedef const char *str;
  *
  * \return a \a malloc'd copy of the string
  */
-str strdup(str orig);
+str strcopy(str orig);
 
 
 #endif // LIBMISC_H
