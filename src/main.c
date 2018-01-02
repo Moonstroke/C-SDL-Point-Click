@@ -167,31 +167,31 @@ void initall(void) {
 
 	/* Scene(s) */
 
-	Texture *scenebg = loadBMP("data/img/background.bmp", win);
+	Texture *scenebg = loadBMP("background", win);
 	scene = newScene(scenegeom, scenebg, 2, "Scene1");
 	setScreenScene(screen, scene);
 
 
 	/* Inventory */
 
-	Texture *inventbg = NULL; //loadbmp("img/inventory.bmp", win);
+	Texture *inventbg = NULL; //loadbmp("inventory.bmp", win);
 	inventory = newInventory(inventorygeom, 8, inventbg);
 	setScreenInventory(screen, inventory);
 
 
 	/* Sprites */
 
-	Texture *earthtex = loadBMPA("data/img/earth.bmp", win, BLACK);
+	Texture *earthtex = loadBMPA("earth", win, BLACK);
 	earth = newSprite(earthtex, point(192, 240), "Earth");
 	addSprite(scene, earth);
 
-	Texture *earth2tex = loadBMP("data/img/earth2.bmp", win);
+	Texture *earth2tex = loadBMP("earth2", win);
 	earth2 = newSprite(earth2tex, point(384, 240), "Earth2");
 	addSprite(scene, earth2);
 
 
 	/* Texts */
-	Font *ubuntu = TTF_OpenFont("data/fonts/ubuntu_mono-regular.ttf", 16);
+	Font *ubuntu = openFont("ubuntu_mono-regular", 16);
 	if(!ubuntu) {
 		fatal("Font could not be loaded: %s", TTF_GetError());
 		exit(1);

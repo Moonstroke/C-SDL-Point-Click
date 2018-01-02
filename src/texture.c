@@ -1,6 +1,8 @@
 #include "texture.h"
 
 
+#include <string.h>
+
 #include "log.h"
 #include "libsdl2.h"
 #include "window.h"
@@ -8,7 +10,17 @@
 
 
 
-Texture *loadBMPA(const str f, const Window *const w, uint32_t c) {
+#define IMG_DIR "data/img"
+
+
+
+Texture *loadBMPA(const str b, const Window *const w, uint32_t c) {
+	const unsigned int l = snprintf(NULL, 0, IMG_DIR"/%s.bmp", b) + 1;
+	if(l < 1)
+		return NULL;
+	char f[l];
+	sprintf(f, IMG_DIR"/%s.bmp", b);
+
 	SDL_Surface *bmp = SDL_LoadBMP(f);
 	if(!bmp) {
 		error("Could not load BMP file \"%s\": %s", f, SDL_GetError());
