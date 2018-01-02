@@ -100,5 +100,16 @@ size_t addInventorySprite(Inventory *self, Sprite *sprite);
  */
 bool removeInventorySprite(Inventory *self, const Sprite *sprite);
 
+/**
+ * \brief Retrieve a Sprite from the inventory based on his position in the
+ *        window.
+ *
+ * \param[in] self The inventory
+ * \param[in] pos The position
+ *
+ * \return The sprite from the inventory at given position, or \c NULL if there
+ *         is none or position is invalid.
+ */
+Sprite *getInventorySpritePos(const Inventory *self, Point pos);
 
 #endif // INVENTORY_H

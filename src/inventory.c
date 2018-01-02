@@ -67,3 +67,13 @@ size_t addInventorySprite(Inventory *const i, Sprite *const s) {
 bool removeInventorySprite(Inventory *const i, const Sprite *const s) {
 	return aremove(i->sprites, s);
 }
+
+static Point _pos = (SDL_Point){0};
+static bool haspos(const void *item) {
+	return isPointInSprite((Sprite*)item, _pos);
+}
+
+Sprite *getInventorySpritePos(const Inventory *const i, const Point p) {
+	_pos = p;
+	return acond(i->sprites, haspos);
+}
