@@ -44,18 +44,8 @@ void freeScreen(Screen *const s) {
 /* ## Getters and setters ## */
 str getScreenName(const Screen *const s) { return s->name; }
 
-bool setScreenName(Screen *const s, const str name) {
-	if(!name)
-		return false;
-	str new = strdup(name);
-	if(!new) {
-		warning("strdup() failed in setScreenName() \"%s\"", name);
-		return false;
-	}
-	if(s->name)
-		free((char*)s->name);
-	s->name = new;
-	return true;
+void setScreenName(Screen *const s, const str name) {
+	s->name = name;
 }
 
 

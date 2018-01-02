@@ -78,18 +78,8 @@ void updateScene(Scene *const s, Window *const win) {
 
 str getSceneName(const Scene *const s) { return s->name; }
 
-bool setSceneName(Scene *const s, const str name) {
-	if(!name)
-		return false;
-	str new = strdup(name);
-	if(!new) {
-		warning("strdup() failed in setSceneName() \"%s\"", name);
-		return false;
-	}
-	if(s->name)
-		free((char*)s->name);
-	s->name = new;
-	return 0;
+void setSceneName(Scene *const s, const str name) {
+	s->name = name;
 }
 
 size_t addSprite(Scene *const s, Sprite *const sprite) {

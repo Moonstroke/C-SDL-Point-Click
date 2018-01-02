@@ -66,18 +66,8 @@ void updateSprite(Sprite *const s, Window *const win) {
 
 str getSpriteName(const Sprite *const s) { return s->name; }
 
-bool setSpriteName(Sprite *const s, const str name) {
-	if(!name)
-		return false;
-	str new = strdup(name);
-	if(!new) {
-		warning("strdup() failed in setSpriteName() \"%s\"", name);
-		return false;
-	}
-	if(s->name)
-		free((char*)s->name);
-	s->name = new;
-	return true;
+void setSpriteName(Sprite *const s, const str name) {
+	s->name = name;
 }
 
 int getSpriteX(const Sprite *const s) { return s->geom.x; }

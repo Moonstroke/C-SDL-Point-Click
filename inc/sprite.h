@@ -81,15 +81,12 @@ str getSpriteName(const Sprite *self);
 /**
  * \brief Modifies the name of the sprite.
  *
- * \note The string is copied using \c malloc().
+ * \note The string is assigned without any copy.
  *
  * \param[in] self The sprite to update the name of
  * \param[in] name The name to give to the sprite
- *
- * \return \c false if any error happened: \c malloc() failed, or \a name is
- *         \c NULL
  */
-bool setSpriteName(Sprite *self, str name);
+void setSpriteName(Sprite *self, str name);
 
 /**
  * \brief Returns the X position of the sprite.

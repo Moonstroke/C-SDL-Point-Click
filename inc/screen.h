@@ -66,15 +66,12 @@ str getScreenName(const Screen *self);
 /**
  * \brief Updates the name of the screen.
  *
- * \note The string is copied using \c malloc().
+ * \note The string is assigned without any copy.
  *
  * \param[in,out] self The screen
  * \param[in]  name The new name to give to the screen
- *
- * \return \c true if setting the name happened nominally (\c malloc() succeeded
- *         and \a name is not \c NULL)
  */
-bool setScreenName(Screen *self, str name);
+void setScreenName(Screen *self, str name);
 
 
 /**
