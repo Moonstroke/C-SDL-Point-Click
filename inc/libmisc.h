@@ -39,4 +39,18 @@ typedef const char *str;
 str strcopy(str orig);
 
 
+/**
+ * \brief Concatenates two strings.
+ *
+ * \note This function does not modify its arguments, but returns a new string
+ *       allocated with \a malloc() -- don't forget to \a free() it!
+ *
+ * \param[in] s1 The first string
+ * \param[in] s2 The second string
+ *
+ * \return A \a malloc()'ed concatenation of the strings, or \c NULL if an error
+ *         occurred.
+ */
+str strconcat(str s1, str s2);
+
 #endif // LIBMISC_H
