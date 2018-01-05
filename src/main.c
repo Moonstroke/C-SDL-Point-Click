@@ -21,16 +21,17 @@
 /* Static-use objects (mere references) */
 
 static Window *win;
-static Screen *screen;
-static Scene *scene;
-static Inventory *inventory;
+static Screen *menu;
+static Screen *game;
+static Scene *menuscene;
+static Scene *gamescene;
+static Inventory *gameinventory;
 static Sprite *earth, *earth2;
 static Text *tooltip;
 
 
 /* Dynamic-use objects (can change over time) */
 
-// FIXME can't these be registers?
 static Sprite *heldsprite = NULL;
 static Point clickpos;
 
@@ -70,23 +71,24 @@ void move(const Point p) {
 	if(heldsprite)
 		moveSpriteC(heldsprite, p);
 	else {
-		Sprite *const s = getInventorySpritePos(inventory, p);
+		Sprite *const s = getInventorySpritePos(gameinventory, p);
 		setTextString(tooltip, s ? getSpriteName(s) : "");
 	}
 }
 
 void leftdown(const Point p) {
-	clickpos = p; //point(p.x, p.y);
-	heldsprite = getSceneSpritePos(scene, p);
+	clickpos = p;
+	heldsprite = getSceneSpritePos(gamescene, p);
 }
 void leftup(const Point p) {
-	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) { // the event is a mouse click
+	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) {
+		/* The event is a mouse click */
 		if(heldsprite) {
-			removeSceneSprite(scene, heldsprite);
-			addInventorySprite(inventory, heldsprite);
+			removeSceneSprite(gamescene, heldsprite);
+			addInventorySprite(gameinventory, heldsprite);
 			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
 		}
-		debug("inventory size = %d", inventorySize(inventory));
+		debug("inventory size = %d", inventorySize(gameinventory));
 		debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
 	}
 
@@ -95,7 +97,6 @@ void leftup(const Point p) {
 
 
 void mainloop(void) {
-	//renderwindow(win);
 	logSDLRendererInfo(getWindowRenderer(win));
 	SDL_Event event;
 	bool done = false;
@@ -146,48 +147,62 @@ void initall(void) {
 
 	initSDL(SDL_INIT_VIDEO);
 
-	Rect wingeom, scenegeom, inventorygeom;
+	Rect wingeom, menuscenegeom, gamescenegeom, gameinventorygeom;
 
 
 	/* Window */
 
-	LayoutValues layout = SCENE_INVENTORY_BELOW;
-
 	wingeom = rect(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480);
 	win = newWin("App window", wingeom);
 
+
+	/* Layouts */
+
+	LayoutValues menulayout = SCENE_ONLY,
+	             gamelayout = SCENE_INVENTORY_BELOW;
+
+	setLayout(win, menulayout, &menuscenegeom, NULL, 0);
+
 	const int inventh = 80;
-	setLayout(win, layout, &scenegeom, &inventorygeom, inventh);
+	setLayout(win, gamelayout, &gamescenegeom, &gameinventorygeom, inventh);
 
 
 	/* Screen(s) */
-	screen = newScreen("Game screen");
-	addWindowScreen(win, screen);
+
+	menu = newScreen("Menu screen");
+	addWindowScreen(win, menu);
+
+	game = newScreen("Game screen");
+	addWindowScreen(win, game);
 
 
 	/* Scene(s) */
 
-	Texture *scenebg = loadBMP("background", win);
-	scene = newScene(scenegeom, scenebg, 2, "Scene1");
-	setScreenScene(screen, scene);
+	Texture *menuscenebg = loadBMP("menuscene_bg", win);
+	menuscene = newScene(menuscenegeom, menuscenebg, 0, "Menu");
+	setScreenScene(menu, menuscene);
+
+	Texture *gamescenebg = loadBMP("gamescene_bg", win);
+	gamescene = newScene(gamescenegeom, gamescenebg, 2, "Scene1");
+	setScreenScene(game, gamescene);
 
 
 	/* Inventory */
 
-	Texture *inventbg = NULL; //loadbmp("inventory.bmp", win);
-	inventory = newInventory(inventorygeom, 8, inventbg);
-	setScreenInventory(screen, inventory);
+	Texture *inventbg = loadBMP("gameinventory_bg", win);
+	gameinventory = newInventory(gameinventorygeom, 8, inventbg);
+	setScreenInventory(game, gameinventory);
 
 
 	/* Sprites */
 
 	Texture *earthtex = loadBMPA("earth", win, BLACK);
 	earth = newSprite(earthtex, point(192, 240), "Earth");
-	addSprite(scene, earth);
+	addSprite(gamescene, earth);
 
 	Texture *earth2tex = loadBMP("earth2", win);
 	earth2 = newSprite(earth2tex, point(384, 240), "Earth2");
-	addSprite(scene, earth2);
+	addSprite(gamescene, earth2);
 
 
 	/* Texts */
