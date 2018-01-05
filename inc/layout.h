@@ -128,11 +128,12 @@ typedef enum {
  * \note If \a layout is \a SCENE_ONLY, \a inventoryGeom may be \c NULL. In that
  * case, (and only in that case) the value of \a inventoryWH is ignored.
  *
- * \param window        The window to set layout of
- * \param layout        The layout value to set to the window
- * \param sceneGeom     The geometry of the scene (width, height and position)
- * \param inventoryGeom The geometry of the inventory
- * \param inventoryWH   The dimension to set to the inventory: width if
+ * \param[in]  window        The window to set layout of
+ * \param[in]  layout        The layout value to set to the window
+ * \param[out] sceneGeom     The geometry of the scene (width, height and
+ *                           position)
+ * \param[out] inventoryGeom The geometry of the inventory
+ * \param[in]  inventoryWH   The dimension to set to the inventory: width if
  *                           \a layout is vertical, or height if horizontal
  *
  * \return A flag indicating whether dispatching the layout ended correctly
