@@ -4,7 +4,7 @@
 function install_git_repo() (
 	cd /tmp
 	# Fetch the project
-	git clone -v "'https://github.com/Moonstroke/C-$1" "$1"
+	git clone -v "https://github.com/Moonstroke/C-$1" "$1"
 	cd "$1"
 	# Build
 	make
