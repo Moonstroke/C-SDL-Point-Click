@@ -14,7 +14,6 @@
 
 
 #include <stdbool.h>
-#include <stdlib.h>
 
 #include "libmisc.h"
 #include "geom.h"
@@ -46,7 +45,7 @@ typedef struct scene Scene;
  * \return A new scene of given geometry, background, number of sprites to
  *         include and name
  */
-Scene *newScene(Rect geom, Texture *background, size_t numSprites, str name);
+Scene *newScene(Rect geom, Texture *background, unsigned int numSprites, str name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
@@ -102,7 +101,7 @@ void setSceneName(Scene *self, str name);
  *
  *\sa Sprite
  */
-size_t addSprite(Scene *self, Sprite *sprite);
+unsigned int addSprite(Scene *self, Sprite *sprite);
 
 /**
  * \brief Retrieves a Sprite by its index in the scene.
@@ -115,7 +114,7 @@ size_t addSprite(Scene *self, Sprite *sprite);
  *
  * \sa Sprite
  */
-Sprite *getSprite(const Scene *self, size_t index);
+Sprite *getSprite(const Scene *self, unsigned int index);
 
 /**
  * \brief Retrieves a Sprite by its position on screen

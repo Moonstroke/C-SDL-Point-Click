@@ -1,6 +1,7 @@
 #include "scene.h"
 
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "array.h"
@@ -19,7 +20,7 @@ struct scene {
 };
 
 
-Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str name) {
+Scene *newScene(const Rect g, Texture *const tex, const unsigned int size, const str name) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newScene() for scene \"%s\"", name);
@@ -46,7 +47,7 @@ Scene *newScene(const Rect g, Texture *const tex, const size_t size, const str n
 }
 
 void freeScene(Scene *const s) {
-	const size_t n = asize(s->sprites);
+	const unsigned int n = asize(s->sprites);
 	const unsigned int l = strlen(s->name) + 1;
 	char name[l];
 	strcpy(name, s->name);
@@ -62,7 +63,7 @@ void freeScene(Scene *const s) {
 
 bool sceneNeedsUpdate(const Scene *const s) {
 	bool needsupdate = false;
-	size_t i = asize(s->sprites);
+	unsigned int i = asize(s->sprites);
 	while(--i && !needsupdate)
 		needsupdate = spriteNeedsUpdate(aget(s->sprites, i));
 	return needsupdate;
@@ -71,7 +72,7 @@ bool sceneNeedsUpdate(const Scene *const s) {
 void updateScene(Scene *const s, Window *const win) {
 	if(s->background)
 		drawTexture(s->background, win, point(s->geom.x, s->geom.y));
-	size_t i = asize(s->sprites);
+	unsigned int i = asize(s->sprites);
 	while(i--)
 		updateSprite(aget(s->sprites, i), win);
 }
@@ -82,16 +83,16 @@ void setSceneName(Scene *const s, const str name) {
 	s->name = name;
 }
 
-size_t addSprite(Scene *const s, Sprite *const sprite) {
+unsigned int addSprite(Scene *const s, Sprite *const sprite) {
 	return aappend(s->sprites, sprite);
 }
 
-Sprite *getSprite(const Scene *const s, const size_t i) {
+Sprite *getSprite(const Scene *const s, const unsigned int i) {
 	return aget(s->sprites, i);
 }
 
 Sprite *getSceneSpritePos(const Scene *const s, const Point p) {
-	size_t i = asize(s->sprites);
+	unsigned int i = asize(s->sprites);
 	Sprite *sp;
 	while(i--) {
 		sp = aget(s->sprites, i);
