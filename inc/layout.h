@@ -15,7 +15,6 @@
 #define LAYOUT_H
 
 
-#include <stdlib.h>
 #include <stdbool.h>
 
 #include "window.h"
@@ -135,6 +134,6 @@ typedef enum {
  *
  * \return A flag indicating whether dispatching the layout ended correctly
  */
-bool setLayout(const Window *window, LayoutValues layout, Rect *sceneGeom, Rect *inventoryGeom, size_t inventoryWH);
+bool setLayout(const Window *window, LayoutValues layout, Rect *sceneGeom, Rect *inventoryGeom, unsigned int inventoryWH);
 
 #endif // LAYOUT_H

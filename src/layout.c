@@ -1,7 +1,7 @@
 #include "layout.h"
 
 
-bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect *const ig, const size_t d) {
+bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect *const ig, const unsigned int d) {
 	const size_t winw = getWindowWidth(w), winh = getWindowHeight(w);
 	switch(l) {
 		case SCENE_ONLY:
