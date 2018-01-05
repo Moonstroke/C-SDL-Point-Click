@@ -5,6 +5,10 @@ compiler: gcc
 sudo: true
 
 
+before_install:
+ # Refreshing the APT cache doesn't hurt
+ - apt-get update
+
 install:
  # Install dependencies from the bash script
  - ./install_deps.sh
