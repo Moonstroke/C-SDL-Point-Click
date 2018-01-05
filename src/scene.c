@@ -27,12 +27,15 @@ Scene *newScene(const Rect g, Texture *const tex, const unsigned int size, const
 		return NULL;
 	}
 
-	Array *sprites = newarray(size);
-	if(sprites == NULL) {
-		error("error in newScene() while creating array for %u sprites", size);
-		return NULL;
-	}
-	s->sprites = sprites;
+	if(size) {
+		Array *const sprites = newarray(size);
+		if(sprites == NULL) {
+			error("error in newScene() while creating array for %u sprites", size);
+			return NULL;
+		}
+		s->sprites = sprites;
+	} else
+		s->sprites = NULL;
 
 	// So that we don't call free() on it
 	s->name = NULL;
@@ -63,8 +66,8 @@ void freeScene(Scene *const s) {
 
 bool sceneNeedsUpdate(const Scene *const s) {
 	bool needsupdate = false;
-	unsigned int i = asize(s->sprites);
-	while(--i && !needsupdate)
+	unsigned int i = s->sprites ? asize(s->sprites) : 0;
+	while(i-- && !needsupdate)
 		needsupdate = spriteNeedsUpdate(aget(s->sprites, i));
 	return needsupdate;
 }
@@ -72,7 +75,7 @@ bool sceneNeedsUpdate(const Scene *const s) {
 void updateScene(Scene *const s, Window *const win) {
 	if(s->background)
 		drawTexture(s->background, win, point(s->geom.x, s->geom.y));
-	unsigned int i = asize(s->sprites);
+	unsigned int i = s->sprites ? asize(s->sprites) : 0;
 	while(i--)
 		updateSprite(aget(s->sprites, i), win);
 }
@@ -84,15 +87,21 @@ void setSceneName(Scene *const s, const str name) {
 }
 
 unsigned int addSprite(Scene *const s, Sprite *const sprite) {
+	if(!s->sprites) {
+		Array *arr = newarray(8);
+		if(!arr)
+			return 0;
+		s->sprites = arr;
+	}
 	return aappend(s->sprites, sprite);
 }
 
 Sprite *getSprite(const Scene *const s, const unsigned int i) {
-	return aget(s->sprites, i);
+	return s->sprites ? aget(s->sprites, i) : NULL;
 }
 
 Sprite *getSceneSpritePos(const Scene *const s, const Point p) {
-	unsigned int i = asize(s->sprites);
+	unsigned int i = s->sprites ? asize(s->sprites) : 0;
 	Sprite *sp;
 	while(i--) {
 		sp = aget(s->sprites, i);
