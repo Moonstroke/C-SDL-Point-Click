@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-#include "log.h"
+#include <log.h>
 #include "libsdl2.h"
 #include "window.h"
 #include "colors.h"

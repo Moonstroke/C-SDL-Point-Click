@@ -1,7 +1,7 @@
 #include "screen.h"
 
 
-#include "log.h"
+#include <log.h>
 #include <stdlib.h>
 #include <string.h>
 

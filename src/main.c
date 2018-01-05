@@ -5,7 +5,7 @@
 
 #include "colors.h"
 #include "events.h"
-#include "log.h"
+#include <log.h>
 #include "libsdl2.h"
 #include "geom.h"
 #include "scene.h"

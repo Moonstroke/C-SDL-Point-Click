@@ -6,7 +6,7 @@
 #include "array.h"
 #include "array_funcs.h"
 #include "inventory.h"
-#include "log.h"
+#include <log.h>
 #include "screen.h"
 
 

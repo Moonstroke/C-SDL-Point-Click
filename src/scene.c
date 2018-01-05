@@ -7,7 +7,7 @@
 #include "array.h"
 #include "array_funcs.h"
 #include "libsdl2.h"
-#include "log.h"
+#include <log.h>
 #include "texture.h"
 
 
