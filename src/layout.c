@@ -5,7 +5,9 @@ bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect
 	const size_t winw = getWindowWidth(w), winh = getWindowHeight(w);
 	switch(l) {
 		case SCENE_ONLY:
-			ig->x = ig->y = ig->w = ig->h = 0;
+			if(ig) {
+				ig->x = ig->y = ig->w = ig->h = 0;
+			}
 			sg->x = sg->y = 0, sg->w = winw, sg->h = winh;
 			return true;
 		case SCENE_INVENTORY_ABOVE:

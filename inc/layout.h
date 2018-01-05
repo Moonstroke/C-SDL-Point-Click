@@ -125,12 +125,15 @@ typedef enum {
  * \brief Sets the layout of the window with a value, or a combination of
  * \a LayoutValues
  *
+ * \note If \a layout is \a SCENE_ONLY, \a inventoryGeom may be \c NULL. In that
+ * case, (and only in that case) the value of \a inventoryWH is ignored.
+ *
  * \param window        The window to set layout of
  * \param layout        The layout value to set to the window
  * \param sceneGeom     The geometry of the scene (width, height and position)
- * \param inventoryGeom The geometry ofh the inventory
- * \param inventoryWH   The dimension to set to the inventory:
- *                      width if layout is vertical, or height if horizontal
+ * \param inventoryGeom The geometry of the inventory
+ * \param inventoryWH   The dimension to set to the inventory: width if
+ *                           \a layout is vertical, or height if horizontal
  *
  * \return A flag indicating whether dispatching the layout ended correctly
  */
