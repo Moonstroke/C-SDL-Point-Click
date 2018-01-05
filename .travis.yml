@@ -7,11 +7,11 @@ sudo: true
 
 before_install:
  # Refreshing the APT cache doesn't hurt
- - apt-get update
+ - sudo apt-get update
 
 install:
  # Install dependencies from the bash script
- - ./install_deps.sh
+ - sudo ./install_deps.sh
 
 
 script:
