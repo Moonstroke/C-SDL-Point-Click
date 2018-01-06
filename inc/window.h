@@ -178,6 +178,16 @@ size_t getWindowHeight(const Window *self);
  */
 ssize_t addWindowScreen(Window *self, Screen *screen);
 
+
+/**
+ * \brief Retrieves the screen currently displayed in the window.
+ *
+ * \param[in] self The window
+ *
+ * \return The current screen of the window
+ */
+Screen *getWindowCurrentScreen(Window *const self);
+
 /**
  * \brief Sets the current screen of the window.
  *

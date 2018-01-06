@@ -120,6 +120,10 @@ static bool cmpscreenname(const void *const item) {
 	return strcmp(getScreenName((Screen*)item), _name) == 0;
 }
 
+Screen *getWindowCurrentScreen(Window *const w) {
+	return w->currentscreen;
+}
+
 bool setWindowCurrentScreen(Window *const w, const str name) {
 	_name = name;
 	Screen *s = acond(w->screens, cmpscreenname);
