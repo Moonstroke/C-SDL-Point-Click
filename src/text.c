@@ -82,7 +82,7 @@ static inline SDL_Surface *getsurface(const Text *const t) {
 	return NULL;
 }
 
-Texture *renderText(Tet *const text, Window *const w) {
+Texture *renderText(Text *const t, Window *const w) {
 	if(t->needsupdate) {
 		if(strlen(t->txt)) {
 			SDL_Surface *const surf = getsurface(t);
@@ -105,7 +105,7 @@ Texture *renderText(Tet *const text, Window *const w) {
 }
 
 bool drawText(Text *const t, Window *const w, Point p) {
-	Texture *tex = renderText(t);
+	Texture *tex = renderText(t, w);
 	if(tex) {
 		drawTexture(tex, w, p);
 	}
