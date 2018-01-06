@@ -24,7 +24,7 @@ apt-get install -y libasound2-dev libdbus-1-dev libegl1-mesa-dev libgl1-mesa-dev
                    libudev-dev libwayland-dev libx11-dev libxcursor-dev\
                    libxext-dev libxi-dev libxinerama-dev libxkbcommon-dev\
                    libxrandr-dev libxss-dev libxt-dev libxv-dev libxxf86vm-dev\
-                   libsdl2-dev
+                   libsdl2-dev libsdl2-ttf-dev
 
 
 install_git_repo log
