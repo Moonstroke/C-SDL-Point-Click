@@ -162,7 +162,7 @@ bool textNeedsUpdate(const Text *self);
  * \return A static flattened texture of the text (static here in the sense of
  *         <i>"no longer modifiable"</i>)
  */
-Texture *renderText(Text *self, Window *win);
+Texture *renderText(Text *self, Window *window);
 
 /**
  * \brief Draws a text on screen fastly, without smoothing.
