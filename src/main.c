@@ -21,12 +21,6 @@
 /* Static-use objects (mere references) */
 
 static Window *win;
-static Screen *menu;
-static Screen *game;
-static Scene *menuscene;
-static Scene *gamescene;
-static Inventory *gameinventory;
-static Sprite *earth, *earth2;
 static Text *tooltip;
 
 
@@ -71,24 +65,31 @@ void move(const Point p) {
 	if(heldsprite)
 		moveSpriteC(heldsprite, p);
 	else {
-		Sprite *const s = getInventorySpritePos(gameinventory, p);
-		setTextString(tooltip, s ? getSpriteName(s) : "");
+		Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
+		if(inv) {
+			Sprite *const s = getInventorySpritePos(inv, p);
+			setTextString(tooltip, s ? getSpriteName(s) : "");
+		}
 	}
 }
 
 void leftdown(const Point p) {
 	clickpos = p;
-	heldsprite = getSceneSpritePos(gamescene, p);
+	heldsprite = getSceneSpritePos(getScreenScene(getWindowCurrentScreen(win)), p);
 }
 void leftup(const Point p) {
+	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
+	Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
 	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) {
 		/* The event is a mouse click */
 		if(heldsprite) {
-			removeSceneSprite(gamescene, heldsprite);
-			addInventorySprite(gameinventory, heldsprite);
+			if(inv) {
+				removeSceneSprite(scene, heldsprite);
+				addInventorySprite(inv, heldsprite);
+			}
 			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
 		}
-		debug("inventory size = %d", inventorySize(gameinventory));
+		debug("inventory size = %d", inv ? (signed)inventorySize(inv) : -1);
 		debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
 	}
 
@@ -144,6 +145,12 @@ void mainloop(void) {
 	}
 }
 void initall(void) {
+
+	Screen *menu, *game;
+	Scene *menuscene, *gamescene;
+	Inventory *gameinventory;
+	Sprite *earth, *earth2;
+
 
 	initSDL(SDL_INIT_VIDEO);
 
