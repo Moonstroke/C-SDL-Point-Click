@@ -24,8 +24,7 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 		return NULL;
 	}
 
-	s->geom.x = p.x;
-	s->geom.y = p.y;
+	moveSprite(s, p);
 
 	/* so that we don't call free() on s->tex for nothing */
 	s->tex = NULL;
@@ -33,8 +32,6 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 		setSpriteTexture(s, tex);
 	}
 
-	// so that we don't call free() on s->name
-	s->name = NULL;
 	setSpriteName(s, name);
 
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
