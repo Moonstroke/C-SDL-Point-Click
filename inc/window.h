@@ -227,7 +227,7 @@ bool clearWindow(Window *self);
  * It manages time, handles events, and respond to player interaction.
  *
  * \param[in,out] self The window
- * \param gameLoop The game function
+ * \param[in]     gameLoop The game function
  */
 void setWindowGameLoop(Window *self, void (*gameLoop)(void));
 

@@ -37,9 +37,9 @@ typedef struct sprite Sprite;
  * \note for perf enhancements, init texture with SDL_TEXTUREACCESS_STREAMING, if
  * ever needed
  *
- * \param tex   The texture of the Sprite
- * \param point Its position on screen
- * \param name  Its name
+ * \param[in] tex   The texture of the Sprite
+ * \param[in] point Its position on screen
+ * \param[in] name  Its name
  *
  * \return a newly-allocated sprite
  */

@@ -21,7 +21,7 @@
 /**
  * \brief Initializes the SDL.
  *
- * \param flags The flags to specify which modes to initialize
+ * \param[in] flags The flags to specify which modes to initialize
  */
 void initSDL(uint32_t flags);
 
