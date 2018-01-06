@@ -82,27 +82,32 @@ static inline SDL_Surface *getsurface(const Text *const t) {
 	return NULL;
 }
 
-bool drawText(Text *const t, Window *const w, Point p) {
+Texture *renderText(Tet *const text, Window *const w) {
 	if(t->needsupdate) {
 		if(strlen(t->txt)) {
 			SDL_Surface *const surf = getsurface(t);
 			if(!surf) {
 				error("Unable to render text \"%s\"", t->txt);
-				return false;
+				return NULL;
 			}
 			Texture *const tex = SDL_CreateTextureFromSurface(getWindowRenderer(w), surf);
 			SDL_FreeSurface(surf);
 			if(!tex) {
 				error("Unable to create texture from rendered text surface");
-				return false;
+				return NULL;
 			}
 			t->rendered = tex;
 		} else
 			t->rendered = NULL;
 		t->needsupdate = false;
 	}
-	if(t->rendered) {
-		drawTexture(t->rendered, w, p);
+	return t->rendered;
+}
+
+bool drawText(Text *const t, Window *const w, Point p) {
+	Texture *tex = renderText(t);
+	if(tex) {
+		drawTexture(tex, w, p);
 	}
 	return true;
 }

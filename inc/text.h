@@ -154,6 +154,17 @@ bool textNeedsUpdate(const Text *self);
 
 
 /**
+ * \brief Renders the text in the form of a \a Texture.
+ *
+ * \param[in,out] self   The text to render
+ * \param[in]     window The window to which to render
+ *
+ * \return A static flattened texture of the text (static here in the sense of
+ *         <i>"no longer modifiable"</i>)
+ */
+Texture *renderText(Text *self, Window *win);
+
+/**
  * \brief Draws a text on screen fastly, without smoothing.
  *
  * \param[in,out] self   The text to render
