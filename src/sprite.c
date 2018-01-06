@@ -42,13 +42,10 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 
 void freeSprite(Sprite *const s) {
 	// we firstly copy the name of the sprite to print it
-	const unsigned int l = strlen(s->name) + 1;
-	char name[l];
-	strcpy(name, s->name);
+	const str name = getSpriteName(s);
 
 	// we do the real deallocation
 	freeTexture(s->tex);
-	free((char*)s->name);
 	free(s);
 
 	verbose("freed sprite \"%s\"", name);
