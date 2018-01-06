@@ -55,7 +55,9 @@ void freeSprite(Sprite *const s) {
 }
 
 
-bool spriteNeedsUpdate(const Sprite *const s) { return s->needsupdate; }
+bool spriteNeedsUpdate(const Sprite *const s) {
+	return s->needsupdate;
+}
 
 void updateSprite(Sprite *const s, Window *const win) {
 	drawTexture(s->tex, win, point(s->geom.x, s->geom.y));
@@ -63,29 +65,39 @@ void updateSprite(Sprite *const s, Window *const win) {
 }
 
 
-str getSpriteName(const Sprite *const s) { return s->name; }
-
-void setSpriteName(Sprite *const s, const str name) {
-	s->name = name;
+str getSpriteName(const Sprite *const s) {
+	return s->name;
 }
 
-int getSpriteX(const Sprite *const s) { return s->geom.x; }
-int getSpriteY(const Sprite *const s) { return s->geom.y; }
-int getSpriteW(const Sprite *const s) { return s->geom.w; }
-int getSpriteH(const Sprite *const s) { return s->geom.h; }
+void setSpriteName(Sprite *const s, const str n) {
+	s->name = n;
+}
+
+int getSpriteX(const Sprite *const s) {
+	return s->geom.x;
+}
+int getSpriteY(const Sprite *const s) {
+	return s->geom.y;
+}
+int getSpriteW(const Sprite *const s) {
+	return s->geom.w;
+}
+int getSpriteH(const Sprite *const s) {
+	return s->geom.h;
+}
 
 
-void moveSprite(Sprite *const s, const Point to) {
-	s->geom.x = to.x;
-	s->geom.y = to.y;
+void moveSprite(Sprite *const s, const Point p) {
+	s->geom.x = p.x;
+	s->geom.y = p.y;
 	s->needsupdate = true;
 }
-extern void moveSpriteC(Sprite *s, const Point to);
+extern void moveSpriteC(Sprite *s, const Point p);
 
-void setSpriteTexture(Sprite *const s, Texture *const tex) {
+void setSpriteTexture(Sprite *const s, Texture *const t) {
 	if(s->tex)
 		free(s->tex);
-	s->tex = tex;
+	s->tex = t;
 	getTextureGeom(s->tex, &s->geom.w, &s->geom.h);
 	s->needsupdate = true;
 }
