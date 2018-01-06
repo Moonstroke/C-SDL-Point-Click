@@ -49,7 +49,7 @@ all: $(EXEC)
 
 $(EXEC): $(OBJ)
 	mkdir -p $(OUT_DIR)
-	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ_DIR)/*.o $(CFLAGS) $(LDLIBS)
+	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ) $(CFLAGS) $(LDLIBS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
