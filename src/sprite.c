@@ -24,11 +24,14 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 		return NULL;
 	}
 
-	s->tex = tex;
-
-	getTextureGeom(s->tex, &s->geom.w, &s->geom.h);
 	s->geom.x = p.x;
 	s->geom.y = p.y;
+
+	/* so that we don't call free() on s->tex for nothing */
+	s->tex = NULL;
+	if(tex) {
+		setSpriteTexture(s, tex);
+	}
 
 	// so that we don't call free() on s->name
 	s->name = NULL;
@@ -37,7 +40,6 @@ Sprite *newSprite(Texture *const tex, const Point p, const str name) {
 	// This line should preferably be last but if it is, SEGFAULT. Blame gcc
 	verbose("new sprite \"%s\" instantiated", s->name);
 
-	s->needsupdate = true;
 	return s;
 }
 
@@ -84,7 +86,10 @@ void moveSprite(Sprite *const s, const Point to) {
 extern void moveSpriteC(Sprite *s, const Point to);
 
 void setSpriteTexture(Sprite *const s, Texture *const tex) {
+	if(s->tex)
+		free(s->tex);
 	s->tex = tex;
+	getTextureGeom(s->tex, &s->geom.w, &s->geom.h);
 	s->needsupdate = true;
 }
 
