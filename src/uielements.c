@@ -12,6 +12,19 @@ typedef struct uistyle {
 static UIStyle style = {.textColor = {0}, .bgColor = {0}, .font = NULL};
 
 
+void setUIFont(Font *const f) {
+	style.font = f;
+}
+
+void setUITextColor(const Color *const c) {
+	style.textColor = *c;
+}
+
+void setUIBgColor(const Color *const c) {
+	style.bgColor = *c;
+}
+
+
 Sprite *label(const str s, const Point p, Window *const w) {
 	return button(s, p, NULL, w);
 }
