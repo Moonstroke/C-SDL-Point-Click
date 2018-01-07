@@ -32,6 +32,7 @@
 #include "font.h"
 #include "texture.h"
 #include "libmisc.h"
+#include "uielements.h"
 #include "window.h"
 
 
@@ -86,6 +87,16 @@ typedef struct text Text;
  *         font and color
  */
 Text *newText(str string, Font *font, Color textColor, TextRenderType type);
+
+/**
+ * \brief Constructs a text with the global UI style.
+ *
+ * \param[in] string The textual data
+ * \param[in] type The type of rendering to set for the text
+ *
+ * \return A new text with UI style font and color(s)
+ */
+Text *newUIText(str string, TextRenderType type);
 
 /**
  * \brief Deallocates the memory used by a text.

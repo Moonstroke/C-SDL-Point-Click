@@ -31,6 +31,18 @@ Text *newText(const str s, Font *const f, const Color tc, TextRenderType ty) {
 	return t;
 }
 
+Text *newTextUIStyle(const str s, const TextRenderType r) {
+	Text *t = newText(s, getUIFont(), *getUITextColor(), r);
+	if(!t)
+		return NULL;
+
+	if(r == TEXTRENDER_OPAQUEBG)
+		setTextBgColor(t, *getUIBgColor());
+
+	return t;
+}
+
+
 void freeText(Text *const t) {
 	SDL_DestroyTexture(t->rendered);
 	TTF_CloseFont(t->font);
