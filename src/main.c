@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "colors.h"
 #include "events.h"
@@ -15,6 +16,7 @@
 #include "sprite.h"
 #include "text.h"
 #include "texture.h"
+#include "uielements.h"
 #include "window.h"
 
 
@@ -35,6 +37,11 @@ static Point clickpos;
 static void leftdown(const Point p);
 static void leftup(const Point p);
 static void move(const Point p);
+
+
+/* GUI actions */
+
+static void startgame(void);
 
 
 /* Functions */
@@ -86,6 +93,8 @@ void leftup(const Point p) {
 			if(inv) {
 				removeSceneSprite(scene, heldsprite);
 				addInventorySprite(inv, heldsprite);
+			} else if(strcmp(getSpriteName(heldsprite), "Start game") == 0) {
+				startgame();
 			}
 			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
 		}
@@ -96,6 +105,9 @@ void leftup(const Point p) {
 	heldsprite = NULL;
 }
 
+void startgame(void) {
+	setWindowCurrentScreen(win, "Game screen");
+}
 
 void mainloop(void) {
 	logSDLRendererInfo(getWindowRenderer(win));
@@ -149,12 +161,24 @@ void initall(void) {
 	Screen *menu, *game;
 	Scene *menuscene, *gamescene;
 	Inventory *gameinventory;
-	Sprite *earth, *earth2;
+	Sprite *startBtn, *earth, *earth2;
 
 
 	initSDL(SDL_INIT_VIDEO);
 
 	Rect wingeom, menuscenegeom, gamescenegeom, gameinventorygeom;
+	const Color white = color(0xff, 0xff, 0xff),
+	            black = color(0, 0, 0);
+
+
+	Font *ubuntu = openFont("ubuntu_mono-regular", 16);
+	if(!ubuntu) {
+		fatal("Font could not be loaded: %s", TTF_GetError());
+		exit(1);
+	}
+	setUIFont(ubuntu);
+	setUITextColor(&black);
+	setUIBgColor(&white);
 
 
 	/* Window */
@@ -203,6 +227,9 @@ void initall(void) {
 
 	/* Sprites */
 
+	startBtn = button("Start game", point(32, 64), startgame, win);
+	addSceneSprite(menuscene, startBtn);
+
 	Texture *earthtex = loadBMPA("earth", win, BLACK);
 	earth = newSprite(earthtex, point(192, 240), "Earth");
 	addSceneSprite(gamescene, earth);
@@ -213,11 +240,6 @@ void initall(void) {
 
 
 	/* Texts */
-	Font *ubuntu = openFont("ubuntu_mono-regular", 16);
-	if(!ubuntu) {
-		fatal("Font could not be loaded: %s", TTF_GetError());
-		exit(1);
-	}
 	tooltip = newText("", ubuntu, color(0xff, 0xff, 0xff), TEXTRENDER_FAST);
 	/* Seting handlers */
 
