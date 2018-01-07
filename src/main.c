@@ -1,21 +1,21 @@
+#include <log.h>
+#include <SDL2/SDL.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
 
 #include "colors.h"
 #include "events.h"
-#include <log.h>
-#include "libsdl2.h"
 #include "geom.h"
+#include "inventory.h"
+#include "layout.h"
+#include "libsdl2.h"
 #include "scene.h"
 #include "screen.h"
 #include "sprite.h"
+#include "text.h"
 #include "texture.h"
 #include "window.h"
-#include "inventory.h"
-#include "layout.h"
-#include "text.h"
 
 
 /* Static-use objects (mere references) */
