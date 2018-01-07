@@ -240,7 +240,7 @@ void initall(void) {
 
 
 	/* Texts */
-	tooltip = newText("", ubuntu, color(0xff, 0xff, 0xff), TEXTRENDER_FAST);
+	tooltip = newText("", ubuntu, &white, TEXTRENDER_FAST);
 	/* Seting handlers */
 
 	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);

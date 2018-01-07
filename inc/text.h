@@ -86,7 +86,7 @@ typedef struct text Text;
  * \return A text for rendering, of given textual value, to be rendered in given
  *         font and color
  */
-Text *newText(str string, Font *font, Color textColor, TextRenderType type);
+Text *newText(str string, Font *font, const Color *textColor, TextRenderType type);
 
 /**
  * \brief Constructs a text with the global UI style.
@@ -120,7 +120,7 @@ void setTextString(Text *self, str string);
  * \param[in,out] self  The text
  * \param[in]     color The text color
  */
-void setTextColor(Text *self, Color color);
+void setTextColor(Text *self, const Color *color);
 
 
 /**
@@ -132,7 +132,7 @@ void setTextColor(Text *self, Color color);
  * \param[in,out] self    The text
  * \param[in]     bgColor The color to set
  */
-void setTextBgColor(Text *self, Color bgColor);
+void setTextBgColor(Text *self, const Color *bgColor);
 
 
 /**

@@ -55,12 +55,12 @@ Sprite *button(const str s, const Point p, void (*const f)(void), Window *const 
 	}
 
 	const TextRenderType tr = f ? TEXTRENDER_OPAQUEBG : TEXTRENDER_SMOOTH;
-	Text *const t = newText(s, style.font, style.textColor, tr);
+	Text *const t = newText(s, style.font, &style.textColor, tr);
 	if(!t)
 		return NULL;
 	if(f) {
 		/* If f != NULL (ie. the element is a button) we give it a background */
-		setTextBgColor(t, style.bgColor);
+		setTextBgColor(t, &style.bgColor);
 	}
 	Texture *tex = renderText(t, w);
 	if(!tex)

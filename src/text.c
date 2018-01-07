@@ -19,25 +19,25 @@ struct text {
 };
 
 
-Text *newText(const str s, Font *const f, const Color tc, TextRenderType ty) {
+Text *newText(const str s, Font *const f, const Color *const c, const TextRenderType r) {
 	Text *const t = malloc(sizeof(Text));
 	if(!t)
 		return NULL;
 	t->txt = s;
 	t->font = f;
-	t->color = tc;
-	t->type = ty;
+	t->color = *c;
+	t->type = r;
 	t->needsupdate = true;
 	return t;
 }
 
 Text *newTextUIStyle(const str s, const TextRenderType r) {
-	Text *t = newText(s, getUIFont(), *getUITextColor(), r);
+	Text *t = newText(s, getUIFont(), getUITextColor(), r);
 	if(!t)
 		return NULL;
 
 	if(r == TEXTRENDER_OPAQUEBG)
-		setTextBgColor(t, *getUIBgColor());
+		setTextBgColor(t, getUIBgColor());
 
 	return t;
 }
@@ -56,13 +56,13 @@ void setTextString(Text *const t, const str s) {
 	}
 }
 
-void setTextBgColor(Text *const t, Color c) {
-	t->bg_color = c;
+void setTextBgColor(Text *const t, const Color *const c) {
+	t->bg_color = *c;
 	t->needsupdate = true;
 }
 
-void settextcolor(Text *const t, Color c) {
-	t->color = c;
+void settextcolor(Text *const t, const Color *const c) {
+	t->color = *c;
 	t->needsupdate = true;
 }
 
