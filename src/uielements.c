@@ -3,6 +3,9 @@
 #include <stdlib.h>
 
 
+#include "text.h"
+
+
 
 typedef struct uistyle {
 	Color textColor, bgColor;

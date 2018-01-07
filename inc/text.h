@@ -28,30 +28,11 @@
 #define TEXT_H
 
 
-#include <SDL2/SDL_ttf.h>
-
 #include "colors.h"
+#include "font.h"
 #include "texture.h"
 #include "libmisc.h"
 #include "window.h"
-
-
-
-/** A redefinition of the font type. */
-typedef TTF_Font Font;
-
-
-/**
- * \brief Opens the font of file with given basename.
- *
- * \note The font is located at \code data/fonts/<basename>.ttf \endcode.
- *
- * \param[in] basename The basename of the font file
- * \param[in] ptSize   The size of the font to open
- *
- * \return A \a Font of given basename, with given size
- */
-Font *openFont(str basename, unsigned int ptSize);
 
 
 

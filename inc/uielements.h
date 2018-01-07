@@ -2,8 +2,8 @@
 #define UIELEMENTS_H
 
 
+#include "font.h"
 #include "geom.h"
-#include "text.h"
 #include "sprite.h"
 
 
