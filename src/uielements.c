@@ -16,12 +16,24 @@ void setUIFont(Font *const f) {
 	style.font = f;
 }
 
+Font *getUIFont(void) {
+	return style.font;
+}
+
 void setUITextColor(const Color *const c) {
 	style.textColor = *c;
 }
 
+Color *getUITextColor(void) {
+	return &style.textColor;
+}
+
 void setUIBgColor(const Color *const c) {
 	style.bgColor = *c;
+}
+
+Color *getUIBgColor(void) {
+	return &style.bgColor;
 }
 
 
