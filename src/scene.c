@@ -86,7 +86,7 @@ void setSceneName(Scene *const s, const str name) {
 	s->name = name;
 }
 
-unsigned int addSprite(Scene *const s, Sprite *const sprite) {
+unsigned int addSceneSprite(Scene *const s, Sprite *const sprite) {
 	if(!s->sprites) {
 		Array *arr = newarray(8);
 		if(!arr)
@@ -96,7 +96,7 @@ unsigned int addSprite(Scene *const s, Sprite *const sprite) {
 	return aappend(s->sprites, sprite);
 }
 
-Sprite *getSprite(const Scene *const s, const unsigned int i) {
+Sprite *getSceneSprite(const Scene *const s, const unsigned int i) {
 	return s->sprites ? aget(s->sprites, i) : NULL;
 }
 

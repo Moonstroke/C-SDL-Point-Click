@@ -205,11 +205,11 @@ void initall(void) {
 
 	Texture *earthtex = loadBMPA("earth", win, BLACK);
 	earth = newSprite(earthtex, point(192, 240), "Earth");
-	addSprite(gamescene, earth);
+	addSceneSprite(gamescene, earth);
 
 	Texture *earth2tex = loadBMP("earth2", win);
 	earth2 = newSprite(earth2tex, point(384, 240), "Earth2");
-	addSprite(gamescene, earth2);
+	addSceneSprite(gamescene, earth2);
 
 
 	/* Texts */

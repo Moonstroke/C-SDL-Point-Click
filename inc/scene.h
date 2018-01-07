@@ -101,7 +101,7 @@ void setSceneName(Scene *self, str name);
  *
  *\sa Sprite
  */
-unsigned int addSprite(Scene *self, Sprite *sprite);
+unsigned int addSceneSprite(Scene *self, Sprite *sprite);
 
 /**
  * \brief Retrieves a Sprite by its index in the scene.
@@ -114,7 +114,7 @@ unsigned int addSprite(Scene *self, Sprite *sprite);
  *
  * \sa Sprite
  */
-Sprite *getSprite(const Scene *self, unsigned int index);
+Sprite *getSceneSprite(const Scene *self, unsigned int index);
 
 /**
  * \brief Retrieves a Sprite by its position on screen
