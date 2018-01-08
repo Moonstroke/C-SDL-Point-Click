@@ -74,9 +74,9 @@ void move(const Point p) {
 		Screen *const scr = getWindowCurrentScreen(win);
 		Scene *const sce = getScreenScene(scr);
 		if(isSceneUI(sce)) {
-		UIElement *const el = getUISceneElementPos(sce, p);
-		if(el)
-			btnHover(el);
+			UIElement *const el = getUISceneElementPos(sce, p);
+			if(el)
+				btnHover(el);
 		} else {
 			Inventory *const inv = getScreenInventory(scr);
 			if(inv) {
