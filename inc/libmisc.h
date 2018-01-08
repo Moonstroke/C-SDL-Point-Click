@@ -53,4 +53,31 @@ str strcopy(str orig);
  */
 str strconcat(str s1, str s2);
 
+
+
+/**
+ * \brief Calculates the minimum of two integers.
+ *
+ * \param[in] a The first value
+ * \param[in] b The second value
+ *
+ * \return The lower value between \a a and \a b
+ */
+inline int min(const int a, const int b) {
+	return a < b ? a : b;
+}
+
+/**
+ * \brief Calculates the maximum of two integers.
+ *
+ * \param[in] a The first value
+ * \param[in] b The second value
+ *
+ * \return The higher value between \a a and \a b
+ */
+inline int max(const int a, const int b) {
+	return a < b ? b : a;
+}
+
+
 #endif // LIBMISC_H

@@ -34,3 +34,6 @@ str strconcat(const str restrict s1, const str restrict s2) {
 	strcat(new_s, s2);
 	return s;
 }
+
+extern int min(int, int);
+extern int max(int, int);
