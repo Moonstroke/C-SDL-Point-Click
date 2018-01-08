@@ -49,6 +49,6 @@ void drawTexture(Texture *const t, Window *const w, const Point p) {
 	SDL_RenderCopy(getWindowRenderer(w), t, NULL, &r);
 }
 
-bool getTextureGeom(const Texture *const t, int *w, int *h) {
-	return SDL_QueryTexture((SDL_Texture*)t, NULL, NULL, w, h) == 0;
+bool getTextureGeom(const Texture *const t, unsigned int *w, unsigned int *h) {
+	return SDL_QueryTexture((SDL_Texture*)t, NULL, NULL, (int*)w, (int*)h) == 0;
 }

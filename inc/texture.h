@@ -80,7 +80,7 @@ void freeTexture(Texture *self);
  *
  * \return \c true if the Texture \c self is valid and has valid geometry
  */
-bool getTextureGeom(const Texture *self, int *w, int *h);
+bool getTextureGeom(const Texture *self, unsigned int *w, unsigned int *h);
 
 
 /**
