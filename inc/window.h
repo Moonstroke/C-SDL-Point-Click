@@ -76,7 +76,7 @@ typedef struct window Window;
  * \sa SDL_Window
  * \sa SDL_Renderer
  */
-Window *newWindow(str title, Rect *geometry, SDL_WindowFlags winFlags, SDL_RendererFlags renFlags);
+Window *newWindow(str title, const Rect *geometry, SDL_WindowFlags winFlags, SDL_RendererFlags renFlags);
 
 /**
  * \brief Instantiates a new window, using the default flags.
@@ -88,7 +88,7 @@ Window *newWindow(str title, Rect *geometry, SDL_WindowFlags winFlags, SDL_Rende
  *
  * \sa newWindow
  */
-inline Window *newWin(str title, Rect geometry) {
+inline Window *newWin(const str title, const Rect *const geometry) {
 	return newWindow(title, geometry, DEFAULT_WIN_FLAGS, DEFAULT_REN_FLAGS);
 }
 
