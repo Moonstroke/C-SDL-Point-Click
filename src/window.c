@@ -18,9 +18,9 @@ struct window {
 	SDL_Window *win;
 	SDL_Renderer *ren;
 	Rect geom;
-	Array *screens; // TODO
-	Screen *currentscreen; // This screen is the one currently displayed, so the only
-	                      // who should get a graphical update
+	Array *screens;
+	Screen *currentscreen; /* This screen is the one currently displayed, so
+	                          the only who should get a graphical update */
 	void (*gameloop)(void);
 };
 
@@ -75,7 +75,6 @@ void freeWindow(Window *const w) {
 	strncpy(title, t, l);
 	SDL_DestroyWindow(w->win);
 	SDL_DestroyRenderer(w->ren);
-	// TODO
 	free(w);
 	verbose("freed window \"%s\"", title);
 }
