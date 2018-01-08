@@ -72,7 +72,7 @@ void freeWindow(Window *const w) {
 	const str t = SDL_GetWindowTitle(w->win);
 	const int l = strlen(t) + 1;
 	char title[l];
-	strncpy(title, t, l);
+	memcpy(title, t, l);
 	SDL_DestroyWindow(w->win);
 	SDL_DestroyRenderer(w->ren);
 	free(w);
