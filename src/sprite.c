@@ -88,7 +88,7 @@ void moveSprite(Sprite *const s, const Point p) {
 	s->geom.pos = p;
 	s->needsupdate = true;
 }
-extern void moveSpriteC(Sprite *s, const Point p);
+extern void moveSpriteC(Sprite*, Point);
 
 void setSpriteTexture(Sprite *const s, Texture *const t) {
 	if(s->tex)

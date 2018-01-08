@@ -4,12 +4,12 @@
 
 
 
-extern uint32_t rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-extern uint32_t rgb(uint8_t r, uint8_t g, uint8_t b);
+extern uint32_t rgba(uint8_t, uint8_t, uint8_t, uint8_t);
+extern uint32_t rgb(uint8_t, uint8_t, uint8_t);
 
-extern Color icolor(uint32_t color);
-extern Color colora(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-extern Color color(uint8_t r, uint8_t g, uint8_t b);
+extern Color icolor(uint32_t);
+extern Color colora(uint8_t, uint8_t, uint8_t, uint8_t);
+extern Color color(uint8_t, uint8_t, uint8_t);
 
 
 Color blendColors(const Color *const c1, const Color *const c2, const MergeMode m) {

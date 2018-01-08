@@ -36,7 +36,7 @@ Texture *loadBMPA(const str b, const Window *const w, uint32_t c) {
 	}
 	return tex;
 }
-extern Texture *loadBMP(str f, const Window *w);
+extern Texture *loadBMP(str, const Window*);
 
 
 void freeTexture(Texture *const t) {

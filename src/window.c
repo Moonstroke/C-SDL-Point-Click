@@ -63,7 +63,7 @@ Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.pos.x, g.pos.y);
 	return w;
 }
-extern Window *newWin(str title, Rect geometry);
+extern Window *newWin(str, Rect);
 
 void freeWindow(Window *const w) {
 	const str t = SDL_GetWindowTitle(w->win);
