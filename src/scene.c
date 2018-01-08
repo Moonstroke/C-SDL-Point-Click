@@ -144,7 +144,6 @@ static void *getScenePos(const Scene *const s, const Point p, bool (*const conta
 	while(i--) {
 		e = aget(s->elements, i);
 		if(contains(e, p)) {
-			debug("found @ (%d,%d)", p.x, p.y);
 			return e;
 		}
 	}

@@ -26,7 +26,6 @@ Screen *newScreen(const str name) {
 	s->inventory = NULL;
 	s->scene = NULL;
 	s->name = NULL;
-	debug("coucou");
 	setScreenName(s, name);
 	return s;
 }
