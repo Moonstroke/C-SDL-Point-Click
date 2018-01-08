@@ -14,8 +14,7 @@
 #define GEOM_H
 
 
-#include <SDL2/SDL_rect.h>
-#include <stdbool.h>
+#include <stdbool.h> /* for bool type, true, false */
 
 
 /**
