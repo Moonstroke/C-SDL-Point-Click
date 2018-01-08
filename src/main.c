@@ -72,30 +72,46 @@ void move(const Point p) {
 	if(heldsprite)
 		moveSpriteC(heldsprite, p);
 	else {
-		Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
-		if(inv) {
-			Sprite *const s = getInventorySpritePos(inv, p);
-			setTextString(tooltip, s ? getSpriteName(s) : "");
+		Screen *const scr = getWindowCurrentScreen(win);
+		Scene *const sce = getScreenScene(scr);
+		if(isSceneUI(sce)) {
+		UIElement *const el = getUISceneElementPos(sce, p);
+		if(el)
+			btnHover(el);
+		} else {
+			Inventory *const inv = getScreenInventory(scr);
+			if(inv) {
+				Sprite *const s = getInventorySpritePos(inv, p);
+				setTextString(tooltip, s ? getSpriteName(s) : "");
+			}
 		}
 	}
 }
 
 void leftdown(const Point p) {
 	clickpos = p;
-	heldsprite = getSceneSpritePos(getScreenScene(getWindowCurrentScreen(win)), p);
+	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
+	if(isSceneUI(scene)) {
+		UIElement *const el = getUISceneElementPos(scene, p);
+		if(el)
+			btnDown(el);
+	} else
+		heldsprite = getGameSceneSpritePos(scene, p);
 }
 void leftup(const Point p) {
 	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
 	Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
 	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) {
 		/* The event is a mouse click */
-		if(heldsprite) {
-			if(inv) {
-				removeSceneSprite(scene, heldsprite);
-				addInventorySprite(inv, heldsprite);
-			} else if(strcmp(getSpriteName(heldsprite), "Start game") == 0) {
-				startgame();
+		if(isSceneUI(scene)) {
+			UIElement *const el = getUISceneElementPos(scene, p);
+			if(el) {
+				btnUp(el);
+				btnClick(el);
 			}
+		} else if(heldsprite && inv) {
+			removeGameSceneSprite(scene, heldsprite);
+			addInventorySprite(inv, heldsprite);
 			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
 		}
 		debug("inventory size = %d", inv ? (signed)inventorySize(inv) : -1);
@@ -161,7 +177,8 @@ void initall(void) {
 	Screen *menu, *game;
 	Scene *menuscene, *gamescene;
 	Inventory *gameinventory;
-	Sprite *startBtn, *earth, *earth2;
+	Sprite *earth, *earth2;
+	UIElement *startBtn;
 
 
 	initSDL(SDL_INIT_VIDEO);
@@ -210,11 +227,11 @@ void initall(void) {
 	/* Scene(s) */
 
 	Texture *menuscenebg = loadBMP("menuscene_bg", win);
-	menuscene = newScene(menuscenegeom, menuscenebg, 0, "Menu");
+	menuscene = newUIScene(menuscenegeom, menuscenebg, 0, "Menu");
 	setScreenScene(menu, menuscene);
 
 	Texture *gamescenebg = loadBMP("gamescene_bg", win);
-	gamescene = newScene(gamescenegeom, gamescenebg, 2, "Scene1");
+	gamescene = newGameScene(gamescenegeom, gamescenebg, 2, "Scene1");
 	setScreenScene(game, gamescene);
 
 
@@ -227,16 +244,16 @@ void initall(void) {
 
 	/* Sprites */
 
-	startBtn = button("Start game", point(32, 64), startgame, win);
-	addSceneSprite(menuscene, startBtn);
+	startBtn = button("Start game", point(32, 64), startgame);
+	addUISceneElement(menuscene, startBtn);
 
 	Texture *earthtex = loadBMPA("earth", win, BLACK);
 	earth = newSprite(earthtex, point(192, 240), "Earth");
-	addSceneSprite(gamescene, earth);
+	addGameSceneSprite(gamescene, earth);
 
 	Texture *earth2tex = loadBMP("earth2", win);
 	earth2 = newSprite(earth2tex, point(384, 240), "Earth2");
-	addSceneSprite(gamescene, earth2);
+	addGameSceneSprite(gamescene, earth2);
 
 
 	/* Texts */

@@ -4,7 +4,10 @@
 
 #include "font.h"
 #include "geom.h"
-#include "sprite.h"
+#include "colors.h"
+
+
+#include <stdbool.h>
 
 
 
@@ -58,16 +61,26 @@ Color *getUIBgColor(void);
 /** \} */
 
 
+
+/**
+ * \brief An element of the user interface.
+ */
+typedef struct uielement UIElement;
+
+
+#include "window.h"
+
+
+
 /**
  * \brief Constructs a non-interactible user interface element.
  *
  * \param[in] text   The text of the element
  * \param[in] pos    The position to put the element at
- * \param[in] window The application window
  *
  * \return A label of given text at given pos.
  */
-Sprite *label(str text, Point pos, Window *window);
+UIElement *label(str text, Point pos);
 
 /**
  * \brief Constructs an interactible user interface element.
@@ -75,12 +88,33 @@ Sprite *label(str text, Point pos, Window *window);
  * \param[in] text   The text of the element
  * \param[in] pos    The position to put the element at
  * \param[in] action The action to perform when sollicited
- * \param[in] window The application window
  *
  * \return A button of given text at given pos, which executes given action when
  *         it is interacted with.
  */
-Sprite *button(str text, Point pos, void (*action)(void), Window *window);
+UIElement *button(str text, Point pos, void (*action)(void));
 
+/**
+ * \brief Deallocates an UI element.
+ *
+ * \param[in] element The element to free
+ */
+void freeUIElement(UIElement *element);
+
+
+bool uielementNeedsUpdate(const UIElement *element);
+
+void updateUIElement(UIElement *element, Window *window);
+
+bool isPointInUIElement(const UIElement *element, Point pos);
+
+
+void btnHover(UIElement *button);
+
+void btnDown(UIElement *button);
+
+void btnUp(UIElement *button);
+
+void btnClick(const UIElement *button);
 
 #endif /* UIELEMENTS_H */

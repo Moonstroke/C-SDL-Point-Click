@@ -1,63 +1,73 @@
 #include "scene.h"
 
 
+#include <array.h>
+#include <array_funcs.h>
+#include <log.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "array.h"
-#include "array_funcs.h"
 #include "libsdl2.h"
-#include <log.h>
 #include "texture.h"
 
 
 
 struct scene {
 	str name;
-	Array *sprites;
+	Array *elements;
 	Texture *background;
 	Rect geom;
+	bool isui;
+	padding(7);
 };
 
 
-Scene *newScene(const Rect g, Texture *const tex, const unsigned int size, const str name) {
+static Scene *newScene(const Rect g, Texture *const bg, const unsigned int n, const str name, bool isUI) {
 	Scene *s = malloc(sizeof(Scene));
 	if(!s) {
 		error("malloc() error in newScene() for scene \"%s\"", name);
 		return NULL;
 	}
 
-	if(size) {
-		Array *const sprites = newarray(size);
-		if(sprites == NULL) {
-			error("error in newScene() while creating array for %u sprites", size);
+	if(n) {
+		Array *const elts = newarray(n);
+		if(elts == NULL) {
+			error("error in newScene() while creating array for %u sprites", n);
 			return NULL;
 		}
-		s->sprites = sprites;
+		s->elements = elts;
 	} else
-		s->sprites = NULL;
+		s->elements = NULL;
 
 	// So that we don't call free() on it
 	s->name = NULL;
 	setSceneName(s, name);
 
-	s->background = tex;
+	s->background = bg;
 
 	s->geom = g; // TODO use it somewhere
-
-	verbose("Init (%dx%d) scene \"%s\" with %d sprite slots", g.w, g.h, name, size);
+	s->isui = isUI;
+	verbose("Init (%dx%d) %sscene \"%s\" with %d sprite slots", g.w, g.h, isUI ? "UI " : "", name, n);
 	return s;
 }
 
+Scene *newGameScene(const Rect g, Texture *const bg, const unsigned int n, const str name) {
+	return newScene(g, bg, n, name, false);
+}
+Scene *newUIScene(const Rect g, Texture *const bg, const unsigned int n, const str name) {
+	return newScene(g, bg, n, name, true);
+}
+
 void freeScene(Scene *const s) {
-	const unsigned int n = asize(s->sprites);
+	const unsigned int n = asize(s->elements);
 	const unsigned int l = strlen(s->name) + 1;
 	char name[l];
 	strcpy(name, s->name);
 
 	if(s->background)
 		freeTexture(s->background);
-	afreer(s->sprites, (void(*)(void*))&freeSprite);
+	afreer(s->elements, s->isui ? (void(*)(void*))freeUIElement
+	                            : (void(*)(void*))freeSprite);
 	verbose("freed %d sprites from scene\n", n);
 	free((char*)s->name);
 	free(s);
@@ -66,18 +76,28 @@ void freeScene(Scene *const s) {
 
 bool sceneNeedsUpdate(const Scene *const s) {
 	bool needsupdate = false;
-	unsigned int i = s->sprites ? asize(s->sprites) : 0;
-	while(i-- && !needsupdate)
-		needsupdate = spriteNeedsUpdate(aget(s->sprites, i));
+	unsigned int i = s->elements ? asize(s->elements) : 0;
+	if(s->isui) {
+		while(i-- && !needsupdate)
+			needsupdate = uielementNeedsUpdate(aget(s->elements, i));
+	} else {
+		while(i-- && !needsupdate)
+			needsupdate = spriteNeedsUpdate(aget(s->elements, i));
+	}
 	return needsupdate;
 }
 
 void updateScene(Scene *const s, Window *const win) {
 	if(s->background)
-		drawTexture(s->background, win, point(s->geom.x, s->geom.y));
-	unsigned int i = s->sprites ? asize(s->sprites) : 0;
-	while(i--)
-		updateSprite(aget(s->sprites, i), win);
+		drawTexture(s->background, win, point(s->geom.pos.x, s->geom.pos.y));
+	unsigned int i = s->elements ? asize(s->elements) : 0;
+	if(s->isui) {
+		while(i--)
+			updateUIElement(aget(s->elements, i), win);
+	} else {
+		while(i--)
+			updateSprite(aget(s->elements, i), win);
+	}
 }
 
 str getSceneName(const Scene *const s) { return s->name; }
@@ -86,31 +106,59 @@ void setSceneName(Scene *const s, const str name) {
 	s->name = name;
 }
 
-unsigned int addSceneSprite(Scene *const s, Sprite *const sprite) {
-	if(!s->sprites) {
+bool isSceneUI(const Scene *const s) {
+	return s->isui;
+}
+
+
+static unsigned int addSceneElt(Scene *const s, void *const e, bool isUI) {
+	if(s->isui ^ isUI)
+		return 0;
+	if(!s->elements) {
 		Array *arr = newarray(8);
 		if(!arr)
 			return 0;
-		s->sprites = arr;
+		s->elements = arr;
 	}
-	return aappend(s->sprites, sprite);
+	return aappend(s->elements, e);
 }
 
-Sprite *getSceneSprite(const Scene *const s, const unsigned int i) {
-	return s->sprites ? aget(s->sprites, i) : NULL;
+unsigned int addGameSceneSprite(Scene *const s, Sprite *const sp) {
+	return addSceneElt(s, sp, false);
 }
 
-Sprite *getSceneSpritePos(const Scene *const s, const Point p) {
-	unsigned int i = s->sprites ? asize(s->sprites) : 0;
-	Sprite *sp;
+unsigned int addUISceneElement(Scene *s, UIElement *e) {
+	return addSceneElt(s, e, true);
+}
+
+
+Sprite *getGameSceneSprite(const Scene *const s, const unsigned int i) {
+	return s->elements ? aget(s->elements, i) : NULL;
+}
+
+
+static void *getScenePos(const Scene *const s, const Point p, bool (*const contains)(const void*, Point)) {
+	unsigned int i = s->elements ? asize(s->elements) : 0;
+	void *e;
 	while(i--) {
-		sp = aget(s->sprites, i);
-		if(isPointInSprite(sp, p))
-			return sp;
+		e = aget(s->elements, i);
+		if(contains(e, p)) {
+			debug("found @ (%d,%d)", p.x, p.y);
+			return e;
+		}
 	}
 	return NULL;
 }
 
-bool removeSceneSprite(Scene *const s, const Sprite *const sp) {
-	return aremove(s->sprites, sp);
+Sprite *getGameSceneSpritePos(const Scene *const s, const Point p) {
+	return s->isui ? NULL : getScenePos(s, p, (bool(*)(const void*, Point))isPointInSprite);
+}
+
+UIElement *getUISceneElementPos(const Scene *s, Point p) {
+	return s->isui ? getScenePos(s, p, (bool(*)(const void*, Point))isPointInUIElement) : NULL;
+}
+
+
+bool removeGameSceneSprite(Scene *const s, const Sprite *const sp) {
+	return aremove(s->elements, sp);
 }

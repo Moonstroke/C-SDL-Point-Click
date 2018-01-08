@@ -19,7 +19,6 @@
 #include "geom.h"
 
 
-
 /**
  * \brief This structure represents the game scene in the window.
  */
@@ -28,11 +27,12 @@ typedef struct scene Scene;
 
 #include "sprite.h"
 #include "texture.h"
+#include "uielements.h"
 #include "window.h"
 
 
 /**
- * \brief Instantiates a scene for n_sprites Sprites
+ * \brief Instantiates a game scene to contain \a numsprites \a Sprites.
  *
  * \note for increased performances, load the texture with
  *       \c SDL_TEXTUREACCESS_STATIC, if ever -- or \c SDL_TEXTUREACCESS_TARGET?
@@ -45,7 +45,19 @@ typedef struct scene Scene;
  * \return A new scene of given geometry, background, number of sprites to
  *         include and name
  */
-Scene *newScene(Rect geom, Texture *background, unsigned int numSprites, str name);
+Scene *newGameScene(Rect geom, Texture *background, unsigned int numSprites, str name);
+
+/**
+ * \brief Instantiates a scene for user interface (menu).
+ * \param[in] geom       The geometry of the scene
+ * \param[in] background The background texture for the scene
+ * \param[in] numSprites  The number of sprites the scene will contain
+ * \param[in] name       The name of the scene
+ *
+ * \return A new scene of given geometry, background, number of sprites to
+ *         include and name
+ */
+Scene *newUIScene(Rect geom, Texture *background, unsigned int numUIElts, str name);
 
 /**
  * \brief Liberates the memory used by the scene, and its contained sprites
@@ -92,16 +104,41 @@ str getSceneName(const Scene *self);
 void setSceneName(Scene *self, str name);
 
 /**
- * \brief Adds a Sprite to the scene.
+ * \brief Determines whether a scene is a scene with user interface (as opposed
+ *        to a game scene).
+ *
+ * \param[in] self The scene
+ *
+ * \return \c true if the scene is a UI scene
+ */
+bool isSceneUI(const Scene *self);
+
+
+/**
+ * \brief Adds a Sprite to the game scene.
  *
  * \param[in] self   The scene to add a sprite to
  * \param[in] sprite The sprite to add to the scene
  *
- * \return the index of the sprite in the scene
+ * \return The index of the sprite in the scene, or \c 0 if an error occurred:
+ *         lazy array allocation failed, or the scene is a UI scene
  *
  *\sa Sprite
  */
-unsigned int addSceneSprite(Scene *self, Sprite *sprite);
+unsigned int addGameSceneSprite(Scene *self, Sprite *sprite);
+
+/**
+ * \brief Adds a UI element to the scene.
+ *
+ * \param[in] self   The scene to add an element to
+ * \param[in] sprite The UI element to add
+ *
+ * \return The index of the sprite in the scene, or \c 0 if an error occurred:
+ *         lazy array allocation failed, or the scene is a game scene
+ *
+ *\sa UIElement
+ */
+unsigned int addUISceneElement(Scene *self, UIElement *element);
 
 /**
  * \brief Retrieves a Sprite by its index in the scene.
@@ -114,7 +151,18 @@ unsigned int addSceneSprite(Scene *self, Sprite *sprite);
  *
  * \sa Sprite
  */
-Sprite *getSceneSprite(const Scene *self, unsigned int index);
+Sprite *getGameSceneSprite(const Scene *self, unsigned int index);
+
+/**
+ * \brief Retrieves a Sprite by its position on the game scene
+ *
+ * \param[in] self  The scene to get the sprite from
+ * \param[in] point The point where to look for a Sprite
+ *
+ * \return A Sprite from the scene that contains the given position or \c NULL
+ *         if none does
+ */
+Sprite *getGameSceneSpritePos(const Scene *self, Point point);
 
 /**
  * \brief Retrieves a Sprite by its position on screen
@@ -122,10 +170,10 @@ Sprite *getSceneSprite(const Scene *self, unsigned int index);
  * \param[in] self  The scene to get the sprite from
  * \param[in] point The point where to look for a Sprite
  *
- * \return A Sprite from the scene that contains the given position or
- *         NULL if none does
+ * \return An UI element from the scene at the given position or \c NULL if no
+ *         element qualifies
  */
-Sprite *getSceneSpritePos(const Scene *self, Point point);
+UIElement *getUISceneElementPos(const Scene *self, Point point);
 
 /**
  * \brief Remove a sprite from the scene
@@ -136,7 +184,7 @@ Sprite *getSceneSpritePos(const Scene *self, Point point);
  * \return \c true if the scene contained the sprite and it has been successfully
  *         removed
  */
-bool removeSceneSprite(Scene *self, const Sprite *sprite);
+bool removeGameSceneSprite(Scene *self, const Sprite *sprite);
 
 
 #endif // SCENE_H
