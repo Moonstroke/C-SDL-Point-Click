@@ -28,13 +28,13 @@ struct window {
 /* ## Ctors and dtors ## */
 
 
-Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
+Window *newWindow(const str t, const Rect *const g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
 	Window *w = malloc(sizeof(Window));
 	if(!w) {
 		error("malloc() error for window \"%s\"", t);
 		return NULL;
 	}
-	SDL_Window *const win = SDL_CreateWindow(t, g.pos.x, g.pos.y, g.w, g.h, wf);
+	SDL_Window *const win = SDL_CreateWindow(t, g->pos.x, g->pos.y, g->w, g->h, wf);
 	if(!win) {
 		error("Could not create SDL window: %s", SDL_GetError());
 		free(w);
@@ -55,15 +55,15 @@ Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
 		verbose("window is fullscreen -- setting resolution logical instead of hardware");
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-		SDL_RenderSetLogicalSize(ren, g.w, g.h);
+		SDL_RenderSetLogicalSize(ren, g->w, g->h);
 	}
 	w->win = win;
 	w->ren = ren;
-	w->geom = g;
+	w->geom = *g;
 	setWindowTitle(w, t);
 	w->screens = screens;
 	w->currentscreen = NULL;
-	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.pos.x, g.pos.y);
+	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g->w, g->h, g->pos.x, g->pos.y);
 	return w;
 }
 extern Window *newWin(str, Rect);
