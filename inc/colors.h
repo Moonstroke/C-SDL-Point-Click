@@ -17,7 +17,7 @@
 
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_stdinc.h>
-
+#include <stdint.h> /* for uint8_t */
 
 
 typedef SDL_Color Color; /**< A RGBA color structure */
@@ -133,6 +133,67 @@ inline Color colora(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 inline Color color(uint8_t r, uint8_t g, uint8_t b) {
 	return colora(r, g, b, ALPHA_DEFAULT);
 }
+
+
+/**
+ * \brief Specifies the type of operation to perform when merging colors.
+ *
+ * \a MERGE_ADD, \a MERGE_MUL and \a MERGE_SUB are mutually exclusive, using
+ * two or more of them is not allowed.
+ * The value can be OR'ed with \a MERGE_BLEND_ALPHA to modify the behaviour
+ * per the alpha channel.
+ *
+ * \sa mergeColors
+ */
+typedef enum {
+
+	/**
+	 * \brief Specifies an addition.
+	 *
+	 * \code resultRGBA = color1RGB + color2RGB \endcode
+	 */
+	MERGE_ADD = 0x1,
+
+	/**
+	 * \brief Specifies an multiplication.
+	 *
+	 * \code resultRGBA = color1RGB * color2RGB \endcode
+	 */
+	MERGE_MUL = 0x2,
+
+	/**
+	 * \brief Specifies an substraction.
+	 *
+	 * \code resultRGBA = color1RGB - color2RGB \endcode
+	 */
+	MERGE_SUB = 0x4,
+
+	/**
+	 * \brief Specifies whether to blend colors proportionnaly to their alpha
+	 *        channels or not.
+	 *
+	 * This value is to be used in OR-combination with one of the above. It
+	 * yields \code resultRGB = (color1RGB * (color1A / 255)) <op> (color2RGB *
+	 * (color2A / 255))\endcode where \a <op> is the other MergeMode.
+	 */
+	MERGE_BLEND_ALPHA = 0x10,
+} MergeMode;
+
+/**
+ * \brief Merges two colors (operates on the four channels according to the
+ *        specified operation.
+ *
+ * \note If an invalid \a mode is given, the data pointed to by \a result will
+ *       be filed with zeroes, so a resulting color of "fully transparent black"
+ *       can indicate invalid program state.
+ *
+ * \param[in]  color1 The first color to merge
+ * \param[in]  color2 The second color to merge
+ * \param[in]  mode   The merging operation to perform
+ *
+ * \return A \a Color containing the result of the operation
+ */
+Color mergeColors(const Color *color1, const Color *color2, MergeMode mode);
 
 
 #endif // COLORS_H
