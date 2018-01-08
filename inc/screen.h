@@ -123,4 +123,4 @@ void setScreenScene(Screen *self, Scene *scene);
  */
 void updateScreen(Screen *self, Window *window);
 
-#endif // SCREEN_H
+#endif /* SCREEN_H */

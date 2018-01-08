@@ -253,4 +253,4 @@ void setWindowGameLoop(Window *self, void (*gameLoop)(void));
 void windowRun(const Window *self);
 
 
-#endif // WINDOW_H
+#endif /* WINDOW_H */

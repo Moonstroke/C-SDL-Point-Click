@@ -198,4 +198,4 @@ typedef enum {
 Color mergeColors(const Color *color1, const Color *color2, MergeMode mode);
 
 
-#endif // COLORS_H
+#endif /* COLORS_H */

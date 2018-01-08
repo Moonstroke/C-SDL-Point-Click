@@ -114,4 +114,4 @@ bool removeInventorySprite(Inventory *self, const Sprite *sprite);
  */
 Sprite *getInventorySpritePos(const Inventory *self, Point pos);
 
-#endif // INVENTORY_H
+#endif /* INVENTORY_H */

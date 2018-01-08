@@ -183,4 +183,4 @@ bool drawText(Text *self, Window *window, Point pos);
 bool getTextGeom(const Text *self, unsigned int *w, unsigned int *h);
 
 
-#endif // TEXT_H
+#endif /* TEXT_H */

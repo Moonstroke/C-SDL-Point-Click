@@ -80,4 +80,4 @@ inline int max(const int a, const int b) {
 }
 
 
-#endif // LIBMISC_H
+#endif /* LIBMISC_H */

@@ -95,4 +95,4 @@ bool getTextureGeom(const Texture *self, unsigned int *w, unsigned int *h);
 void drawTexture(Texture *self, Window *window, Point pos);
 
 
-#endif // TEXTURES_H
+#endif /* TEXTURES_H */

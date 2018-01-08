@@ -116,4 +116,4 @@ keyhandler onkeyup(const SDL_Keycode key);
 */
 
 
-#endif // EVENTS_H
+#endif /* EVENTS_H */

@@ -163,4 +163,4 @@ void setSpriteTexture(Sprite *self, Texture *tex);
 bool isPointInSprite(const Sprite *self, Point point);
 
 
-#endif // SPRITE_H
+#endif /* SPRITE_H */

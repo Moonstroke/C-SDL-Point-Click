@@ -95,4 +95,4 @@ inline bool isPointInRect(const Point pt, const Rect *const rct) {
 	       (rct->pos.y <= pt.y && pt.y <= (rct->pos.y + (signed)rct->h));
 }
 
-#endif // GEOM_H
+#endif /* GEOM_H */
