@@ -15,8 +15,8 @@
 
 #include <stdbool.h>
 
-#include "libmisc.h"
-#include "geom.h"
+#include "libmisc.h" /* for str and padding() */
+#include "geom.h" /* for Point and Rect */
 
 
 /**

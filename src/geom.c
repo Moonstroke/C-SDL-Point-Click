@@ -1,6 +1,6 @@
 #include "geom.h"
 
-#include <math.h>
+#include <math.h> /* for sqrt() and pow() */
 
 
 

@@ -15,11 +15,12 @@
 
 
 #include <SDL2/SDL_pixels.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h> /* for SDL_Renderer */
 #include <stdbool.h>
+#include <stdint.h> /* for uint32_t */
 
-#include "libmisc.h"
+#include "libmisc.h" /* for str and padding() */
+
 
 
 /**

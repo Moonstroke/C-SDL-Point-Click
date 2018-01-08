@@ -1,8 +1,8 @@
 #include "uielements.h"
 
-#include <log.h>
-#include <stdlib.h>
 
+#include <log.h>
+#include <stdlib.h> /* for malloc(), NULL and free() */
 
 #include "libmisc.h"
 #include "text.h"

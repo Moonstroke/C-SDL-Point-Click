@@ -14,7 +14,7 @@
 #define GEOM_H
 
 
-#include <stdbool.h> /* for bool type, true, false */
+#include <stdbool.h>
 
 
 /**

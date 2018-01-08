@@ -15,8 +15,9 @@
 
 
 #include <stdbool.h>
+#include <stdint.h> /* for uint8_t */
 
-#include "geom.h"
+#include "geom.h" /* for Point and Rect */
 
 
 // TODO add mouse click (move from main)

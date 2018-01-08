@@ -14,8 +14,8 @@
 #define LIBSDL2_H
 
 
-#include <stdint.h>
-#include <SDL2/SDL_render.h>
+#include <stdint.h> /* for uint32_t type */
+#include <SDL2/SDL_render.h> /* for SDL_Renderer */
 
 
 /**

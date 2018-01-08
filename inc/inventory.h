@@ -15,7 +15,8 @@
 #define INVENTORY_H
 
 
-#include "libmisc.h"
+#include "libmisc.h" /* for str and padding() */
+#include "geom.h" /* for Rect and Point */
 
 
 
@@ -27,6 +28,7 @@ typedef struct inventory Inventory;
 
 
 #include "sprite.h"
+#include "texture.h"
 
 
 

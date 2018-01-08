@@ -1,9 +1,8 @@
 #include "sprite.h"
 
 
-#include <string.h>
-
 #include <log.h>
+
 #include "texture.h"
 
 

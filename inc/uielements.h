@@ -2,9 +2,9 @@
 #define UIELEMENTS_H
 
 
+#include "colors.h" /*for Color */
 #include "font.h"
-#include "geom.h"
-#include "colors.h"
+#include "geom.h" /* for Rect and Point */
 
 
 #include <stdbool.h>
@@ -68,7 +68,7 @@ Color *getUIBgColor(void);
 typedef struct uielement UIElement;
 
 
-#include "window.h"
+#include "window.h" /* for Window type and functions */
 
 
 

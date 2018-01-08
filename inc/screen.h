@@ -18,7 +18,7 @@
 
 #include <stdbool.h>
 
-#include "libmisc.h"
+#include "libmisc.h" /* for str and padding() */
 
 
 

@@ -1,13 +1,10 @@
 #include "window.h"
 
 
-#include <SDL2/SDL_hints.h>
-
-#include "array.h"
-#include "array_funcs.h"
-#include "inventory.h"
+#include <array.h>
+#include <array_funcs.h>
 #include <log.h>
-#include "screen.h"
+#include <SDL2/SDL_hints.h> /* for SDL_HINT_RENDER_SCALE_QUALITY */
 
 
 

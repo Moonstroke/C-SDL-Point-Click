@@ -1,12 +1,11 @@
 #include "libsdl2.h"
 
 
-#include <stdbool.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-
 #include <log.h>
-#include "events.h"
+#include <SDL2/SDL.h> /* for SDL_Init() and SDL_Quit() */
+#include <SDL2/SDL_ttf.h> /* for TTF_Init() and TTF_Quit() */
+#include <stdbool.h>
+#include <stdlib.h> /* for atexit() and exit() */
 
 
 

@@ -2,11 +2,7 @@
 
 
 #include <log.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "inventory.h"
-#include "scene.h"
+#include <stdlib.h> /* for malloc(), free(), NULL */
 
 
 

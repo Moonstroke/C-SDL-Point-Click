@@ -1,8 +1,8 @@
 #include "libmisc.h"
 
 
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h> /* for malloc(), realloc() and free() */
+#include <string.h> /* for strlen(), strcat() and memcpy() */
 
 
 

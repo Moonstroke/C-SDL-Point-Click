@@ -1,9 +1,9 @@
 #include "text.h"
 
 
-#include <stdlib.h>
-
 #include <log.h>
+#include <stdlib.h> /* for malloc(), NULL, free() */
+#include <string.h> /* for strcmp() */
 
 
 

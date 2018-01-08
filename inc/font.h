@@ -12,9 +12,9 @@
 #define FONT_H
 
 
-#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_ttf.h> /* for TTF_Font and TT_OpenFont() */
 
-#include "libmisc.h"
+#include "libmisc.h" /* for str */
 
 
 

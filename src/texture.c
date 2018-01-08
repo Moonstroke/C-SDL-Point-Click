@@ -1,9 +1,10 @@
 #include "texture.h"
 
-
-#include <string.h>
-
+#include <SDL2/SDL_rect.h> /* for SDL_Rect */
 #include <log.h>
+#include <stdio.h> /* for snprintf */
+#include <stdlib.h> /* for NULL */
+
 #include "libsdl2.h"
 #include "window.h"
 #include "colors.h"

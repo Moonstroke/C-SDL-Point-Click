@@ -28,11 +28,11 @@
 #define TEXT_H
 
 
-#include "colors.h"
+#include "colors.h" /* for Color and macros */
 #include "font.h"
+#include "libmisc.h" /* for str and padding() */
 #include "texture.h"
-#include "libmisc.h"
-#include "uielements.h"
+#include "uielements.h" /* for UIElement and UI style functions */
 #include "window.h"
 
 

@@ -1,6 +1,6 @@
 #include "font.h"
 
-#include <string.h>
+#include <stdio.h> /* for sprintf() and snprintf() */
 
 
 

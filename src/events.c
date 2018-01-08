@@ -1,7 +1,7 @@
 #include "events.h"
 
 
-#include <SDL2/SDL_mouse.h>
+#include <SDL2/SDL_mouse.h> /* for SDL_GetMouseState() */
 
 #include <log.h>
 

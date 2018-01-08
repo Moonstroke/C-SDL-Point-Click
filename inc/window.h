@@ -13,10 +13,10 @@
 #define WINDOW_H
 
 
-#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_render.h> /* for SDL_Renderer, SDL_WindowFlags and SDL_RendererFlags */
 #include <stdbool.h>
 
-#include "colors.h"
+#include "colors.h" /* for Color type */
 
 
 /**
