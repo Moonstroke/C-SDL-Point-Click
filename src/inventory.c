@@ -17,16 +17,16 @@ struct inventory {
 };
 
 
-Inventory *newInventory(const Rect *const g, const size_t size, Texture *const bg) {
+Inventory *newInventory(const Rect *const g, const unsigned int n, Texture *const bg) {
 	Inventory *i = malloc(sizeof(Inventory));
 	if(i == NULL)
 		return NULL;
-	i->sprites = newarray(size);
+	i->sprites = newarray(n);
 	i->geom = *g;
 	if(bg == NULL)
 		warning("Inventory has no background texture");
 	i->background = bg;
-	verbose("Init inventory with %d slots", size);
+	verbose("Init inventory with %u slots", n);
 	return i;
 }
 
@@ -40,23 +40,23 @@ void freeInventory(Inventory *const i) {
 void updateInventory(const Inventory *const i, Window *const win) {
 	if(i->background)
 		drawTexture(i->background, win, point(i->geom.pos.x, i->geom.pos.y));
-	size_t k = asize(i->sprites);
+	unsigned int k = asize(i->sprites);
 	while(k--)
 		updateSprite(aget(i->sprites, k), win);
 }
 
 
-size_t inventorySize(const Inventory *const i) {
+unsigned int inventorySize(const Inventory *const i) {
 	return asize(i->sprites);
 }
 
-Sprite *getInventorySprite(const Inventory *const i, const ssize_t n) {
+Sprite *getInventorySprite(const Inventory *const i, const int n) {
 	return aget(i->sprites, n);
 }
 
-size_t addInventorySprite(Inventory *const i, Sprite *const s) {
+unsigned int addInventorySprite(Inventory *const i, Sprite *const s) {
 	// FIXME sprite does not appear on screen
-	const size_t index = aappend(i->sprites, s);
+	const unsigned int index = aappend(i->sprites, s);
 	Point dest = point(i->geom.pos.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
 	                   i->geom.pos.y + SPRITE_RESERVED_SPACE / 2);
 	moveSpriteC(s, dest);
