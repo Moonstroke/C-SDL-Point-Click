@@ -51,7 +51,7 @@ Scene *newGameScene(Rect geom, Texture *background, unsigned int numSprites, str
  * \brief Instantiates a scene for user interface (menu).
  * \param[in] geom       The geometry of the scene
  * \param[in] background The background texture for the scene
- * \param[in] numSprites  The number of sprites the scene will contain
+ * \param[in] numUIElts  The number of UI elements the scene will contain
  * \param[in] name       The name of the scene
  *
  * \return A new scene of given geometry, background, number of sprites to
@@ -130,8 +130,8 @@ unsigned int addGameSceneSprite(Scene *self, Sprite *sprite);
 /**
  * \brief Adds a UI element to the scene.
  *
- * \param[in] self   The scene to add an element to
- * \param[in] sprite The UI element to add
+ * \param[in] self    The scene to add an element to
+ * \param[in] element The UI element to add
  *
  * \return The index of the sprite in the scene, or \c 0 if an error occurred:
  *         lazy array allocation failed, or the scene is a game scene

@@ -83,7 +83,7 @@ inline uint32_t rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
  * \param[in] g The green value
  * \param[in] b The blue value
  *
- * \return rgba(r, g, b, ALPHA_DEFAULT)
+ * \return \code rgba(r, g, b, ALPHA_DEFAULT) \endcode
  *
  * \sa rgba
  */
@@ -127,7 +127,7 @@ inline Color colora(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
  * \param[in] g The green value
  * \param[in] b The blue value
  *
- * \return colora(r, g, b, ALPHA_DEFAULT)
+ * \return \code colora(r, g, b, ALPHA_DEFAULT) \endcode
  *
  * \sa colora
  */
@@ -174,8 +174,9 @@ typedef enum {
 	 *        channels or not.
 	 *
 	 * This value is to be used in OR-combination with one of the above. It
-	 * yields \code resultRGB = (color1RGB * (color1A / 255)) <op> (color2RGB *
-	 * (color2A / 255))\endcode where \a <op> is the other MergeMode.
+	 * yields \code resultRGB = (color1RGB * (color1A / 255)) &lt;op&gt;
+	 * (color2RGB * (color2A / 255)) \endcode where \a &lt;op&gt; is the other
+	 * MergeMode.
 	 */
 	MERGE_BLEND_ALPHA = 0x10,
 } MergeMode;
