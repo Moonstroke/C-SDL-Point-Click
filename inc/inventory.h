@@ -43,7 +43,7 @@ typedef struct inventory Inventory;
  *
  * \remark Usually, there is only one inventory in game.
  */
-Inventory *newInventory(const Rect *geometry, size_t size, Texture *background);
+Inventory *newInventory(const Rect *geometry, unsigned int size, Texture *background);
 
 /**
  * \brief Destroys and frees memory of the game inventory.
@@ -70,7 +70,7 @@ void updateInventory(const Inventory *self, Window *window);
  *
  * \return The size of the game inventory, i.e. the number of items it holds.
  */
-size_t inventorySize(const Inventory *self);
+unsigned int inventorySize(const Inventory *self);
 
 /**
  * \brief Returnes the \c index'th element of the inventory.
@@ -80,7 +80,7 @@ size_t inventorySize(const Inventory *self);
  *
  * \return An element of the inventory, identified by its position.
  */
-Sprite *getInventorySprite(const Inventory *self, ssize_t index);
+Sprite *getInventorySprite(const Inventory *self, int index);
 
 /**
  * \brief Adds an item to the inventory.
@@ -90,7 +90,7 @@ Sprite *getInventorySprite(const Inventory *self, ssize_t index);
  *
  * \return The index of the added element, or \c -1 if an error occurred.
  */
-size_t addInventorySprite(Inventory *self, Sprite *sprite);
+unsigned int addInventorySprite(Inventory *self, Sprite *sprite);
 
 /**
  * \brief Removes an element of the inventory.
