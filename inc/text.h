@@ -170,4 +170,17 @@ Texture *renderText(Text *self, Window *window);
 bool drawText(Text *self, Window *window, Point pos);
 
 
+/**
+ * \brief Retrieve the width and height of the text.
+ *
+ * \param[in]  self The text
+ * \param[out] w    The width of the text
+ * \param[out] h    The height of the text
+ *
+ * \return \c true iff the text has already been rendered, and the retrieval of
+ *         the geometry values happened correctly
+ */
+bool getTextGeom(const Text *self, unsigned int *w, unsigned int *h);
+
+
 #endif // TEXT_H

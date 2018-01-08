@@ -107,3 +107,11 @@ bool drawText(Text *const t, Window *const w, Point p) {
 	}
 	return true;
 }
+
+bool getTextGeom(const Text *const t, unsigned int *const w, unsigned int *const h) {
+	if(!t->rendered) {
+		*w = *h = 0;
+		return false;
+	} else
+		return getTextureGeom(t->rendered, w, h);
+}
