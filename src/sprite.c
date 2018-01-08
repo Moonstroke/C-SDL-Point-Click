@@ -99,5 +99,5 @@ void setSpriteTexture(Sprite *const s, Texture *const t) {
 }
 
 bool isPointInSprite(const Sprite *const s, const Point p) {
-	return isPointInRect(&p, &s->geom);
+	return isPointInRect(p, &s->geom);
 }

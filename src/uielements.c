@@ -107,7 +107,7 @@ bool isPointInUIElement(const UIElement *const e, const Point p) {
 	if(!getTextGeom(e->text, &w, &h))
 		return false;
 	const Rect r = rect(w, h, e->pos.x, e->pos.y);
-	return isPointInRect(&p, &r);
+	return isPointInRect(p, &r);
 }
 
 

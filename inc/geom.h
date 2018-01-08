@@ -91,9 +91,9 @@ inline Rect rect(const unsigned int w, const unsigned int h, const int x, const 
  * \return \c true iff the point coordinates are within the bounds of the
  *         rectangle's coordinates
  */
-inline bool isPointInRect(const Point *const point, const Rect *const rect) {
-	return (rect->pos.x <= point->x && point->x <= (rect->pos.x + (signed)rect->w)) &&
-	       (rect->pos.y <= point->y && point->y <= (rect->pos.y + (signed)rect->h));
+inline bool isPointInRect(const Point pt, const Rect *const rct) {
+	return (rct->pos.x <= pt.x && pt.x <= (rct->pos.x + (signed)rct->w)) &&
+	       (rct->pos.y <= pt.y && pt.y <= (rct->pos.y + (signed)rct->h));
 }
 
 #endif // GEOM_H

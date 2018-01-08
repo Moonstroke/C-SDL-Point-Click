@@ -7,7 +7,7 @@
 extern Point point(int, int);
 extern Rect rect(unsigned int, unsigned int, int, int);
 
-extern bool isPointInRect(const Point*, const Rect*);
+extern bool isPointInRect(Point, const Rect*);
 
 
 double distance(const Point p1, const Point p2) {
