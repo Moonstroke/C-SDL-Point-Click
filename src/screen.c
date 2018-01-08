@@ -31,7 +31,6 @@ void freeScreen(Screen *const s) {
 		freeInventory(s->inventory);
 	if(s->scene)
 		freeScene(s->scene);
-	free((char*)s->name);
 	free(s);
 }
 
