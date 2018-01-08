@@ -10,8 +10,8 @@
  * This file contains the definition of the texture objects.
  */
 
-#ifndef TEXTURES_H
-#define TEXTURES_H
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 
 #include <SDL2/SDL_pixels.h>
@@ -95,4 +95,4 @@ bool getTextureGeom(const Texture *self, unsigned int *w, unsigned int *h);
 void drawTexture(Texture *self, Window *window, Point pos);
 
 
-#endif /* TEXTURES_H */
+#endif /* TEXTURE_H */
