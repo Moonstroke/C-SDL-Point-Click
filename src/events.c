@@ -18,12 +18,8 @@ static MouseHandler _onMouseUp[6];
 static MouseHandler _onMouseMove;
 
 
-static inline int validBtn(uint8_t btn) {
-	if(btn < 1 || btn > 5) {
-		error("Invalid button value: %d\n", btn);
-		return 0;
-	}
-	return 1;
+static inline bool validBtn(const uint8_t btn) {
+	return 1 < btn && btn < 5;
 }
 
 // This is the default handler, used when no other one was provided
@@ -36,20 +32,12 @@ static inline MouseHandler getHandler(const uint8_t btn, const MouseHandler *han
 
 
 bool set_OnMouseDown(const uint8_t btn, const MouseHandler handler) {
-	if(validBtn(btn)) {
-		_onMouseDown[btn] = handler;
-		return 1;
-	} else
-		return 0;
+	return validBtn(btn) && (_onMouseDown[btn] = handler);
 }
 MouseHandler onMouseDown(const uint8_t btn) { return getHandler(btn, _onMouseDown); }
 
 bool set_OnMouseUp(const uint8_t btn, const MouseHandler handler) {
-	if(validBtn(btn)) {
-		_onMouseUp[btn] = handler;
-		return 1;
-	} else
-		return 0;
+	return validBtn(btn) && (_onMouseUp[btn] = handler);
 }
 MouseHandler onMouseUp(const uint8_t btn) { return getHandler(btn, _onMouseUp); }
 
