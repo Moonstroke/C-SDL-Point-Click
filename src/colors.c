@@ -58,10 +58,10 @@ Color blendColors(const Color *const c1, const Color *const c2, const MergeMode 
 				res.a = max(c1->a * c2->a, 255);
 				break;
 			case MERGE_SUB:
-				res.r = max(c1->r - c2->r, 255);
-				res.g = max(c1->g - c2->g, 255);
-				res.b = max(c1->b - c2->b, 255);
-				res.a = max(c1->a - c2->a, 255);
+				res.r = min((signed)c1->r - (signed)c2->r, 0);
+				res.g = min((signed)c1->g - (signed)c2->g, 0);
+				res.b = min((signed)c1->b - (signed)c2->b, 0);
+				res.a = min((signed)c1->a - (signed)c2->a, 0);
 				break;
 			default: break;
 		}
