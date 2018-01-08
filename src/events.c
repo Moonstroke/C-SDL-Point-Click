@@ -13,9 +13,9 @@ Point mousePos(void) {
 	return p;
 }
 
-static MouseHandler _OnMouseDown[6];
-static MouseHandler _OnMouseUp[6];
-static MouseHandler _OnMouseMove;
+static MouseHandler _onMouseDown[6];
+static MouseHandler _onMouseUp[6];
+static MouseHandler _onMouseMove;
 
 
 static inline int validBtn(uint8_t btn) {
@@ -37,24 +37,24 @@ static inline MouseHandler getHandler(const uint8_t btn, const MouseHandler *han
 
 bool set_OnMouseDown(const uint8_t btn, const MouseHandler handler) {
 	if(validBtn(btn)) {
-		_OnMouseDown[btn] = handler;
+		_onMouseDown[btn] = handler;
 		return 1;
 	} else
 		return 0;
 }
-MouseHandler onMouseDown(const uint8_t btn) { return getHandler(btn, _OnMouseDown); }
+MouseHandler onMouseDown(const uint8_t btn) { return getHandler(btn, _onMouseDown); }
 
 bool set_OnMouseUp(const uint8_t btn, const MouseHandler handler) {
 	if(validBtn(btn)) {
-		_OnMouseUp[btn] = handler;
+		_onMouseUp[btn] = handler;
 		return 1;
 	} else
 		return 0;
 }
-MouseHandler onMouseUp(const uint8_t btn) { return getHandler(btn, _OnMouseUp); }
+MouseHandler onMouseUp(const uint8_t btn) { return getHandler(btn, _onMouseUp); }
 
 bool set_OnMouseMove(const MouseHandler handler) {
-	_OnMouseMove = handler;
+	_onMouseMove = handler;
 	return true;
 }
-MouseHandler onMouseMove(void) { return _OnMouseMove; }
+MouseHandler onMouseMove(void) { return _onMouseMove; }
