@@ -18,10 +18,22 @@
 #include <stdbool.h>
 
 
+/**
+ * \brief A geometric point, in cartesian coordinates
+ */
+typedef struct point {
+	int x, /**< The abcsissa of the point */
+	    y; /**< The ordinate of the point */
+} Point;
 
-typedef SDL_Point Point; /**< A geometric point, in cartesian coordinates */
-
-typedef SDL_Rect Rect; /**< A geometric rectangle */
+/**
+ * \brief A geometric rectangle.
+ */
+typedef struct rect {
+	unsigned int w, /**< The width of the rectangle */
+	             h; /**< The height of the rectangle */
+	Point pos;      /**< The position of the rectangle */
+} Rect;
 
 
 /**
@@ -57,31 +69,31 @@ inline Point point(const int x, const int y) {
 /**
  * \brief Constructs a geometric rectangle.
  *
- * \param[in] x The abscissa of the rectangle
- * \param[in] y The ordinate of the rectangle
  * \param[in] w The width of the rectangle
  * \param[in] h The height of the rectangle
+ * \param[in] x The abscissa of the rectangle
+ * \param[in] y The ordinate of the rectangle
  *
  * \return A Rect structure object
  *
  * \sa Rect
  */
-inline Rect rect(const int x, const int y, const unsigned int w, const unsigned int h) {
-	return (Rect){.x = x, .y = y, .w = w, .h = h};
+inline Rect rect(const unsigned int w, const unsigned int h, const int x, const int y) {
+	return (Rect){ .w = w, .h = h, .pos = point(x, y)};
 }
 
 /**
  * \brief Determines whether a point belongs inside the bounds of a rectangle.
  *
- * \param[in] point   The point
- * \param[in] rect The rectangle
+ * \param[in] point The point
+ * \param[in] rect  The rectangle
  *
  * \return \c true iff the point coordinates are within the bounds of the
  *         rectangle's coordinates
  */
 inline bool isPointInRect(const Point *const point, const Rect *const rect) {
-	return (rect->x <= point->x && point->x <= (rect->x + rect->w)) &&
-	       (rect->y <= point->y && point->y <= (rect->y + rect->h));
+	return (rect->pos.x <= point->x && point->x <= (rect->pos.x + (signed)rect->w)) &&
+	       (rect->pos.y <= point->y && point->y <= (rect->pos.y + (signed)rect->h));
 }
 
 #endif // GEOM_H

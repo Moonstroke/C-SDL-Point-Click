@@ -44,7 +44,7 @@ void freeTexture(Texture *const t) {
 }
 
 void drawTexture(Texture *const t, Window *const w, const Point p) {
-	Rect r = {.x = p.x, .y = p.y};
+	SDL_Rect r = {.x = p.x, .y = p.y};
 	SDL_QueryTexture(t, NULL, NULL, &r.w, &r.h);
 	SDL_RenderCopy(getWindowRenderer(w), t, NULL, &r);
 }

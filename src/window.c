@@ -34,7 +34,7 @@ Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 		error("malloc() error for window \"%s\"", t);
 		return NULL;
 	}
-	SDL_Window *const win = SDL_CreateWindow(t, g.x, g.y, g.w, g.h, wf);
+	SDL_Window *const win = SDL_CreateWindow(t, g.pos.x, g.pos.y, g.w, g.h, wf);
 	if(!win) {
 		error("Could not create SDL window: %s", SDL_GetError());
 		return NULL;
@@ -60,7 +60,7 @@ Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 	setWindowTitle(w, t);
 	w->screens = screens;
 	w->currentscreen = NULL;
-	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.x, g.y);
+	info("Init window \"%s\" (%dx%d) at (%d, %d)", t, g.w, g.h, g.pos.x, g.pos.y);
 	return w;
 }
 extern Window *newWin(str title, Rect geometry);

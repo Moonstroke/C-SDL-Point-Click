@@ -40,7 +40,7 @@ void freeInventory(Inventory *const i) {
 
 void updateInventory(const Inventory *const i, Window *const win) {
 	if(i->background)
-		drawTexture(i->background, win, point(i->geom.x, i->geom.y));
+		drawTexture(i->background, win, point(i->geom.pos.x, i->geom.pos.y));
 	size_t k = asize(i->sprites);
 	while(k--)
 		updateSprite(aget(i->sprites, k), win);
@@ -58,8 +58,8 @@ Sprite *getInventorySprite(const Inventory *const i, const ssize_t n) {
 size_t addInventorySprite(Inventory *const i, Sprite *const s) {
 	// FIXME sprite does not appear on screen
 	const size_t index = aappend(i->sprites, s);
-	Point dest = point(i->geom.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
-	                   i->geom.y + SPRITE_RESERVED_SPACE / 2);
+	Point dest = point(i->geom.pos.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
+	                   i->geom.pos.y + SPRITE_RESERVED_SPACE / 2);
 	moveSpriteC(s, dest);
 	return index;
 }

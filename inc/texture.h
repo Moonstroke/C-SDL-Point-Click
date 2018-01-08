@@ -14,8 +14,9 @@
 #define TEXTURES_H
 
 
-#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_pixels.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_rect.h>
 #include <stdbool.h>
 
 #include "libmisc.h"

@@ -183,7 +183,7 @@ void initall(void) {
 
 	/* Window */
 
-	wingeom = rect(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480);
+	wingeom = rect(640, 480, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	win = newWin("App window", wingeom);
 
 

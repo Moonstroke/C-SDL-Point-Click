@@ -57,7 +57,7 @@ bool spriteNeedsUpdate(const Sprite *const s) {
 }
 
 void updateSprite(Sprite *const s, Window *const win) {
-	drawTexture(s->tex, win, point(s->geom.x, s->geom.y));
+	drawTexture(s->tex, win, point(s->geom.pos.x, s->geom.pos.y));
 	s->needsupdate = false;
 }
 
@@ -71,10 +71,10 @@ void setSpriteName(Sprite *const s, const str n) {
 }
 
 int getSpriteX(const Sprite *const s) {
-	return s->geom.x;
+	return s->geom.pos.x;
 }
 int getSpriteY(const Sprite *const s) {
-	return s->geom.y;
+	return s->geom.pos.y;
 }
 int getSpriteW(const Sprite *const s) {
 	return s->geom.w;
@@ -85,8 +85,7 @@ int getSpriteH(const Sprite *const s) {
 
 
 void moveSprite(Sprite *const s, const Point p) {
-	s->geom.x = p.x;
-	s->geom.y = p.y;
+	s->geom.pos = p;
 	s->needsupdate = true;
 }
 extern void moveSpriteC(Sprite *s, const Point p);
