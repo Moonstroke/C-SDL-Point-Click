@@ -150,7 +150,7 @@ SDL_Renderer *getWindowRenderer(const Window *self);
  *
  * \return The width of the window, in pixels
  */
-size_t getWindowWidth(const Window *self);
+unsigned int getWindowWidth(const Window *self);
 
 /**
  * \brief Returns the height of the window, in pixels
@@ -161,7 +161,7 @@ size_t getWindowWidth(const Window *self);
  *
  * \return The height oof the window, in pixels
  */
-size_t getWindowHeight(const Window *self);
+unsigned int getWindowHeight(const Window *self);
 
 
 /**
@@ -176,7 +176,7 @@ size_t getWindowHeight(const Window *self);
  * \return The position of the screen in the window, or \c -1 if an error
  *         occurred
  */
-ssize_t addWindowScreen(Window *self, Screen *screen);
+int addWindowScreen(Window *self, Screen *screen);
 
 
 /**

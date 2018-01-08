@@ -96,19 +96,19 @@ SDL_Renderer *getWindowRenderer(const Window *const w) {
 	return w->ren;
 }
 
-size_t getWindowWidth(const Window *const w) {
+unsigned int getWindowWidth(const Window *const w) {
 	return w->geom.w;
 }
 
-size_t getWindowHeight(const Window *const w) {
+unsigned int getWindowHeight(const Window *const w) {
 	return w->geom.h;
 }
 
 
 /* ## Technical functions ## */
 
-ssize_t addWindowScreen(Window *const w, Screen *const s) {
-	const ssize_t i = aappend(w->screens, s);
+int addWindowScreen(Window *const w, Screen *const s) {
+	const int i = aappend(w->screens, s);
 	if(i == 0)
 		w->currentscreen = s;
 	return i;
