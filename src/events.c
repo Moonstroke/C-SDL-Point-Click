@@ -19,7 +19,7 @@ static MouseHandler _onMouseMove;
 
 
 static inline bool validBtn(const uint8_t btn) {
-	return 1 < btn && btn < 5;
+	return btn < 6;
 }
 
 // This is the default handler, used when no other one was provided
