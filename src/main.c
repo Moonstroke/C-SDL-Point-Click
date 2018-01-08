@@ -1,9 +1,8 @@
 #include <log.h>
-#include <SDL2/SDL.h>
+#include <SDL2/SDL.h> /* for SDL_INIT_VIDEO */
+#include <SDL2/SDL_events.h> /* for SDL_Event, SDL_EventType */
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h> /* for EXIT_SUCCESS */
 
 #include "colors.h"
 #include "events.h"
