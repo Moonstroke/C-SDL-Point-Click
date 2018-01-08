@@ -16,7 +16,6 @@
 
 
 #include <SDL2/SDL_pixels.h>
-#include <SDL2/SDL_stdinc.h>
 #include <stdint.h> /* for uint8_t */
 
 
@@ -73,8 +72,10 @@ typedef SDL_Color Color; /**< A RGBA color structure */
  * \sa SDL_PIXELFORMAT_RGBA8888
  */
 inline uint32_t rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
-	return SDL_FOURCC(a, b, g, r);
+	return ((uint32_t)r) << 24 | ((uint32_t)g) << 16
+	     | ((uint32_t)b) <<  8 |  (uint32_t)a);
 }
+
 /**
  * \brief Shrinks three octets to a single integer, ignoring alpha channel.
  *
