@@ -1,3 +1,17 @@
+/**
+ * \file "uielements.h"
+ * \author joH1
+ *
+ * \version 0.1
+ *
+ * \brief Defines user interface style and elements.
+ *
+ * This file implements UI elements, like labels and buttons (that's all for
+ * now).
+ * It also provides functionsto define a standard style (font and colors) used
+ * by all the UI elements to give a homogeneous feel for the interface.
+ */
+
 #ifndef UIELEMENTS_H
 #define UIELEMENTS_H
 
@@ -102,19 +116,63 @@ UIElement *button(str text, Point pos, void (*action)(void));
 void freeUIElement(UIElement *element);
 
 
+/**
+ * \brief Checks whether the element needs to be redrawn on the screen.
+ *
+ * \param[in] element The element
+ *
+ * \return \c true iff the elements needs to be updated
+ */
 bool uielementNeedsUpdate(const UIElement *element);
 
+/**
+ * \brief Updates the element on display.
+ *
+ * \param[in,out] element The element
+ * \param[in,out] window  The window to draw the element to
+ */
 void updateUIElement(UIElement *element, Window *window);
 
-bool isPointInUIElement(const UIElement *element, Point pos);
+/**
+ * \brief Calculates if the UI element contains a point, geometrically.
+ *
+ * \param[in] element The element
+ * \param[in] point   The point
+ *
+ * \return \c true iff the point resides inside the bounds of a UI element
+ */
+bool isPointInUIElement(const UIElement *element, Point point);
 
 
+/**
+ * \brief Handles a mouse hover event over a button.
+ *
+ * \param[in,out] button The button
+ */
 void btnHover(UIElement *button);
 
+
+/**
+ * \brief Handles a mouse pression over a button.
+ *
+ * \param[in,out] button The button
+ */
 void btnDown(UIElement *button);
 
+
+/**
+ * \brief Handles a mouse release over a button.
+ *
+ * \param[in,out] button The button
+ */
 void btnUp(UIElement *button);
 
+
+/**
+ * \brief Handles a mouse click event on the given button.
+ *
+ * \param[in,out] button The button
+ */
 void btnClick(const UIElement *button);
 
 #endif /* UIELEMENTS_H */
