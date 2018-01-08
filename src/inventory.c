@@ -18,12 +18,12 @@ struct inventory {
 };
 
 
-Inventory *newInventory(const Rect g, const size_t size, Texture *const bg) {
+Inventory *newInventory(const Rect *const g, const size_t size, Texture *const bg) {
 	Inventory *i = malloc(sizeof(Inventory));
 	if(i == NULL)
 		return NULL;
 	i->sprites = newarray(size);
-	i->geom = g;
+	i->geom = *g;
 	if(bg == NULL)
 		warning("Inventory has no background texture");
 	i->background = bg;

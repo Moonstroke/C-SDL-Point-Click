@@ -238,7 +238,7 @@ void initall(void) {
 	/* Inventory */
 
 	Texture *inventbg = loadBMP("gameinventory_bg", win);
-	gameinventory = newInventory(gameinventorygeom, 8, inventbg);
+	gameinventory = newInventory(&gameinventorygeom, 8, inventbg);
 	setScreenInventory(game, gameinventory);
 
 

@@ -41,7 +41,7 @@ typedef struct inventory Inventory;
  *
  * \remark Usually, there is only one inventory in game.
  */
-Inventory *newInventory(Rect geometry, size_t size, Texture *background);
+Inventory *newInventory(const Rect *geometry, size_t size, Texture *background);
 
 /**
  * \brief Destroys and frees memory of the game inventory.
