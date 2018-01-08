@@ -33,6 +33,7 @@ static Scene *newScene(const Rect g, Texture *const bg, const unsigned int n, co
 		Array *const elts = newarray(n);
 		if(elts == NULL) {
 			error("error in newScene() while creating array for %u sprites", n);
+			free(s);
 			return NULL;
 		}
 		s->elements = elts;

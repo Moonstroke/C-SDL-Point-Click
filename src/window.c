@@ -37,16 +37,19 @@ Window *newWindow(const str t, const Rect g, const SDL_WindowFlags wf, const SDL
 	SDL_Window *const win = SDL_CreateWindow(t, g.pos.x, g.pos.y, g.w, g.h, wf);
 	if(!win) {
 		error("Could not create SDL window: %s", SDL_GetError());
+		free(w);
 		return NULL;
 	}
 	SDL_Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
 		error("Could not create renderer: %s", SDL_GetError());
+		free(w);
 		return NULL;
 	}
 	Array *const screens = newarray(INIT_SCREENS_NUM);
 	if(!screens) {
 		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
+		free(w);
 		return NULL;
 	}
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
