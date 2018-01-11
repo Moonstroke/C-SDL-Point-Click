@@ -106,6 +106,27 @@ void onMouseUp(const SDL_MouseButtonEvent *event);
 
 
 /**
+ * \brief Defines the procedure to execute when a mouse button is clicked.
+ *
+ * A mouse click correspond to a pressure and release immediately after, without
+ * motion (or very few pixels, in case of involuntary offset)
+ *
+ * \param[in] button  The button to watch
+ * \param[in] handler The procedure to execute
+ *
+ * \return \c true iff the handler could be set (ie. \a button is a valid value)
+ */
+bool set_OnMouseClick(uint8_t button, MouseButtonHandler handler);
+
+/**
+ * \brief Gets the handler for given mouse button released.
+ *
+ * \param[in] event The mouse button event
+ */
+void onMouseClick(const SDL_MouseButtonEvent *event);
+
+
+/**
  * \brief Sets the mouse motion handler
  *
  * \param[in] handler The mouse motion handler
