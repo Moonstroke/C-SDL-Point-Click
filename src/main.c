@@ -35,6 +35,7 @@ static Point clickpos;
 
 static void leftdown(const SDL_MouseButtonEvent*);
 static void leftup(const SDL_MouseButtonEvent*);
+static void leftclick(const SDL_MouseButtonEvent*);
 static void move(const SDL_MouseMotionEvent*);
 
 
@@ -92,38 +93,56 @@ void move(const SDL_MouseMotionEvent *const restrict e) {
 void leftdown(const SDL_MouseButtonEvent *const restrict e) {
 	const Point p = point(e->x, e->y);
 	clickpos = p;
-	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
-	if(isSceneUI(scene)) {
-		UIElement *const el = getUISceneElementPos(scene, p);
+	Screen *const scr = getWindowCurrentScreen(win);
+	Scene *const scn = getScreenScene(scr);
+	if(isSceneUI(scn)) {
+		UIElement *const el = getUISceneElementPos(scn, p);
 		if(el)
 			btnDown(el);
-	} else
-		heldsprite = getGameSceneSpritePos(scene, p);
+	} else {
+		Inventory *const inv = getScreenInventory(scr);
+		if(inv)
+			heldsprite = getInventorySpritePos(inv, p);
+	}
 }
 void leftup(const SDL_MouseButtonEvent *const restrict e) {
-	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
-	Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
 	const Point p = point(e->x, e->y);
-	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) {
-		/* The event is a mouse click */
-		if(isSceneUI(scene)) {
-			UIElement *const el = getUISceneElementPos(scene, p);
-			if(el) {
-				btnUp(el);
-				btnClick(el);
-			}
-		} else if(heldsprite && inv) {
-			removeGameSceneSprite(scene, heldsprite);
-			addInventorySprite(inv, heldsprite);
-			debug("sprite pos = (%d, %d)", getSpriteX(heldsprite), getSpriteY(heldsprite));
-		}
-		debug("inventory size = %d", inv ? (signed)inventorySize(inv) : -1);
-		debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
+	Screen *const scr = getWindowCurrentScreen(win);
+	Scene *const scn = getScreenScene(scr);
+	if(isSceneUI(scn)) {
+		UIElement *const el = getUISceneElementPos(scn, p);
+		if(el)
+			btnUp(el);
+	} else if(heldsprite) {
+		Inventory *const inv = getScreenInventory(scr);
+		removeInventorySprite(inv, heldsprite);
+		addGameSceneSprite(scn, heldsprite);
+		heldsprite = NULL;
 	}
-
-	heldsprite = NULL;
 }
-
+void leftclick(const SDL_MouseButtonEvent *const restrict e) {
+	Screen *const scr = getWindowCurrentScreen(win);
+	Scene *const scn = getScreenScene(scr);
+	Inventory *const inv = getScreenInventory(scr);
+	const Point pos = point(e->x, e->y);
+	if(isSceneUI(scn)) {
+		UIElement *const el = getUISceneElementPos(scn, pos);
+		if(el) {
+			btnUp(el);
+			btnClick(el);
+		}
+	} else {
+		Sprite *const spr = getGameSceneSpritePos(scn, pos);
+		if(spr) {
+			removeGameSceneSprite(scn, spr);
+			addInventorySprite(inv, spr);
+			debug("sprite pos = (%d, %d)", getSpriteX(spr), getSpriteY(spr));
+		}
+	}
+	debug("inventory size = %d", inv ? (signed)inventorySize(inv) : -1);
+	debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
+	//heldsprite = NULL;
+}
 void startgame(void) {
 	setWindowCurrentScreen(win, "Game screen");
 }
@@ -270,6 +289,7 @@ void initall(void) {
 	/* Event handlers */
 	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);
 	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
+	set_OnMouseClick(SDL_BUTTON_LEFT, leftclick);
 	set_OnMouseMove(move);
 
 
