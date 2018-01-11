@@ -53,20 +53,24 @@ static void mainloop(void);
 
 
 int main(void) {
+	bool status = true;
 	log_setfilter(LOGF_ALL);
 
 	info("\nInitializations");
-	if(!initall())
-		return EXIT_FAILURE;
+	status = initall();
 
-	info("\nMain events loop");
-	windowRun(win);
+	if(status) {
+		info("\nMain events loop");
+		windowRun(win);
+	}
 
 	info("\nClean and Exit");
-	freeWindow(win);
-	freeText(tooltip);
+	if(win)
+		freeWindow(win);
+	if(tooltip)
+		freeText(tooltip);
 
-	return EXIT_SUCCESS;
+	return status ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 
