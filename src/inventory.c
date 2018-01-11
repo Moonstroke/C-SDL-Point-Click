@@ -37,7 +37,7 @@ void freeInventory(Inventory *const i) {
 }
 
 
-void updateInventory(Inventory *const i, Window *const ) {
+void updateInventory(Inventory *const i, Window *const w) {
 	if(i->background)
 		drawTexture(i->background, w, point(i->geom.pos.x, i->geom.pos.y));
 }
