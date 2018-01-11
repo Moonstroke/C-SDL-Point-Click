@@ -136,12 +136,8 @@ void leftclick(const SDL_MouseButtonEvent *const restrict e) {
 		if(spr) {
 			removeGameSceneSprite(scn, spr);
 			addInventorySprite(inv, spr);
-			debug("sprite pos = (%d, %d)", getSpriteX(spr), getSpriteY(spr));
 		}
 	}
-	debug("inventory size = %d", inv ? (signed)inventorySize(inv) : -1);
-	debug("click pos = (%d, %d)", clickpos.x, clickpos.y);
-	//heldsprite = NULL;
 }
 void startgame(void) {
 	setWindowCurrentScreen(win, "Game screen");
