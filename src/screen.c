@@ -55,9 +55,10 @@ void setScreenScene(Screen *const s, Scene *const scene) { s->scene = scene; }
 /* ## Technical functions ## */
 
 void updateScreen(Screen *s, Window *w) {
+	updateScene(s->scene, w);
 	if(s->inventory)
 		updateInventory(s->inventory, w);
-	if(s->scene)
-		updateScene(s->scene, w);
+	updateSceneElements(s->scene, w);
+	if(s->inventory)
+		updateInventorySprites(s->inventory, w);
 }
-
