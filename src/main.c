@@ -33,9 +33,9 @@ static Point clickpos;
 
 /* Event-handlers functions */
 
-static void leftdown(const Point p);
-static void leftup(const Point p);
-static void move(const Point p);
+static void leftdown(const SDL_MouseButtonEvent*);
+static void leftup(const SDL_MouseButtonEvent*);
+static void move(const SDL_MouseMotionEvent*);
 
 
 /* GUI actions */
@@ -68,7 +68,8 @@ int main(void) {
 }
 
 
-void move(const Point p) {
+void move(const SDL_MouseMotionEvent *const restrict e) {
+	const Point p = point(e->x, e->y);
 	if(heldsprite)
 		moveSpriteC(heldsprite, p);
 	else {
@@ -88,7 +89,8 @@ void move(const Point p) {
 	}
 }
 
-void leftdown(const Point p) {
+void leftdown(const SDL_MouseButtonEvent *const restrict e) {
+	const Point p = point(e->x, e->y);
 	clickpos = p;
 	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
 	if(isSceneUI(scene)) {
@@ -98,9 +100,10 @@ void leftdown(const Point p) {
 	} else
 		heldsprite = getGameSceneSpritePos(scene, p);
 }
-void leftup(const Point p) {
+void leftup(const SDL_MouseButtonEvent *const restrict e) {
 	Scene *const scene = getScreenScene(getWindowCurrentScreen(win));
 	Inventory *const inv = getScreenInventory(getWindowCurrentScreen(win));
+	const Point p = point(e->x, e->y);
 	if(distance(clickpos, p) < MAX_CLICK_DISTANCE) {
 		/* The event is a mouse click */
 		if(isSceneUI(scene)) {
@@ -138,16 +141,16 @@ void mainloop(void) {
 			mouse = mousePos();
 			switch(event.type) {
 				case SDL_MOUSEBUTTONDOWN:
-					onMouseDown(event.button.button)(mouse);
+					onMouseDown(&event.button);
 					break;
 				case SDL_MOUSEBUTTONUP:
-					onMouseUp(event.button.button)(mouse);
+					onMouseUp(&event.button);
 					break;
 				case SDL_MOUSEWHEEL:
 					// TODO
 					break;
 				case SDL_MOUSEMOTION:
-					onMouseMove()(mouse);
+					onMouseMove(&event.motion);
 					break;
 				case SDL_KEYDOWN:
 					/* The window can be closed with CTRL+q or CTRL+w */
