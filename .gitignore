@@ -1,5 +1,5 @@
 # Compilation output files
-*.o
+obj/
 a.out
 pnc
 
