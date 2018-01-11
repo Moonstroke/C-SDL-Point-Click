@@ -18,7 +18,7 @@
 
 #include "colors.h" /*for Color */
 #include "font.h"
-#include "geom.h" /* for Rect and Point */
+#include "geom.h" /* for Point */
 
 
 #include <stdbool.h>
@@ -26,7 +26,7 @@
 
 
 /**
- * \defgroup uistyle_funcs "UI Style functions"
+ * \defgroup uistyle_funcs UI Style functions
  * \{
  */
 
