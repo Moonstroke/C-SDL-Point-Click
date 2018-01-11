@@ -23,7 +23,7 @@
 
 
 /**
- * \brief Retrieves the x and y coordinates of the mouse cursor.
+ * \brief Retrieves the \c x and \c y coordinates of the mouse cursor.
  *
  * \return The position of the mouse cursor
  */
@@ -32,11 +32,12 @@ Point mousePos(void);
 
 
 /**
- * \defgroup event_handlers "Event handlers typedefs"
+ * \defgroup event_handlers Event handlers typedefs
  * \brief Convenience typedefs that represent handlers functions for different
  *        types of events.
  *
  * \sa SDL_Event
+ *
  * \{
  */
 
@@ -73,18 +74,15 @@ typedef void (*MouseWheelHandler)(const SDL_MouseWheelEvent*);
  * \param[in] button  The button to watch
  * \param[in] handler The procedure to execute
  *
- * \return \c true if the handler could be set (ie. button is a valid value)
- *
- * \sa SDL_MouseButtonEvent
+ * \return \c true if and only if the handler could be set (\a button is valid,
+ *         ie. its value is amongst the \c SDL_BUTTON_* values)
  */
 bool set_OnMouseDown(uint8_t button, MouseButtonHandler handler);
 
 /**
  * \brief Gets the handler for given mouse button pressed.
  *
- * \param[in] button The button to get the handler back
- *
- * \return The handler for given mouse button
+ * \param[in] event The event to handle representing mouse pressed
  */
 void onMouseDown(const SDL_MouseButtonEvent *event);
 
@@ -95,18 +93,14 @@ void onMouseDown(const SDL_MouseButtonEvent *event);
  * \param[in] button  The button to watch
  * \param[in] handler The procedure to execute
  *
- * \return \c true if the handler could be set (ie. \c button is a valid value)
- *
- * \sa SDL_MouseButtonEvent
+ * \return \c true iff the handler could be set (ie. \a button is a valid value)
  */
 bool set_OnMouseUp(uint8_t button, MouseButtonHandler handler);
 
 /**
  * \brief Gets the handler for given mouse button released.
  *
- * \param[in] button The button to get the handler back
- *
- * \return The handler for given mouse button
+ * \param[in] event The mouse release event to handle
  */
 void onMouseUp(const SDL_MouseButtonEvent *event);
 
@@ -123,7 +117,7 @@ bool set_OnMouseMove(MouseMotionHandler handler);
 /**
  * \brief Gets the handler for mouse moved.
  *
- * \return The handler for given mouse button
+ * \param[in] event The mouse movement event
  */
 void onMouseMove(const SDL_MouseMotionEvent *event);
 
