@@ -1,7 +1,6 @@
 # Compilation output files
 obj/
-a.out
-pnc
+out/
 
 # Documentation directory
 doc/
