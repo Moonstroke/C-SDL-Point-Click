@@ -47,7 +47,7 @@ static void pausegame(void);
 
 /* Functions */
 
-static void initall(void);
+static bool initall(void);
 static void mainloop(void);
 
 
@@ -56,7 +56,8 @@ int main(void) {
 	log_setfilter(LOGF_ALL);
 
 	info("\nInitializations");
-	initall();
+	if(!initall())
+		return EXIT_FAILURE;
 
 	info("\nMain events loop");
 	windowRun(win);
@@ -194,7 +195,7 @@ void mainloop(void) {
 		renderWindow(win);
 	}
 }
-void initall(void) {
+bool initall(void) {
 
 	Screen *menu, *game;
 	Scene *menuscene, *gamescene;
@@ -213,7 +214,7 @@ void initall(void) {
 	Font *ubuntu = openFont("ubuntu_mono-regular", 16);
 	if(!ubuntu) {
 		fatal("Font could not be loaded: %s", TTF_GetError());
-		exit(1);
+		return false;
 	}
 	setUIFont(ubuntu);
 	setUITextColor(&black);
@@ -224,7 +225,9 @@ void initall(void) {
 
 	wingeom = rect(640, 480, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	win = newWin("App window", &wingeom);
-
+	if(!win) {
+		return false;
+	}
 
 	/* Layouts */
 
@@ -297,4 +300,6 @@ void initall(void) {
 	debug("\nSANDBOX\n");
 
 	debug("\n/SANDBOX\n");
+
+	return true;
 }
