@@ -92,7 +92,6 @@ void updateScene(Scene *const s, Window *const w) {
 	if(s->background)
 		drawTexture(s->background, w, point(s->geom.pos.x, s->geom.pos.y));
 }
-
 void updateSceneElements(Scene *const s, Window *const w) {
 	unsigned int i = s->elements ? asize(s->elements) : 0;
 	if(s->isui) {

@@ -41,7 +41,6 @@ void updateInventory(Inventory *const i, Window *const w) {
 	if(i->background)
 		drawTexture(i->background, w, point(i->geom.pos.x, i->geom.pos.y));
 }
-
 void updateInventorySprites(Inventory *const i, Window *const w) {
 	unsigned int k = asize(i->sprites);
 	while(k--)
@@ -58,7 +57,6 @@ Sprite *getInventorySprite(const Inventory *const i, const int n) {
 }
 
 unsigned int addInventorySprite(Inventory *const i, Sprite *const s) {
-	// FIXME sprite does not appear on screen
 	const unsigned int index = aappend(i->sprites, s);
 	Point dest = point(i->geom.pos.x + SPRITE_RESERVED_SPACE * asize(i->sprites) + SPRITE_RESERVED_SPACE / 2,
 	                   i->geom.pos.y + SPRITE_RESERVED_SPACE / 2);
