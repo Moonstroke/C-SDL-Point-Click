@@ -3,6 +3,7 @@
 
 #include <log.h>
 #include <SDL2/SDL_mouse.h> /* for SDL_GetMouseState() */
+#include <stdlib.h> /* for NULL */
 
 
 
@@ -12,9 +13,9 @@ Point mousePos(void) {
 	return p;
 }
 
-static MouseButtonHandler _onMouseDown[5];
-static MouseButtonHandler _onMouseUp[5];
-static MouseMotionHandler _onMouseMove;
+static MouseButtonHandler _onMouseDown[5] = {NULL};
+static MouseButtonHandler _onMouseUp[5] = {NULL};
+static MouseMotionHandler _onMouseMove = NULL;
 
 
 static inline bool validBtn(const uint8_t btn) {
