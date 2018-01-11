@@ -100,20 +100,4 @@ bool set_OnMouseMove(MouseHandler handler);
 MouseHandler onMouseMove(void);
 
 
-/* ## Keyboard events handlers ## */
-/* not used for now
-typedef void (*keyhandler)(const SDL_Keymod);
-
-
-int set_onkeydown(const SDL_Keycode key, keyhandler handler);
-
-keyhandler onkeydown(const SDL_Keycode key);
-
-
-int set_onkeyup(const SDL_Keycode key, keyhandler handler);
-
-keyhandler onkeyup(const SDL_Keycode key);
-*/
-
-
 #endif /* EVENTS_H */
