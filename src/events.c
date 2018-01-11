@@ -13,10 +13,13 @@ Point mousePos(void) {
 	return p;
 }
 
+
+
+/* ## Mouse button events ## */
+
 static MouseButtonHandler _onMouseDown[5] = {NULL};
 static MouseButtonHandler _onMouseUp[5] = {NULL};
 static MouseButtonHandler _onMouseClick[5] = {NULL};
-static MouseMotionHandler _onMouseMove = NULL;
 
 static Point downPos = {0};
 
@@ -67,6 +70,13 @@ bool set_OnMouseClick(uint8_t btn, MouseButtonHandler handler) {
 void onMouseClick(const SDL_MouseButtonEvent *e) {
 	getHandler(e->button, _onMouseClick)(e);
 }
+
+
+
+/* ## Mouse motion events ## */
+
+static MouseMotionHandler _onMouseMove = NULL;
+
 
 bool set_OnMouseMove(const MouseMotionHandler handler) {
 	_onMouseMove = handler;
