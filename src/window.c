@@ -28,27 +28,26 @@ struct window {
 Window *newWindow(const str t, const Rect *const g, const SDL_WindowFlags wf, const SDL_RendererFlags rf) {
 	Window *w = malloc(sizeof(Window));
 	if(!w) {
-		error("malloc() error for window \"%s\"", t);
+		fatal("malloc() error for window \"%s\"", t);
 		return NULL;
 	}
 	SDL_Window *const win = SDL_CreateWindow(t, g->pos.x, g->pos.y, g->w, g->h, wf);
 	if(!win) {
-		error("Could not create SDL window: %s", SDL_GetError());
+		fatal("Could not create SDL window: %s", SDL_GetError());
 		free(w);
 		return NULL;
 	}
 	SDL_Renderer *const ren = SDL_CreateRenderer(win, -1, rf);
 	if(!ren) {
-		error("Could not create renderer: %s", SDL_GetError());
+		fatal("Could not create renderer: %s", SDL_GetError());
 		free(w);
 		return NULL;
 	}
 	Array *const screens = newarray(INIT_SCREENS_NUM);
 	if(!screens) {
 		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
-		free(w);
-		return NULL;
 	}
+	w->screens = screens;
 	if(wf & SDL_WINDOW_FULLSCREEN_DESKTOP) {
 		verbose("window is fullscreen -- setting resolution logical instead of hardware");
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
@@ -73,7 +72,7 @@ void freeWindow(Window *const w) {
 	SDL_DestroyWindow(w->win);
 	SDL_DestroyRenderer(w->ren);
 	free(w);
-	verbose("freed window \"%s\"", title);
+	info("freed window \"%s\"", title);
 }
 
 
@@ -108,6 +107,10 @@ unsigned int getWindowHeight(const Window *const w) {
 /* ## Technical functions ## */
 
 int addWindowScreen(Window *const w, Screen *const s) {
+	if(!w->screens && !(w->screens = newarray(INIT_SCREENS_NUM))) {
+		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
+		return -1;
+	}
 	const int i = aappend(w->screens, s);
 	if(i == 0)
 		w->currentscreen = s;
@@ -137,9 +140,9 @@ void updateWindow(Window *const w) {
 	clearWindow(w);
 	if(w->currentscreen) {
 		updateScreen(w->currentscreen, w);
-		return;
+	} else {
+		error("Window \"%s\" has no current screen", getWindowTitle(w));
 	}
-	warning("Window \"%s\" has no current screen", getWindowTitle(w));
 }
 
 void renderWindow(Window *const w) {
