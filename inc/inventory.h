@@ -54,13 +54,20 @@ void freeInventory(Inventory *self);
 
 
 /**
- * \brief Graphically updates the inventory:
- *        Updates it and its elements on screen.
+ * \brief Graphically updates the inventory.
  *
  * \param[in] self   The inventory to update
  * \param[in] window The window to update the inventory to
  */
-void updateInventory(const Inventory *self, Window *window);
+void updateInventory(Inventory *self, Window *window);
+
+/**
+ * \brief Updates the sprites of the inventory.
+ *
+ * \param[in] self   The inventory
+ * \param[in] window The window to update the inventory to
+ */
+void updateInventorySprites(Inventory *self, Window *window);
 
 
 /**

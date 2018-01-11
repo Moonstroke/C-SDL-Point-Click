@@ -37,12 +37,15 @@ void freeInventory(Inventory *const i) {
 }
 
 
-void updateInventory(const Inventory *const i, Window *const win) {
+void updateInventory(Inventory *const i, Window *const ) {
 	if(i->background)
-		drawTexture(i->background, win, point(i->geom.pos.x, i->geom.pos.y));
+		drawTexture(i->background, w, point(i->geom.pos.x, i->geom.pos.y));
+}
+
+void updateInventorySprites(Inventory *const i, Window *const w) {
 	unsigned int k = asize(i->sprites);
 	while(k--)
-		updateSprite(aget(i->sprites, k), win);
+		updateSprite(aget(i->sprites, k), w);
 }
 
 

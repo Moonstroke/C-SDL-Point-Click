@@ -88,18 +88,22 @@ bool sceneNeedsUpdate(const Scene *const s) {
 	return needsupdate;
 }
 
-void updateScene(Scene *const s, Window *const win) {
+void updateScene(Scene *const s, Window *const w) {
 	if(s->background)
-		drawTexture(s->background, win, point(s->geom.pos.x, s->geom.pos.y));
+		drawTexture(s->background, w, point(s->geom.pos.x, s->geom.pos.y));
+}
+
+void updateSceneElements(Scene *const s, Window *const w) {
 	unsigned int i = s->elements ? asize(s->elements) : 0;
 	if(s->isui) {
 		while(i--)
-			updateUIElement(aget(s->elements, i), win);
+			updateUIElement(aget(s->elements, i), w);
 	} else {
 		while(i--)
-			updateSprite(aget(s->elements, i), win);
+			updateSprite(aget(s->elements, i), w);
 	}
 }
+
 
 str getSceneName(const Scene *const s) { return s->name; }
 

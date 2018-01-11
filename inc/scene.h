@@ -85,6 +85,15 @@ bool sceneNeedsUpdate(const Scene *self);
 void updateScene(Scene *self, Window *window);
 
 /**
+ * \brief Updates the elements of the scene.
+ *
+ * \param[in] self The scene
+ * \param[in] window The window to update to
+ */
+void updateSceneElements(Scene *self, Window *window);
+
+
+/**
  * \brief Retrieves the name of the scene.
  *
  * \param[in] self The scene to get the name from
