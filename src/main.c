@@ -150,13 +150,14 @@ void mainloop(void) {
 					onMouseMove()(mouse);
 					break;
 				case SDL_KEYDOWN:
-					// The window can be closed with ESC, CTRL+q or CTRL+w
+					/* The window can be closed with CTRL+q or CTRL+w */
 					switch(event.key.keysym.sym) {
 						case SDLK_q:
 						case SDLK_w:
 							if(!(event.key.keysym.mod & KMOD_CTRL))
 								break;
 							done = true;
+						/* Esc pauses the game (returns to menu screen) */
 						case SDLK_ESCAPE:
 							pausegame();
 							break;
@@ -261,12 +262,17 @@ void initall(void) {
 
 	/* Texts */
 	tooltip = newText("", ubuntu, &white, TEXTRENDER_FAST);
-	/* Seting handlers */
 
+
+	/* Event handlers */
 	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);
 	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
 	set_OnMouseMove(move);
+
+
+	/* Main game loop */
 	setWindowGameLoop(win, mainloop);
+
 
 	/* Sandbox */
 	debug("\nSANDBOX\n");
