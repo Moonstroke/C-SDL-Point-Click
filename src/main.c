@@ -41,6 +41,7 @@ static void move(const Point p);
 /* GUI actions */
 
 static void startgame(void);
+static void pausegame(void);
 
 
 /* Functions */
@@ -123,7 +124,9 @@ void leftup(const Point p) {
 void startgame(void) {
 	setWindowCurrentScreen(win, "Game screen");
 }
-
+void pausegame(void) {
+	setWindowCurrentScreen(win, "Menu screen");
+}
 void mainloop(void) {
 	logSDLRendererInfo(getWindowRenderer(win));
 	SDL_Event event;
@@ -153,8 +156,9 @@ void mainloop(void) {
 						case SDLK_w:
 							if(!(event.key.keysym.mod & KMOD_CTRL))
 								break;
-						case SDLK_ESCAPE:
 							done = true;
+						case SDLK_ESCAPE:
+							pausegame();
 							break;
 						default: break;
 					}
