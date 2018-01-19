@@ -75,9 +75,10 @@ int main(void) {
 
 void move(const SDL_MouseMotionEvent *const restrict e) {
 	const Point p = point(e->x, e->y);
-	if(heldsprite)
+	if(heldsprite) {
 		moveSpriteC(heldsprite, p);
-	else {
+		setTextString(tooltip, "");
+	} else {
 		Screen *const scr = getWindowCurrentScreen(win);
 		Scene *const sce = getScreenScene(scr);
 		if(isSceneUI(sce)) {
