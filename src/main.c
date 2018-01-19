@@ -58,7 +58,6 @@ int main(void) {
 
 	info("\nInitializations");
 	status = initall();
-
 	if(status) {
 		info("\nMain events loop");
 		windowRun(win);
@@ -148,6 +147,7 @@ void startgame(void) {
 	setWindowCurrentScreen(win, "Game screen");
 }
 void pausegame(void) {
+	heldsprite = NULL;
 	setWindowCurrentScreen(win, "Menu screen");
 }
 void mainloop(void) {
@@ -235,8 +235,8 @@ bool initall(void) {
 
 	/* Layouts */
 
-	LayoutValues menulayout = SCENE_ONLY,
-	             gamelayout = SCENE_INVENTORY_BELOW;
+	const LayoutValues menulayout = SCENE_ONLY,
+	                   gamelayout = SCENE_INVENTORY_BELOW;
 
 	setLayout(win, menulayout, &menuscenegeom, NULL, 0);
 
