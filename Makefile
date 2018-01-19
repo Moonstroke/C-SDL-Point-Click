@@ -48,11 +48,11 @@ LDFLAGS := -I$(INC_DIR)
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	mkdir -p $(OUT_DIR)
+	@mkdir -p $(OUT_DIR)
 	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ) $(CFLAGS) $(LDLIBS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 	$(CC) -o$@ -c $< $(LDFLAGS) $(CFLAGS)
 
 
