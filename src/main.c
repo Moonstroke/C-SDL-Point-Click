@@ -148,7 +148,15 @@ void startgame(void) {
 	setWindowCurrentScreen(win, "Game screen");
 }
 void pausegame(void) {
-	heldsprite = NULL;
+	Screen *const scr = getWindowCurrentScreen(win);
+	Scene *const scn = getScreenScene(scr);
+	if(!isSceneUI(scn) && heldsprite) {
+		Inventory *const inv = getScreenInventory(scr);
+		removeInventorySprite(inv, heldsprite);
+		addGameSceneSprite(scn, heldsprite);
+		heldsprite = NULL;
+	}
+	setTextString(tooltip, "");
 	setWindowCurrentScreen(win, "Menu screen");
 }
 void mainloop(void) {
