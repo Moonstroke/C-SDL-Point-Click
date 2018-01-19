@@ -163,11 +163,8 @@ Texture *renderText(Text *self, Window *window);
  * \param[in]     window The window to render the text to
  * \param[in]     pos    The position where to clip the text in the window
  *                       (left-up corner)
- *
- * \return \c true iff the text was drawn (and rendered, if needed) without
- *         error
  */
-bool drawText(Text *self, Window *window, Point pos);
+void drawText(Text *self, Window *window, Point pos);
 
 
 /**

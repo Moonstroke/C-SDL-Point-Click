@@ -2,6 +2,7 @@
 
 
 #include <log.h>
+#include <SDL2/SDL_surface.h>
 #include <stdlib.h> /* for malloc(), NULL, free() */
 #include <string.h> /* for strcmp() */
 
@@ -42,12 +43,12 @@ Text *newTextUIStyle(const str s, const TextRenderType r) {
 	return t;
 }
 
-
 void freeText(Text *const t) {
 	SDL_DestroyTexture(t->rendered);
 	TTF_CloseFont(t->font);
 	free(t);
 }
+
 
 void setTextString(Text *const t, const str s) {
 	if(strcmp(t->txt, s)) {
@@ -100,12 +101,11 @@ Texture *renderText(Text *const t, Window *const w) {
 	return t->rendered;
 }
 
-bool drawText(Text *const t, Window *const w, Point p) {
+void drawText(Text *const t, Window *const w, Point p) {
 	Texture *tex = renderText(t, w);
 	if(tex) {
 		drawTexture(tex, w, p);
 	}
-	return true;
 }
 
 bool getTextGeom(const Text *const t, unsigned int *const w, unsigned int *const h) {
