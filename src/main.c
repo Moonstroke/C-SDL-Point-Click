@@ -194,8 +194,7 @@ void mainloop(void) {
 			}
 		}
 		updateWindow(win);
-		if(!drawText(tooltip, win, point(mouse.x + 16, mouse.y)))
-			error("ouch");
+		drawText(tooltip, win, point(mouse.x + 16, mouse.y));
 		renderWindow(win);
 	}
 }
