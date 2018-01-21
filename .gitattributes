@@ -1,0 +1,6 @@
+*.c	  text diff=cpp linguist-language=C
+*.h   text diff=cpp linguist-language=C
+*.sh  text diff=astextplain
+*.yml text diff=astextplain
+
+*     text=auto
