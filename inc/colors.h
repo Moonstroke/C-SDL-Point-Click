@@ -27,31 +27,15 @@ typedef SDL_Color Color; /**< A RGBA color structure */
  * \brief Common colors in RGBA 32px format.
  * \{
  */
-/** \brief This is a macro for the black color. */
-#define BLACK   0x000000ff
-
-/** \brief Macro for the white color. */
-#define WHITE   0xffffffff
-/** \brief The color gray 50%. */
-#define GRAY50  0x7f7f7fff
-
-/** \brief The color red. */
-#define RED     0xff0000ff
-
-/** \brief Macro for yellow. */
-#define YELLOW  0xffff00ff
-
-/** \brief The color green. */
-#define GREEN   0x00ff00ff
-
-/** \brief The color cyan. */
-#define CYAN    0x00ffffff
-
-/** \brief The color blue. */
-#define BLUE    0x0000ffff
-
-/** \brief The color magenta. */
-#define MAGENTA 0xff00ffff
+#define BLACK   0x000000ff /**< This is a macro for the black color. */
+#define WHITE   0xffffffff /**< Macro for the white color. */
+#define GRAY50  0x7f7f7fff /**< The color gray 50%. */
+#define RED     0xff0000ff /**< The color red. */
+#define YELLOW  0xffff00ff /**< Macro for yellow. */
+#define GREEN   0x00ff00ff /**< The color green. */
+#define CYAN    0x00ffffff /**< The color cyan. */
+#define BLUE    0x0000ffff /**< The color blue. */
+#define MAGENTA 0xff00ffff /**< The color magenta. */
 /** \} */
 
 
