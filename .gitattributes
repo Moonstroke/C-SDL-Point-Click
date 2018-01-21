@@ -1,2 +1,22 @@
-# Found at https://stackoverflow.com/a/13599737/6337519
-*.h linguist-language=C
+# Using LF as EOL for all files by default
+* text=auto
+
+# C source files and headers
+*.c text diff=cpp
+# "linguist-language" attr found at https://stackoverflow.com/a/13599737/6337519
+# resolves language ambiguous files (C mistaken with C++)
+*.h text diff=cpp linguist-language=C
+
+# All text files
+*.sh     text
+*.yml    text
+*.md     text
+Makefile text
+Doxyfile text
+
+# Git specific text files (not included in archives)
+.gitignore     text export-ignore
+.gitattributes text export-ignore
+
+# Binary data (fonts, pictures, etc.)
+data/* binary
