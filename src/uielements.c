@@ -112,7 +112,7 @@ bool isPointInUIElement(const UIElement *const e, const Point p) {
 
 
 void btnHover(UIElement *const e) {
-	// TODO brighten button (radial gradient?)
+	(void)e;// TODO brighten button (radial gradient?)
 }
 
 void btnDown(UIElement *const e) {
