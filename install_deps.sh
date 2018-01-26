@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script installs all the required packages from the official and GitHub
+# repositories
+
+
 # Function declared with round parens are executed in a subshell
 function install_git_repo() (
 	cd /tmp
