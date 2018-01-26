@@ -184,10 +184,10 @@ void mainloop(void) {
 				case SDL_KEYDOWN:
 					/* The window can be closed with CTRL+q or CTRL+w */
 					switch(event.key.keysym.sym) {
-						case SDLK_q:
 						case SDLK_w:
 							if(!(event.key.keysym.mod & KMOD_CTRL))
 								break;
+						case SDLK_q:
 							done = true;
 						/* Esc pauses the game (returns to menu screen) */
 						case SDLK_ESCAPE:
