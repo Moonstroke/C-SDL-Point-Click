@@ -103,6 +103,29 @@ unsigned int getWindowHeight(const Window *const w) {
 	return w->geom.h;
 }
 
+Screen *getWindowCurrentScreen(Window *const w) {
+	return w->currentscreen;
+}
+static str _name = "";
+static bool cmpscreenname(const void *const item) {
+	return strcmp(getScreenName((Screen*)item), _name) == 0;
+}
+
+bool setWindowCurrentScreen(Window *const w, const str name) {
+	_name = name;
+	Screen *s = acond(w->screens, cmpscreenname);
+	if(s) {
+		w->currentscreen = s;
+		return true;
+	}
+	return false;
+}
+
+void setWindowGameLoop(Window *const w, void (*const f)(void)) {
+	w->gameloop = f;
+}
+
+
 
 /* ## Technical functions ## */
 
@@ -115,25 +138,6 @@ int addWindowScreen(Window *const w, Screen *const s) {
 	if(i == 0)
 		w->currentscreen = s;
 	return i;
-}
-
-static str _name = "";
-static bool cmpscreenname(const void *const item) {
-	return strcmp(getScreenName((Screen*)item), _name) == 0;
-}
-
-Screen *getWindowCurrentScreen(Window *const w) {
-	return w->currentscreen;
-}
-
-bool setWindowCurrentScreen(Window *const w, const str name) {
-	_name = name;
-	Screen *s = acond(w->screens, cmpscreenname);
-	if(s) {
-		w->currentscreen = s;
-		return true;
-	}
-	return false;
 }
 
 void updateWindow(Window *const w) {
@@ -151,10 +155,6 @@ void renderWindow(Window *const w) {
 
 bool clearWindow(Window *const w) {
 	return SDL_RenderClear(w->ren) == 0;
-}
-
-void setWindowGameLoop(Window *const w, void (*const f)(void)) {
-	w->gameloop = f;
 }
 
 void windowRun(const Window *const w) {
