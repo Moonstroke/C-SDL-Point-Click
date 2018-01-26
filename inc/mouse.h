@@ -1,33 +1,24 @@
 /**
- * \file events.h
+ * \file mouse.h
  * \author joH1
  *
  * \version 0.1
  *
- * \brief Functions handling events (mouse motion, click, etc).
+ * \brief Mouse data and events module.
  *
- * This file contains the definition and handling of events; mostly mouse events
- * (this is a point and click library, after all).
+ * This file contains the definition of mouse data functions, and handling of
+ * mouse events (motion, click...).
 */
 
-#ifndef EVENTS_H
-#define EVENTS_H
+#ifndef MOUSE_H
+#define MOUSE_H
 
-
-#include <stdbool.h>
 #include <stdint.h> /* for uint8_t */
 #include <SDL2/SDL_events.h> /* for SDL_Mouse*Event types */
 
 #include "geom.h" /* for Point */
-
-
-
-/**
- * \brief Retrieves the \c x and \c y coordinates of the mouse cursor.
- *
- * \return The position of the mouse cursor
- */
-Point mousePos(void);
+#include "sprite.h"
+#include "window.h"
 
 
 
@@ -47,7 +38,7 @@ Point mousePos(void);
  *
  * \sa SDL_MouseButtonEvent
  */
-typedef void (*MouseButtonHandler)(const SDL_MouseButtonEvent*);
+typedef void (MouseButtonHandler)(const SDL_MouseButtonEvent*);
 
 /**
  * \brief This type represents handlers for an event constituted by a movement
@@ -55,7 +46,7 @@ typedef void (*MouseButtonHandler)(const SDL_MouseButtonEvent*);
  *
  * \sa SDL_MouseMotionEvent
  */
-typedef void (*MouseMotionHandler)(const SDL_MouseMotionEvent*);
+typedef void (MouseMotionHandler)(const SDL_MouseMotionEvent*);
 
 /**
  * \brief Handler for a mouse wheel scroll (up, down, or sideways for mouse
@@ -63,9 +54,43 @@ typedef void (*MouseMotionHandler)(const SDL_MouseMotionEvent*);
  *
  * \sa SDL_MouseWheelEvent
  */
-typedef void (*MouseWheelHandler)(const SDL_MouseWheelEvent*);
+typedef void (MouseWheelHandler)(const SDL_MouseWheelEvent*);
 
 /** \} */
+
+
+/**
+ * \brief Prepares the mouse for the given window.
+ *
+ * \param[in] window The gam window
+ */
+void setMouseForWindow(Window *window);
+
+/**
+ * \brief Retrieves the \c x and \c y coordinates of the mouse cursor.
+ *
+ * \return The position of the mouse cursor
+ */
+Point mousePos(void);
+
+/**
+ * \brief Retrieves the variations of the mouse position since last event.
+ *
+ * \return The difference in the mouse position
+ */
+Point mousePosDelta(void);
+
+
+typedef enum {
+	MOUSE_BUTTON_NONE    = 0x0,
+	MOUSE_BUTTON_LEFT    = SDL_BUTTON_LEFT,
+	MOUSE_BUTTON_MIDDLE  = SDL_BUTTON_MIDDLE,
+	MOUSE_BUTTON_RIGHT   = SDL_BUTTON_RIGHT,
+	MOUSE_BUTTON_EXTRA_1 = SDL_BUTTON_X1,
+	MOUSE_BUTTON_EXTRA_2 = SDL_BUTTON_X2,
+} MouseButton;
+
+MouseButton mouseUpdate(void);
 
 
 /**
@@ -77,14 +102,14 @@ typedef void (*MouseWheelHandler)(const SDL_MouseWheelEvent*);
  * \return \c true if and only if the handler could be set (\a button is valid,
  *         ie. its value is amongst the \c SDL_BUTTON_* values)
  */
-bool set_OnMouseDown(uint8_t button, MouseButtonHandler handler);
+bool onMouseDown(uint8_t button, MouseButtonHandler *handler);
 
 /**
  * \brief Gets the handler for given mouse button pressed.
  *
  * \param[in] event The event to handle representing mouse pressed
  */
-void onMouseDown(const SDL_MouseButtonEvent *event);
+void mouseDown(const SDL_MouseButtonEvent *event);
 
 
 /**
@@ -95,14 +120,14 @@ void onMouseDown(const SDL_MouseButtonEvent *event);
  *
  * \return \c true iff the handler could be set (ie. \a button is a valid value)
  */
-bool set_OnMouseUp(uint8_t button, MouseButtonHandler handler);
+bool onMouseUp(uint8_t button, MouseButtonHandler *handler);
 
 /**
  * \brief Gets the handler for given mouse button released.
  *
  * \param[in] event The mouse release event to handle
  */
-void onMouseUp(const SDL_MouseButtonEvent *event);
+void mouseUp(const SDL_MouseButtonEvent *event);
 
 
 /**
@@ -116,14 +141,14 @@ void onMouseUp(const SDL_MouseButtonEvent *event);
  *
  * \return \c true iff the handler could be set (ie. \a button is a valid value)
  */
-bool set_OnMouseClick(uint8_t button, MouseButtonHandler handler);
+bool onMouseClick(uint8_t button, MouseButtonHandler *handler);
 
 /**
  * \brief Gets the handler for given mouse button released.
  *
  * \param[in] event The mouse button event
  */
-void onMouseClick(const SDL_MouseButtonEvent *event);
+void mouseClick(const SDL_MouseButtonEvent *event);
 
 
 /**
@@ -133,14 +158,19 @@ void onMouseClick(const SDL_MouseButtonEvent *event);
  *
  * \return \c true if the mouse motion handler could be set
  */
-bool set_OnMouseMove(MouseMotionHandler handler);
+bool onMouseMove(MouseMotionHandler *handler);
 
 /**
  * \brief Gets the handler for mouse moved.
  *
  * \param[in] event The mouse movement event
  */
-void onMouseMove(const SDL_MouseMotionEvent *event);
+void mouseMove(const SDL_MouseMotionEvent *event);
 
 
-#endif /* EVENTS_H */
+Sprite *mouseHeldSprite(void);
+
+void mouseHoldSprite(Sprite *sprite);
+
+
+#endif /* MOUSE_H */

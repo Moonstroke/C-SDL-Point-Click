@@ -5,11 +5,11 @@
 #include <stdlib.h> /* for EXIT_SUCCESS */
 
 #include "colors.h"
-#include "events.h"
 #include "geom.h"
 #include "inventory.h"
 #include "layout.h"
 #include "libsdl2.h"
+#include "mouse.h"
 #include "scene.h"
 #include "screen.h"
 #include "sprite.h"
@@ -165,21 +165,22 @@ void mainloop(void) {
 	bool done = false;
 	Point mouse;
 	while(!done) {
+		mouseUpdate();
 		while(SDL_PollEvent(&event)) {
 			// TODO use SDL_AddEventWatch()?
 			mouse = mousePos();
 			switch(event.type) {
 				case SDL_MOUSEBUTTONDOWN:
-					onMouseDown(&event.button);
+					mouseDown(&event.button);
 					break;
 				case SDL_MOUSEBUTTONUP:
-					onMouseUp(&event.button);
+					mouseUp(&event.button);
 					break;
 				case SDL_MOUSEWHEEL:
 					// TODO
 					break;
 				case SDL_MOUSEMOTION:
-					onMouseMove(&event.motion);
+					mouseMove(&event.motion);
 					break;
 				case SDL_KEYDOWN:
 					/* The window can be closed with CTRL+q or CTRL+w */
@@ -298,10 +299,10 @@ bool initall(void) {
 
 
 	/* Event handlers */
-	set_OnMouseDown(SDL_BUTTON_LEFT, leftdown);
-	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
-	set_OnMouseClick(SDL_BUTTON_LEFT, leftclick);
-	set_OnMouseMove(move);
+	onMouseDown(MOUSE_BUTTON_LEFT, leftdown);
+	onMouseUp(MOUSE_BUTTON_LEFT, leftup);
+	onMouseClick(MOUSE_BUTTON_LEFT, leftclick);
+	onMouseMove(move);
 
 	/* Main game loop */
 	setWindowGameLoop(win, mainloop);
