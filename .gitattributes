@@ -9,7 +9,6 @@
 
 # All text files
 *.sh     text
-*.yml    text
 *.md     text
 Makefile text
 Doxyfile text
@@ -17,6 +16,9 @@ Doxyfile text
 # Git specific text files (not included in archives)
 .gitignore     text export-ignore
 .gitattributes text export-ignore
+
+# Other files not exported
+.travis.yml text export-ignore
 
 # Binary data (fonts, pictures, etc.)
 data/* binary
