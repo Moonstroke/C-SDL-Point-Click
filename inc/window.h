@@ -199,6 +199,18 @@ Screen *getWindowCurrentScreen(Window *const self);
  */
 bool setWindowCurrentScreen(Window *self, str name);
 
+
+/**
+ * \brief Retrieves a Sprite from the window at given position.
+ *
+ * \param[in] self The window
+ * \param[in] pos  The position to look at
+ *
+ * \return The Sprite at position \a pos, or \c NULL if none was found.
+ */
+Sprite *getWindowSpriteAt(const Window *self, Point pos);
+
+
 /**
  * \brief Updates the window and its content (scene and sprites).
  * NOTE: This method does not render the window. Call renderwindow after

@@ -129,6 +129,10 @@ void setWindowGameLoop(Window *const w, void (*const f)(void)) {
 
 /* ## Technical functions ## */
 
+Sprite *getWindowSpriteAt(const Window *const w, const Point p) {
+	return getScreenSpriteAt(w->currentscreen, p);
+}
+
 int addWindowScreen(Window *const w, Screen *const s) {
 	if(!w->screens && !(w->screens = newarray(INIT_SCREENS_NUM))) {
 		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
