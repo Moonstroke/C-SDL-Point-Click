@@ -116,6 +116,17 @@ void setScreenScene(Screen *self, Scene *scene);
 
 
 /**
+ * \brief Retrieves a Sprite from the screen at given position.
+ *
+ * \param[in] self The screen
+ * \param[in] pos  The position to look at
+ *
+ * \return The Sprite at position \a pos, or \c NULL if none was found.
+ */
+Sprite *getScreenSpriteAt(const Screen *self, Point pos);
+
+
+/**
  * \brief Graphically updates the screen on given window.
  *
  * \param[in,out] self   The screen

@@ -54,6 +54,14 @@ void setScreenScene(Screen *const s, Scene *const scene) { s->scene = scene; }
 
 /* ## Technical functions ## */
 
+Sprite *getScreenSpriteAt(const Screen *const s, const Point p) {
+	if(isSceneUI(s->scene))
+		return NULL;
+	Sprite *const sp = getGameSceneSpritePos(s->scene, p);
+	return sp ? sp
+	          : (s->inventory ? getInventorySpritePos(s->inventory, p) : NULL);
+}
+
 void updateScreen(Screen *s, Window *w) {
 	updateScene(s->scene, w);
 	if(s->inventory)
