@@ -48,7 +48,7 @@ static Scene *newScene(const Rect g, Texture *const bg, const unsigned int n, co
 
 	s->geom = g; // TODO use it somewhere
 	s->isui = isUI;
-	verbose("Init (%dx%d) %sscene \"%s\" with %d sprite slots", g.w, g.h, isUI ? "UI " : "", name, n);
+	verbose("Init (%dx%d) %s scene \"%s\" for %d elements", g.w, g.h, isUI ? "UI " : "game", name, n);
 	return s;
 }
 
