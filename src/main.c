@@ -268,7 +268,7 @@ bool initall(void) {
 	setScreenScene(menu, menuscene);
 
 	Texture *gamescenebg = loadBMP("gamescene_bg", win);
-	gamescene = newGameScene(gamescenegeom, gamescenebg, 2, "Scene1");
+	gamescene = newGameScene(gamescenegeom, gamescenebg, 2, "Game");
 	setScreenScene(game, gamescene);
 
 
@@ -302,7 +302,6 @@ bool initall(void) {
 	set_OnMouseUp(SDL_BUTTON_LEFT, leftup);
 	set_OnMouseClick(SDL_BUTTON_LEFT, leftclick);
 	set_OnMouseMove(move);
-
 
 	/* Main game loop */
 	setWindowGameLoop(win, mainloop);
