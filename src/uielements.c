@@ -116,15 +116,12 @@ void btnHover(UIElement *const e) {
 }
 
 void btnDown(UIElement *const e) {
-	debug("down");
 	if(e->action) { /* <=> e is a button */
-		debug("ici");
 		e->pos.y += 1;
 	}
 }
 
 void btnUp(UIElement *const e) {
-	debug("up");
 	if(e->action) { /* <=> e is a button */
 		e->pos.y -= 1;
 	}
