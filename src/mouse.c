@@ -32,8 +32,6 @@ struct mouse {
 	MouseButtonHandler *clickhandlers[5];
 	MouseWheelHandler *wheelhandlers[4];
 	MouseMotionHandler *movehandler;
-	Window *window;
-	Sprite *heldsprite;
 	MouseButton btnstate;
 	padding(4);
 };
@@ -46,14 +44,9 @@ static struct mouse mouse = {
 	.clickhandlers = {default_clickhandler},
 	.wheelhandlers = {default_wheelhandler},
 	.movehandler = default_movehandler,
-	.window = NULL,
-	.heldsprite = NULL,
 	.btnstate = MOUSE_BUTTON_NONE,
 };
 
-void setMouseForWindow(Window *const w) {
-	mouse.window = w;
-}
 
 
 Point mousePos(void) {
@@ -95,6 +88,7 @@ bool onMouseDown(const uint8_t btn, MouseButtonHandler *const handler) {
 
 void mouseDown(const SDL_MouseButtonEvent *const e) {
 	gethandler(e->button, mouse.downhandlers)(e);
+
 }
 
 bool onMouseUp(const uint8_t btn, MouseButtonHandler *const handler) {
@@ -126,16 +120,4 @@ bool onMouseMove(MouseMotionHandler *const handler) {
 }
 void mouseMove(const SDL_MouseMotionEvent *const e) {
 	mouse.movehandler(e);
-}
-
-
-
-/* ## Mouse game interaction ## */
-
-Sprite *mouseHeldSprite(void) {
-	return mouse.heldsprite;
-}
-
-void mouseHoldSprite(Sprite *const s) {
-	mouse.heldsprite = s;
 }

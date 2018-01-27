@@ -17,8 +17,6 @@
 #include <SDL2/SDL_events.h> /* for SDL_Mouse*Event types */
 
 #include "geom.h" /* for Point */
-#include "sprite.h"
-#include "window.h"
 
 
 
@@ -58,13 +56,6 @@ typedef void (MouseWheelHandler)(const SDL_MouseWheelEvent*);
 
 /** \} */
 
-
-/**
- * \brief Prepares the mouse for the given window.
- *
- * \param[in] window The gam window
- */
-void setMouseForWindow(Window *window);
 
 /**
  * \brief Retrieves the \c x and \c y coordinates of the mouse cursor.
@@ -166,11 +157,6 @@ bool onMouseMove(MouseMotionHandler *handler);
  * \param[in] event The mouse movement event
  */
 void mouseMove(const SDL_MouseMotionEvent *event);
-
-
-Sprite *mouseHeldSprite(void);
-
-void mouseHoldSprite(Sprite *sprite);
 
 
 #endif /* MOUSE_H */
