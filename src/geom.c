@@ -5,7 +5,8 @@
 
 
 extern Point point(int, int);
-extern Rect rect(unsigned int, unsigned int, int, int);
+extern Rect rect(unsigned int, unsigned int);
+extern Rect posRect(unsigned int, unsigned int, int, int);
 
 extern bool isPointInRect(Point, const Rect*);
 

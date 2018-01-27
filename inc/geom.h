@@ -66,7 +66,22 @@ inline Point point(const int x, const int y) {
 }
 
 /**
- * \brief Constructs a geometric rectangle.
+ * \brief Constructs a geometric rectangle, without information on the position.
+ *
+ * \param[in] w The width of the rectangle
+ * \param[in] h The height of the rectangle
+ *
+ * \return A \a Rect of given dimensions
+ *
+ *\sa Rect
+ */
+inline Rect rect(const unsigned int w, const unsigned int h) {
+	return (Rect){.w = w, .h = h};
+}
+
+
+/**
+ * \brief Constructs a geometric rectangle, and give it a cartesian position.
  *
  * \param[in] w The width of the rectangle
  * \param[in] h The height of the rectangle
@@ -77,8 +92,8 @@ inline Point point(const int x, const int y) {
  *
  * \sa Rect
  */
-inline Rect rect(const unsigned int w, const unsigned int h, const int x, const int y) {
-	return (Rect){ .w = w, .h = h, .pos = point(x, y)};
+inline Rect posRect(const unsigned int w, const unsigned int h, const int x, const int y) {
+	return (Rect){.w = w, .h = h, .pos = point(x, y)};
 }
 
 /**

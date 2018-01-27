@@ -6,9 +6,9 @@ bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect
 	switch(l) {
 		case SCENE_ONLY:
 			if(ig) {
-				*ig = rect(0, 0, 0, 0);
+				*ig = posRect(0, 0, 0, 0);
 			}
-			*sg = rect(winw, winh, 0, 0);
+			*sg = posRect(winw, winh, 0, 0);
 			return true;
 		case SCENE_INVENTORY_ABOVE:
 			// TODO
@@ -16,14 +16,14 @@ bool setLayout(const Window *const w, const LayoutValues l, Rect *const sg, Rect
 		case SCENE_INVENTORY_BELOW:
 			if(d > winh)
 				return false;
-			*ig = rect(winw, d, 0, winh - d);
-			*sg = rect(winw, winh - d, 0, 0);
+			*ig = posRect(winw, d, 0, winh - d);
+			*sg = posRect(winw, winh - d, 0, 0);
 			return true;
 		case SCENE_INVENTORY_ON_LEFT:
 			if(d > winw)
 				return false;
-			*ig = rect(d, winh, 0, 0);
-			*sg = rect(winw - d, winh, 0, 0);
+			*ig = posRect(d, winh, 0, 0);
+			*sg = posRect(winw - d, winh, 0, 0);
 			return true;
 		case SCENE_INVENTORY_ON_RIGHT:
 			// TODO

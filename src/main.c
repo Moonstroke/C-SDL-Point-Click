@@ -236,7 +236,7 @@ bool initall(void) {
 
 	/* Window */
 
-	wingeom = rect(640, 480, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+	wingeom = posRect(640, 480, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 	win = newWin("App window", &wingeom);
 	if(!win) {
 		return false;
