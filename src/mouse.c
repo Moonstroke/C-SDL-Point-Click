@@ -26,7 +26,7 @@ static void default_movehandler(const SDL_MouseMotionEvent *const e) {
 
 
 struct mouse {
-	Point pos, delta;
+	Point pos, delta, downpos;
 	MouseButtonHandler *downhandlers[5];
 	MouseButtonHandler *uphandlers[5];
 	MouseButtonHandler *clickhandlers[5];
@@ -39,6 +39,7 @@ struct mouse {
 static struct mouse mouse = {
 	.pos = {0},
 	.delta = {0},
+	.downpos = {0},
 	.downhandlers = {default_downhandler},
 	.uphandlers = {default_uphandler},
 	.clickhandlers = {default_clickhandler},
@@ -88,7 +89,7 @@ bool onMouseDown(const uint8_t btn, MouseButtonHandler *const handler) {
 
 void mouseDown(const SDL_MouseButtonEvent *const e) {
 	gethandler(e->button, mouse.downhandlers)(e);
-
+	mouse.downpos = point(e->x, e->y);
 }
 
 bool onMouseUp(const uint8_t btn, MouseButtonHandler *const handler) {
@@ -96,7 +97,7 @@ bool onMouseUp(const uint8_t btn, MouseButtonHandler *const handler) {
 }
 void mouseUp(const SDL_MouseButtonEvent *const e) {
 	gethandler(e->button, mouse.uphandlers)(e);
-	if(distance(mouse.pos, point(e->x, e->y)) < MAX_CLICK_DISTANCE) {
+	if(distance(mouse.downpos, point(e->x, e->y)) < MAX_CLICK_DISTANCE) {
 		debug("clic");
 		mouseClick(e);
 	}
