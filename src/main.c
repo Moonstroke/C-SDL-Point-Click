@@ -241,7 +241,6 @@ bool initall(void) {
 	if(!win) {
 		return false;
 	}
-	setMouseForWindow(win);
 
 
 	/* Layouts */
