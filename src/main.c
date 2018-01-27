@@ -296,20 +296,25 @@ bool initall(void) {
 
 
 	/* Texts */
+
 	tooltip = newText("", ubuntu, &white, TEXTRENDER_FAST);
 
 
 	/* Event handlers */
+
 	onMouseDown(MOUSE_BUTTON_LEFT, leftdown);
 	onMouseUp(MOUSE_BUTTON_LEFT, leftup);
 	onMouseClick(MOUSE_BUTTON_LEFT, leftclick);
 	onMouseMove(move);
 
+
 	/* Main game loop */
+
 	setWindowGameLoop(win, mainloop);
 
 
 	/* Sandbox */
+
 	debug("\nSANDBOX\n");
 
 	debug("\n/SANDBOX\n");
