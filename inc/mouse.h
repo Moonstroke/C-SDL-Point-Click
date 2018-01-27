@@ -149,7 +149,7 @@ void mouseClick(const SDL_MouseButtonEvent *event);
  *
  * \return \c true if the mouse motion handler could be set
  */
-bool onMouseMove(MouseMotionHandler *handler);
+void onMouseMove(MouseMotionHandler *handler);
 
 /**
  * \brief Gets the handler for mouse moved.

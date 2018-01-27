@@ -115,9 +115,8 @@ void mouseClick(const SDL_MouseButtonEvent *const e) {
 /* ## Mouse motion events ## */
 
 
-bool onMouseMove(MouseMotionHandler *const handler) {
+void onMouseMove(MouseMotionHandler *const handler) {
 	mouse.movehandler = handler;
-	return true;
 }
 void mouseMove(const SDL_MouseMotionEvent *const e) {
 	mouse.movehandler(e);
