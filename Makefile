@@ -1,16 +1,16 @@
 ## BUILD SETTINGS ##
 
 
-# y/n.
 # Enables debugging symbols (gdb)
+# y/n
 DEBUG := n
 
-# y/n.
 # Specify whether the libraries should be linked statically or not
+# y/n
 STATIC := n
 
-# n/s/1..3
 # The optimization level for the compilation
+# n/s/1..3
 OPT_L := n
 
 
