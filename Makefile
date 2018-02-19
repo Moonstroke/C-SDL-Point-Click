@@ -29,17 +29,15 @@ DOC_DIR := doc
 
 
 CC := gcc
-CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded
+CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded $$(sdl2-config --cflags)
 ifeq ($(DEBUG), y)
 	CFLAGS += -g
 endif
+LDLIBS := -lm -llog -larray -lSDL2_ttf
 ifeq ($(STATIC),y)
-	LDLIBS := -Wl,-dn -llog -larray -lSDL2 -Wl,-dy -lSDL2_ttf -lm -ldl -lasound \
-	          -lpthread -lpulse -lsndio -lX11 -lXext -lXcursor -lXinerama -lXi \
-	          -lXrandr -lXss -lXxf86vm -lwayland-egl -lwayland-client \
-	          -lwayland-cursor -lxkbcommon
+	LDLIBS += $$(sdl2-config --static-libs)
 else
-	LDLIBS := -llog -larray -lSDL2 -lSDL2_ttf -lm
+	LDLIBS += $$(sdl2-config --libs)
 endif
 LDFLAGS := -I$(INC_DIR)
 
