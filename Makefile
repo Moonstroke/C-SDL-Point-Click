@@ -29,7 +29,7 @@ DOC_DIR := doc
 
 
 CC := gcc
-CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded $$(sdl2-config --cflags)
+CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded -I$(INC_DIR) $$(sdl2-config --cflags)
 ifeq ($(DEBUG), y)
 	CFLAGS += -g
 endif
@@ -39,7 +39,7 @@ ifeq ($(STATIC),y)
 else
 	LDLIBS += $$(sdl2-config --libs)
 endif
-LDFLAGS := -I$(INC_DIR)
+LDFLAGS :=
 
 .PHONY: all clean distclean doc cleandoc
 
@@ -47,11 +47,11 @@ all: $(EXEC)
 
 $(EXEC): $(OBJ)
 	@mkdir -p $(OUT_DIR)
-	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ) $(CFLAGS) $(LDLIBS)
+	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) -o$@ -c $< $(LDFLAGS) $(CFLAGS)
+	$(CC) -o$@ -c $< $(CFLAGS)
 
 
 clean:
