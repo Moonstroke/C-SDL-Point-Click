@@ -63,7 +63,7 @@ distclean: clean cleandoc
 	rm -rf $(OUT_DIR)
 
 
-doc: $(DOC_CFG)
+doc: $(DOC_CFG) cleandoc
 	$(DOC_PRG) $(DOC_CFG)
 
 cleandoc:
