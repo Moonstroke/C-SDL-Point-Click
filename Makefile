@@ -10,8 +10,8 @@ DEBUG := n
 STATIC := n
 
 # The optimization level for the compilation
-# n/s/1..3
-OPT_L := n
+# 0..3/s
+O_LVL := 0
 
 
 
@@ -39,7 +39,7 @@ DOC_DIR := doc
 # The compiler to use
 CC := gcc
 # Compilation flags
-CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded -I$(INC_DIR) $$(sdl2-config --cflags)
+CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded -I$(INC_DIR) $$(sdl2-config --cflags) -O$(O_LVL)
 ifeq ($(DEBUG), y)
 	CFLAGS += -g
 endif
