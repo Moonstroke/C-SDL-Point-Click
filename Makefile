@@ -1,3 +1,6 @@
+## BUILD SETTINGS ##
+
+
 # y/n.
 # Enables debugging symbols (gdb)
 DEBUG := n
@@ -10,6 +13,9 @@ STATIC := n
 # The optimization level for the compilation
 OPT_L := n
 
+
+
+## VARIABLES ##
 
 
 # Output variables
@@ -30,7 +36,6 @@ DOC_CFG := Doxyfile
 DOC_DIR := doc
 
 
-
 # The compiler to use
 CC := gcc
 # Compilation flags
@@ -48,8 +53,14 @@ endif
 # Linkage flags
 LDFLAGS :=
 
+
+
+## RULES ##
+
+
 # All rule names that do not refer to files
 .PHONY: all clean distclean doc cleandoc
+
 
 # The default rule (the one called when make is invoked without arguments)
 all: $(EXEC)
