@@ -44,7 +44,7 @@ ifeq ($(DEBUG), y)
 	CFLAGS += -g
 endif
 # The libraries to link
-LDLIBS := -lm -llog -larray -lSDL2_ttf
+LDLIBS := -lm -lclog -lCODS -lSDL2_ttf
 ifeq ($(STATIC),y)
 	LDLIBS += $$(sdl2-config --static-libs)
 else
