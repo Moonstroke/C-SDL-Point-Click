@@ -1,18 +1,33 @@
+# This is a C project
 language: c
-compiler: gcc
 
-# We need to be root to install the dependencies
-sudo: true
+# Generate two builds with both GCC and Clang
+compiler:
+  - gcc
+  - clang
+
+# Activate builds only for master
+branches:
+  only:
+    - master
+
+# Enable Docker
+services:
+  - docker
 
 
+# Use Docker image containing my other repos Clog, CUTE and CODS.
 before_install:
- # Refreshing the APT cache doesn't hurt
- - sudo apt-get update
+  - docker pull joh1/clog_cute_cods_sdl
+  - docker run --detach --interactive --name clog_cute_cods_sdl
+    joh1/clog_cute_cods_sdl
 
+# Fetch the project from github inside the container
 install:
- # Install dependencies from the bash script
- - sudo ./install_deps.sh
+  - docker exec clog_cute_cods_sdl git clone
+    https://github.com/Moonstroke/C-SDL-Point-Click.git c-sdl-point-click
 
 
+# Build the project
 script:
- - make
+  - docker exec clog_cute_cods_sdl /bin/sh -c 'cd c-sdl-point-click && make'
