@@ -43,8 +43,11 @@ void updateInventory(Inventory *const i, Window *const w) {
 }
 void updateInventorySprites(Inventory *const i, Window *const w) {
 	unsigned int k = fa_size(i->sprites);
-	while(k--)
-		updateSprite(fa_get(i->sprites, k), w);
+	while(k--) {
+		Sprite *const s = fa_get(i->sprites, k);
+		if(s)
+			updateSprite(s, w);
+	}
 }
 
 
