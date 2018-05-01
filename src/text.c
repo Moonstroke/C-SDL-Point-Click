@@ -1,7 +1,7 @@
 #include "text.h"
 
 
-#include <log.h>
+#include <clog.h>
 #include <SDL2/SDL_surface.h>
 #include <stdlib.h> /* for malloc(), NULL, free() */
 #include <string.h> /* for strcmp() */

@@ -1,7 +1,7 @@
 #include "sprite.h"
 
 
-#include <log.h>
+#include <clog.h>
 
 #include "texture.h"
 

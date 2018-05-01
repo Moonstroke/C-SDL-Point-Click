@@ -1,4 +1,4 @@
-#include <log.h>
+#include <clog.h>
 #include <SDL2/SDL.h> /* for SDL_INIT_VIDEO */
 #include <SDL2/SDL_events.h> /* for SDL_Event, SDL_EventType */
 #include <stdbool.h>
@@ -54,7 +54,7 @@ static void mainloop(void);
 
 int main(void) {
 	bool status = true;
-	log_setfilter(LOGF_ALL);
+	clog_setfilterlevel(CLOG_FILTER_ALL);
 
 	info("\nInitializations");
 	status = initall();

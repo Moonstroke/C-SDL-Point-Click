@@ -1,7 +1,7 @@
 #include "screen.h"
 
 
-#include <log.h>
+#include <clog.h>
 #include <stdlib.h> /* for malloc(), free(), NULL */
 
 

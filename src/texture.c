@@ -1,7 +1,7 @@
 #include "texture.h"
 
 #include <SDL2/SDL_rect.h> /* for SDL_Rect */
-#include <log.h>
+#include <clog.h>
 #include <stdio.h> /* for snprintf */
 #include <stdlib.h> /* for NULL */
 

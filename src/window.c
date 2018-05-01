@@ -1,9 +1,9 @@
 #include "window.h"
 
 
-#include <array.h>
-#include <array_funcs.h>
-#include <log.h>
+#include <CODS/array.h>
+#include <CODS/array_funcs.h>
+#include <clog.h>
 #include <SDL2/SDL_hints.h> /* for SDL_HINT_RENDER_SCALE_QUALITY */
 
 
@@ -43,7 +43,7 @@ Window *newWindow(const str t, const Rect *const g, const SDL_WindowFlags wf, co
 		free(w);
 		return NULL;
 	}
-	Array *const screens = newarray(INIT_SCREENS_NUM);
+	Array *const screens = a_new(INIT_SCREENS_NUM);
 	if(!screens) {
 		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
 	}
@@ -106,14 +106,12 @@ unsigned int getWindowHeight(const Window *const w) {
 Screen *getWindowCurrentScreen(Window *const w) {
 	return w->currentscreen;
 }
-static str _name = "";
-static bool cmpscreenname(const void *const item) {
-	return strcmp(getScreenName((Screen*)item), _name) == 0;
-}
 
+static bool cmpscreenname(const void *const item, const void *const name) {
+	return strcmp(getScreenName((const Screen*)item), (const char*)name) == 0;
+}
 bool setWindowCurrentScreen(Window *const w, const str name) {
-	_name = name;
-	Screen *s = acond(w->screens, cmpscreenname);
+	Screen *s = a_cond(w->screens, name, cmpscreenname);
 	if(s) {
 		w->currentscreen = s;
 		return true;
@@ -134,11 +132,11 @@ Sprite *getWindowSpriteAt(const Window *const w, const Point p) {
 }
 
 int addWindowScreen(Window *const w, Screen *const s) {
-	if(!w->screens && !(w->screens = newarray(INIT_SCREENS_NUM))) {
+	if(!w->screens && !(w->screens = a_new(INIT_SCREENS_NUM))) {
 		error("Could not instantiate array for %u screens", INIT_SCREENS_NUM);
 		return -1;
 	}
-	const int i = aappend(w->screens, s);
+	const int i = a_append(w->screens, s);
 	if(i == 0)
 		w->currentscreen = s;
 	return i;

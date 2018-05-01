@@ -1,9 +1,9 @@
 #include "scene.h"
 
 
-#include <array.h>
-#include <array_funcs.h>
-#include <log.h>
+#include <CODS/array.h>
+#include <CODS/array_funcs.h>
+#include <clog.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -30,7 +30,7 @@ static Scene *newScene(const Rect g, Texture *const bg, const unsigned int n, co
 	}
 
 	if(n) {
-		Array *const elts = newarray(n);
+		Array *const elts = a_new(n);
 		if(elts == NULL) {
 			error("error in newScene() while creating array for %u sprites", n);
 			free(s);
@@ -60,14 +60,14 @@ Scene *newUIScene(const Rect g, Texture *const bg, const unsigned int n, const s
 }
 
 void freeScene(Scene *const s) {
-	const unsigned int n = asize(s->elements);
+	const unsigned int n = a_size(s->elements);
 	const unsigned int l = strlen(s->name) + 1;
 	char name[l];
 	strcpy(name, s->name);
 
 	if(s->background)
 		freeTexture(s->background);
-	afreer(s->elements, s->isui ? (void(*)(void*))freeUIElement
+	a_freer(s->elements, s->isui ? (void(*)(void*))freeUIElement
 	                            : (void(*)(void*))freeSprite);
 	verbose("freed %d sprites from scene\n", n);
 	free((char*)s->name);
@@ -77,13 +77,13 @@ void freeScene(Scene *const s) {
 
 bool sceneNeedsUpdate(const Scene *const s) {
 	bool needsupdate = false;
-	unsigned int i = s->elements ? asize(s->elements) : 0;
+	unsigned int i = s->elements ? a_size(s->elements) : 0;
 	if(s->isui) {
 		while(i-- && !needsupdate)
-			needsupdate = uielementNeedsUpdate(aget(s->elements, i));
+			needsupdate = uielementNeedsUpdate(a_get(s->elements, i));
 	} else {
 		while(i-- && !needsupdate)
-			needsupdate = spriteNeedsUpdate(aget(s->elements, i));
+			needsupdate = spriteNeedsUpdate(a_get(s->elements, i));
 	}
 	return needsupdate;
 }
@@ -93,13 +93,13 @@ void updateScene(Scene *const s, Window *const w) {
 		drawTexture(s->background, w, point(s->geom.pos.x, s->geom.pos.y));
 }
 void updateSceneElements(Scene *const s, Window *const w) {
-	unsigned int i = s->elements ? asize(s->elements) : 0;
+	unsigned int i = s->elements ? a_size(s->elements) : 0;
 	if(s->isui) {
 		while(i--)
-			updateUIElement(aget(s->elements, i), w);
+			updateUIElement(a_get(s->elements, i), w);
 	} else {
 		while(i--)
-			updateSprite(aget(s->elements, i), w);
+			updateSprite(a_get(s->elements, i), w);
 	}
 }
 
@@ -119,12 +119,12 @@ static unsigned int addSceneElt(Scene *const s, void *const e, bool isUI) {
 	if(s->isui ^ isUI)
 		return 0;
 	if(!s->elements) {
-		Array *arr = newarray(8);
+		Array *arr = a_new(8);
 		if(!arr)
 			return 0;
 		s->elements = arr;
 	}
-	return aappend(s->elements, e);
+	return a_append(s->elements, e);
 }
 
 unsigned int addGameSceneSprite(Scene *const s, Sprite *const sp) {
@@ -137,15 +137,15 @@ unsigned int addUISceneElement(Scene *s, UIElement *e) {
 
 
 Sprite *getGameSceneSprite(const Scene *const s, const unsigned int i) {
-	return s->elements ? aget(s->elements, i) : NULL;
+	return s->elements ? a_get(s->elements, i) : NULL;
 }
 
 
 static void *getScenePos(const Scene *const s, const Point p, bool (*const contains)(const void*, Point)) {
-	unsigned int i = s->elements ? asize(s->elements) : 0;
+	unsigned int i = s->elements ? a_size(s->elements) : 0;
 	void *e;
 	while(i--) {
-		e = aget(s->elements, i);
+		e = a_get(s->elements, i);
 		if(contains(e, p)) {
 			return e;
 		}
@@ -163,5 +163,5 @@ UIElement *getUISceneElementPos(const Scene *s, Point p) {
 
 
 bool removeGameSceneSprite(Scene *const s, const Sprite *const sp) {
-	return aremove(s->elements, sp);
+	return a_remove(s->elements, sp, NULL);
 }

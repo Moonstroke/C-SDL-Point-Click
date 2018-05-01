@@ -1,7 +1,7 @@
 #include "uielements.h"
 
 
-#include <log.h>
+#include <clog.h>
 #include <stdlib.h> /* for malloc(), NULL and free() */
 
 #include "libmisc.h"

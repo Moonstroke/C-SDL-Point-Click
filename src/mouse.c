@@ -1,6 +1,6 @@
 #include "mouse.h"
 
-#include <log.h>
+#include <clog.h>
 #include <SDL2/SDL_mouse.h> /* for SDL_GetMouseState() */
 #include <stdlib.h> /* for NULL */
 

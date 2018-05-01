@@ -1,7 +1,7 @@
 #include "libsdl2.h"
 
 
-#include <log.h>
+#include <clog.h>
 #include <SDL2/SDL.h> /* for SDL_Init() and SDL_Quit() */
 #include <SDL2/SDL_ttf.h> /* for TTF_Init() and TTF_Quit() */
 #include <stdbool.h>
