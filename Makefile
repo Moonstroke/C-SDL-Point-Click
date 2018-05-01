@@ -1,3 +1,24 @@
+## PROJECT SETTINGS ##
+
+
+# Project name
+PROJECT_NAME := C_SDL-Point_Click
+
+
+# Project directories
+INC_DIR := inc
+SRC_DIR := src
+OBJ_DIR := obj
+OUT_DIR := out
+
+
+# Documentation
+DOC_PRG := doxygen
+DOC_CFG := Doxyfile
+DOC_DIR := doc
+
+
+
 ## BUILD SETTINGS ##
 
 
@@ -11,45 +32,38 @@ STATIC := n
 
 # The optimization level for the compilation
 # 0..3/s
-O_LVL := 0
+OPTIM_LVL := 0
 
 
 
 ## VARIABLES ##
 
 
-# Output variables
-EXEC := pnc
-OUT_DIR := out
-
 # Variables describing the architecture of the project directory
-INC_DIR := inc
-SRC_DIR := src
 SRC := $(wildcard $(SRC_DIR)/*.c)
-OBJ_DIR := obj
 OBJ := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 
-# Documentation specific variables
-DOC_PRG := doxygen
-DOC_CFG := Doxyfile
-DOC_DIR := doc
+# Output executable
+EXEC := $(OUT_DIR)/$(PROJECT_NAME)
 
 
-# The compiler to use
-CC := gcc
+# Preprocessor flags
+CPPFLAGS := -I$(INC_DIR)
 # Compilation flags
-CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded -I$(INC_DIR) $$(sdl2-config --cflags) -O$(O_LVL)
+CFLAGS := -std=c11 -pedantic -Wall -Wextra -Wpadded $$(sdl2-config --cflags) -O$(OPTIM_LVL)
 ifeq ($(DEBUG), y)
 	CFLAGS += -g
 endif
-# The libraries to link
+
+# The libraries to link against
 LDLIBS := -lm -lclog -lCODS -lSDL2_ttf
 ifeq ($(STATIC),y)
 	LDLIBS += $$(sdl2-config --static-libs)
 else
 	LDLIBS += $$(sdl2-config --libs)
 endif
+
 # Linkage flags
 LDFLAGS :=
 
@@ -68,27 +82,27 @@ all: $(EXEC)
 # Linkage
 $(EXEC): $(OBJ)
 	@mkdir -p $(OUT_DIR)
-	$(CC) -o$(OUT_DIR)/$(EXEC) $(OBJ) $(LDFLAGS) $(LDLIBS)
+	$(CC) -o$(EXEC) $^ $(LDFLAGS) $(LDLIBS)
 
 # Filewise compilation
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) -o$@ -c $< $(CFLAGS)
+	$(CC) -o$@ -c $< $(CPPFLAGS) $(CFLAGS)
 
 
 # Remove object files
 clean:
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 # Reset project to initial state
 distclean: clean cleandoc
-	rm -rf $(OUT_DIR)
+	@rm -rf $(OUT_DIR)
 
 
 # (Re)generate doc
-doc: $(DOC_CFG) cleandoc
+doc: $(DOC_CFG)
 	$(DOC_PRG) $(DOC_CFG)
 
 # Remove doc directory
 cleandoc:
-	rm -rf $(DOC_DIR)
+	@rm -rf $(DOC_DIR)
